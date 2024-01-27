@@ -1,8 +1,5 @@
-import { getMovies } from './lib/data';
-
-getMovies();
-
-export default function Home() {
+export default function Home () {
+  
   return (
     <main>
       <h1>Hello world</h1>
