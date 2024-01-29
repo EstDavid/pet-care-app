@@ -44,7 +44,7 @@ export interface Pet extends mongoose.Document {
   vet: Contact
 }
 
-export const petSchema = new Schema({
+const petSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -83,7 +83,5 @@ export const petSchema = new Schema({
 }, {
   timestamps: true
 });
-
-petSchema.add({name: 'string'})
 
 export default mongoose.models.Pet || mongoose.model<Pet>('Pet', petSchema);
