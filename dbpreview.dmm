@@ -9,7 +9,7 @@
 				{
 					"id": "905f998a-626f-4e58-abdf-ff38107f61d0",
 					"name": "_id",
-					"datatype": "objectId",
+					"datatype": "ObjectId",
 					"param": "",
 					"pk": true,
 					"nn": true,
@@ -21,12 +21,12 @@
 					"pattern": false,
 					"any": "",
 					"estimatedSize": "",
-					"fk": true
+					"fk": false
 				},
 				{
 					"id": "dd2369b1-ca07-49a7-9dd8-756fe2e5d648",
 					"name": "firstname",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -42,7 +42,7 @@
 				{
 					"id": "cadf69c8-e3fa-48d9-a367-0c76b6159108",
 					"name": "surname",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -74,7 +74,7 @@
 				{
 					"id": "403dd091-cd79-4707-9c14-9f3236e7d383",
 					"name": "clerkID",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -90,23 +90,24 @@
 				{
 					"id": "34a53631-b89b-455d-9c1e-d03cff623ed6",
 					"name": "role",
-					"datatype": "enum",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
 					"list": false,
 					"comment": "",
 					"data": "",
-					"enum": "",
+					"enum": "[\"Owner\", \"Sitter\"]",
 					"validation": "",
 					"pattern": false,
 					"estimatedSize": "",
-					"any": ""
+					"any": "",
+					"options": "enum:[\"Owner\",\"Sitter\"]"
 				},
 				{
 					"id": "866e9d9c-a4db-4b10-a9ec-a7c4340b3481",
 					"name": "pfp_url",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -120,13 +121,29 @@
 					"any": ""
 				},
 				{
-					"id": "3f9d17b5-6f52-46e1-91ee-a778cd085b22",
-					"name": "sitter",
-					"datatype": "string",
+					"id": "83f7dd55-9187-4a3a-ac61-a86af4167902",
+					"name": "messages",
+					"datatype": "ObjectId",
 					"param": "",
 					"pk": false,
 					"nn": false,
-					"list": false,
+					"list": true,
+					"comment": "",
+					"data": "",
+					"enum": "",
+					"validation": "",
+					"pattern": false,
+					"estimatedSize": "",
+					"any": ""
+				},
+				{
+					"id": "5b35863a-a252-40c9-9fcd-20d786ad15fe",
+					"name": "stays",
+					"datatype": "ObjectId",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"list": true,
 					"comment": "",
 					"data": "",
 					"enum": "",
@@ -137,27 +154,46 @@
 					"fk": true
 				},
 				{
-					"id": "83f7dd55-9187-4a3a-ac61-a86af4167902",
-					"name": "messages",
-					"datatype": "array",
+					"id": "dafa3deb-016e-4637-bf30-e38dc19ac911",
+					"name": "petsOwned",
+					"datatype": "ObjectId",
 					"param": "",
 					"pk": false,
-					"nn": false,
-					"list": false,
+					"nn": true,
 					"comment": "",
 					"data": "",
 					"enum": "",
+					"list": true,
 					"validation": "",
 					"pattern": false,
+					"any": "",
 					"estimatedSize": "",
-					"any": ""
+					"fk": true
+				},
+				{
+					"id": "93d9987d-8028-4b5c-92c3-0a39763d85c0",
+					"name": "petsSitting",
+					"datatype": "ObjectId",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"data": "",
+					"enum": "",
+					"list": true,
+					"validation": "",
+					"pattern": false,
+					"any": "",
+					"estimatedSize": "",
+					"fk": true
 				}
 			],
 			"relations": [
 				"a587275e-0506-4443-8f0f-ce940c697e9d",
-				"1deea91a-7834-4d34-af3c-8e87fdba4935",
 				"61bae568-dd2b-4c75-8656-9efb4e18681b",
-				"f64357ff-fc07-4092-a20d-20eb1de3ebaa"
+				"e0f157d1-63c2-4589-8ceb-b2eda4cceaed",
+				"8011a3c0-4b0c-4cdd-9971-e5b8ab7e99cc",
+				"a88682de-1a4c-4f2c-a538-eeb3fe4b2784"
 			],
 			"lines": [],
 			"keys": [
@@ -184,17 +220,7 @@
 					]
 				}
 			],
-			"indexes": [
-				{
-					"id": "1ec6e373-93c0-4893-9066-dc4a03acf1ca",
-					"name": "customer_ix_surname",
-					"mongodb": {
-						"options": "{\nname: \"customer_ix_surname\"\n}",
-						"fields": "{\n\"surname\": 1,\n\"contact.address.city\": 1\n}"
-					},
-					"cols": []
-				}
-			],
+			"indexes": [],
 			"embeddable": false,
 			"validationLevel": "strict",
 			"validationAction": "error",
@@ -212,13 +238,13 @@
 		"85df329b-275a-4ec4-a207-f690056048fd": {
 			"id": "85df329b-275a-4ec4-a207-f690056048fd",
 			"visible": true,
-			"name": "pets",
+			"name": "pet",
 			"desc": "",
 			"cols": [
 				{
 					"id": "388de8a8-8713-4b30-bbf6-5c7771cc8f50",
 					"name": "_id",
-					"datatype": "objectId",
+					"datatype": "ObjectId",
 					"param": "",
 					"pk": true,
 					"nn": true,
@@ -230,12 +256,12 @@
 					"pattern": false,
 					"any": "",
 					"estimatedSize": "",
-					"fk": true
+					"fk": false
 				},
 				{
 					"id": "5bf024d2-5a9f-4175-acf0-e0b3b38c6b90",
 					"name": "owner",
-					"datatype": "objectId",
+					"datatype": "ObjectId",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -252,7 +278,7 @@
 				{
 					"id": "a9cdcf26-f553-4bd2-b1a6-464cccceadee",
 					"name": "type",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -268,7 +294,7 @@
 				{
 					"id": "f56446e1-72a0-4bd1-b230-ac10c86681fb",
 					"name": "breed",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -284,7 +310,7 @@
 				{
 					"id": "fc23b221-bfbd-4ddc-b8d3-9649ed7f6e61",
 					"name": "pfp_url",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -300,7 +326,7 @@
 				{
 					"id": "e718c8fd-fce7-40cd-9441-2c8ad33cc5a8",
 					"name": "notes",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -316,7 +342,7 @@
 				{
 					"id": "d05f62ae-02d4-4ca9-97e9-09e8454b8b60",
 					"name": "sex",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -332,7 +358,7 @@
 				{
 					"id": "bde8796e-84cf-49ad-93b1-2b4e29437bd0",
 					"name": "neuter_spay",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -365,7 +391,7 @@
 				{
 					"id": "3912a435-6a48-4306-a62c-96f0f51513d0",
 					"name": "sitter",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -381,8 +407,9 @@
 			],
 			"relations": [
 				"a587275e-0506-4443-8f0f-ce940c697e9d",
-				"1deea91a-7834-4d34-af3c-8e87fdba4935",
-				"71e5743e-6577-423e-a138-2ab80729181d"
+				"8011a3c0-4b0c-4cdd-9971-e5b8ab7e99cc",
+				"a88682de-1a4c-4f2c-a538-eeb3fe4b2784",
+				"dac5b8d7-77b5-4879-aab0-92f2ff459119"
 			],
 			"lines": [],
 			"keys": [
@@ -482,7 +509,7 @@
 				{
 					"id": "4739c61a-e964-4d6d-be00-9a3381d23335",
 					"name": "messages",
-					"datatype": "array",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -530,7 +557,7 @@
 				{
 					"id": "0153de90-9952-4ac6-ad6f-982c767a867b",
 					"name": "city",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -546,7 +573,7 @@
 				{
 					"id": "6bb8f493-16bf-442d-a283-2e99e7e30750",
 					"name": "street",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -562,7 +589,7 @@
 				{
 					"id": "1375d256-5783-4c67-8607-d5196d2dc384",
 					"name": "zip",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -578,7 +605,7 @@
 				{
 					"id": "66c67bc1-ea48-4e50-9c70-673e6ab20096",
 					"name": "country",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -626,7 +653,7 @@
 				{
 					"id": "d437ade1-4c64-498b-a40d-ebfcf1708048",
 					"name": "mobile",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -642,7 +669,7 @@
 				{
 					"id": "be6f5412-596c-43e7-862a-9d5bef01bfa3",
 					"name": "line",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -690,7 +717,7 @@
 				{
 					"id": "5eff308b-42d1-47c8-a7ad-6a314c3184fe",
 					"name": "lat",
-					"datatype": "long",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -706,7 +733,7 @@
 				{
 					"id": "d77c0ada-1d7e-43c6-b42e-f08643a76819",
 					"name": "long",
-					"datatype": "long",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -756,7 +783,7 @@
 				{
 					"id": "4296f440-5b75-47df-beb5-16d0f66b6b15",
 					"name": "_id",
-					"datatype": "objectId",
+					"datatype": "ObjectId",
 					"param": "",
 					"pk": true,
 					"nn": true,
@@ -773,7 +800,7 @@
 				{
 					"id": "09855d69-4ed3-4458-b5bc-5e9753155c3c",
 					"name": "textContent",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -789,7 +816,7 @@
 				{
 					"id": "c0491770-44e9-468c-9a46-6b6c646c924e",
 					"name": "media_url",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -805,7 +832,7 @@
 				{
 					"id": "6ef4d34e-0c42-4a96-9e8b-a257e41be849",
 					"name": "type",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -821,7 +848,7 @@
 				{
 					"id": "b15ffb0e-e2d6-4ab2-96a4-517519f8e0b3",
 					"name": "from",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -837,7 +864,7 @@
 				{
 					"id": "bd977101-14d6-41af-99ea-4358ae1087de",
 					"name": "to",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": true,
@@ -853,7 +880,7 @@
 				{
 					"id": "a63e718d-077f-46aa-bce9-ff4ed52eb377",
 					"name": "taggedPets",
-					"datatype": "array",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -961,7 +988,7 @@
 				{
 					"id": "c5a1b2bc-f49a-49f5-b323-9a6efc340765",
 					"name": "messages",
-					"datatype": "array",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1010,7 +1037,7 @@
 				{
 					"id": "26e945ac-21ef-439e-b3db-2869136ddcd8",
 					"name": "city",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1027,7 +1054,7 @@
 				{
 					"id": "ca7a6f2a-f001-4daa-89ed-164004f8d742",
 					"name": "street",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1044,7 +1071,7 @@
 				{
 					"id": "2e959d9c-fd1d-48d7-9ffa-40c782082d35",
 					"name": "zip",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1061,7 +1088,7 @@
 				{
 					"id": "933d1557-ae27-41d0-9753-a3f77796b25c",
 					"name": "country",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1110,7 +1137,7 @@
 				{
 					"id": "d5fa91fa-32d9-4740-983b-7de0e9d4cd71",
 					"name": "mobile",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1127,7 +1154,7 @@
 				{
 					"id": "d591b5c1-1c4c-4c83-8cfc-644906b22715",
 					"name": "line",
-					"datatype": "string",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1176,7 +1203,7 @@
 				{
 					"id": "bcd0c08b-d93f-4336-a5e5-746cd5704d0e",
 					"name": "lat",
-					"datatype": "long",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1193,7 +1220,7 @@
 				{
 					"id": "d703037a-863c-4cfa-aab4-708d585b743c",
 					"name": "long",
-					"datatype": "long",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1237,14 +1264,14 @@
 		"968de7fc-7f34-4c4e-8fc1-6fbcdda6e8f8": {
 			"id": "968de7fc-7f34-4c4e-8fc1-6fbcdda6e8f8",
 			"visible": true,
-			"name": "stays",
+			"name": "stay",
 			"desc": "",
 			"estimatedSize": "",
 			"cols": [
 				{
 					"id": "eb6a10bf-7e76-432e-b853-2b30808e48e7",
 					"name": "_id",
-					"datatype": "objectId",
+					"datatype": "ObjectId",
 					"param": "",
 					"pk": true,
 					"nn": true,
@@ -1260,7 +1287,7 @@
 				{
 					"id": "8952ed66-7769-4a0b-9a3a-b6359d2a1927",
 					"name": "from",
-					"datatype": "timestamp",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1276,7 +1303,7 @@
 				{
 					"id": "30b05c6a-2487-4a88-b99c-637baddee2ff",
 					"name": "to",
-					"datatype": "timestamp",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1291,8 +1318,8 @@
 				},
 				{
 					"id": "28579407-62d2-4041-9d4d-ad2340238f24",
-					"name": "sitter_id",
-					"datatype": "string",
+					"name": "sitter",
+					"datatype": "String",
 					"param": "",
 					"pk": false,
 					"nn": false,
@@ -1306,25 +1333,40 @@
 					"any": ""
 				},
 				{
-					"id": "4190aa34-ff93-40d6-8300-9caaa1362213",
-					"name": "pets",
-					"datatype": "array",
+					"id": "3fdaaed7-0b95-47d2-9c20-61bfea68473c",
+					"name": "confirmed",
+					"datatype": "Boolean",
 					"param": "",
 					"pk": false,
 					"nn": false,
 					"list": false,
 					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"after": "",
+					"options": ""
+				},
+				{
+					"id": "0e5845c4-0060-4c6d-b6c8-8cf06fb4e482",
+					"name": "pet",
+					"datatype": "ObjectId",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
 					"data": "",
 					"enum": "",
+					"list": true,
 					"validation": "",
 					"pattern": false,
+					"any": "",
 					"estimatedSize": "",
-					"any": ""
+					"fk": true
 				}
 			],
 			"relations": [
-				"f64357ff-fc07-4092-a20d-20eb1de3ebaa",
-				"71e5743e-6577-423e-a138-2ab80729181d"
+				"e0f157d1-63c2-4589-8ceb-b2eda4cceaed",
+				"dac5b8d7-77b5-4879-aab0-92f2ff459119"
 			],
 			"lines": [],
 			"keys": [
@@ -1354,12 +1396,7 @@
 					"id": "b00f6cce-2390-4a6a-a5b4-25e76eba1b01",
 					"isPk": false,
 					"name": "stays_ai_2",
-					"cols": [
-						{
-							"id": "ed249d9a-dd3e-4a98-bca2-ab85975f3625",
-							"colid": "4190aa34-ff93-40d6-8300-9caaa1362213"
-						}
-					]
+					"cols": []
 				}
 			],
 			"indexes": [],
@@ -1407,33 +1444,6 @@
 			"customCode": "",
 			"relationColor": "transparent"
 		},
-		"1deea91a-7834-4d34-af3c-8e87fdba4935": {
-			"id": "1deea91a-7834-4d34-af3c-8e87fdba4935",
-			"visible": true,
-			"name": "sitter_user",
-			"desc": "",
-			"type": "identifying",
-			"parent_key": "c33b9f50-e0be-4182-b8e5-30875cc9be4c",
-			"parent": "85df329b-275a-4ec4-a207-f690056048fd",
-			"child": "01371dd9-df7d-48e6-ae79-d92dd46db5d8",
-			"c_mp": "true",
-			"c_mch": "true",
-			"c_p": "one",
-			"c_ch": "many",
-			"c_cp": "",
-			"c_cch": "",
-			"cols": [
-				{
-					"id": "b65055b2-580a-48df-8342-14fd9c164ae9",
-					"parentcol": "3912a435-6a48-4306-a62c-96f0f51513d0",
-					"childcol": "3f9d17b5-6f52-46e1-91ee-a778cd085b22"
-				}
-			],
-			"generate": true,
-			"generateCustomCode": true,
-			"customCode": "",
-			"relationColor": "transparent"
-		},
 		"61bae568-dd2b-4c75-8656-9efb4e18681b": {
 			"id": "61bae568-dd2b-4c75-8656-9efb4e18681b",
 			"visible": true,
@@ -1461,14 +1471,41 @@
 			"customCode": "",
 			"relationColor": "transparent"
 		},
-		"f64357ff-fc07-4092-a20d-20eb1de3ebaa": {
-			"id": "f64357ff-fc07-4092-a20d-20eb1de3ebaa",
+		"e0f157d1-63c2-4589-8ceb-b2eda4cceaed": {
+			"id": "e0f157d1-63c2-4589-8ceb-b2eda4cceaed",
 			"visible": true,
-			"name": "sitter_id__id",
+			"name": "stay_user",
 			"desc": "",
 			"type": "identifying",
-			"parent_key": "18d372d4-c46e-4642-822a-8efed3539d03",
+			"parent_key": "a1780acb-2f96-48a1-ad17-66fba184f3fa",
 			"parent": "968de7fc-7f34-4c4e-8fc1-6fbcdda6e8f8",
+			"child": "01371dd9-df7d-48e6-ae79-d92dd46db5d8",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "1",
+			"c_cch": "10",
+			"cols": [
+				{
+					"id": "2f57dbb9-3466-453a-a265-1165c1047fce",
+					"parentcol": "eb6a10bf-7e76-432e-b853-2b30808e48e7",
+					"childcol": "5b35863a-a252-40c9-9fcd-20d786ad15fe"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent"
+		},
+		"8011a3c0-4b0c-4cdd-9971-e5b8ab7e99cc": {
+			"id": "8011a3c0-4b0c-4cdd-9971-e5b8ab7e99cc",
+			"visible": true,
+			"name": "pet_user",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "0ca15ed6-b578-47d2-9b2a-fcb1e9cb8cc0",
+			"parent": "85df329b-275a-4ec4-a207-f690056048fd",
 			"child": "01371dd9-df7d-48e6-ae79-d92dd46db5d8",
 			"c_mp": "true",
 			"c_mch": "true",
@@ -1478,9 +1515,9 @@
 			"c_cch": "",
 			"cols": [
 				{
-					"id": "e0cef20a-5b27-4c52-8781-7c1219a962ec",
-					"parentcol": "28579407-62d2-4041-9d4d-ad2340238f24",
-					"childcol": "905f998a-626f-4e58-abdf-ff38107f61d0"
+					"id": "647cc561-63d7-481c-a848-474106ba8c6e",
+					"parentcol": "388de8a8-8713-4b30-bbf6-5c7771cc8f50",
+					"childcol": "dafa3deb-016e-4637-bf30-e38dc19ac911"
 				}
 			],
 			"generate": true,
@@ -1488,26 +1525,53 @@
 			"customCode": "",
 			"relationColor": "transparent"
 		},
-		"71e5743e-6577-423e-a138-2ab80729181d": {
-			"id": "71e5743e-6577-423e-a138-2ab80729181d",
+		"a88682de-1a4c-4f2c-a538-eeb3fe4b2784": {
+			"id": "a88682de-1a4c-4f2c-a538-eeb3fe4b2784",
 			"visible": true,
-			"name": "pets__id",
+			"name": "pet_user",
 			"desc": "",
 			"type": "identifying",
-			"parent_key": "b00f6cce-2390-4a6a-a5b4-25e76eba1b01",
-			"parent": "968de7fc-7f34-4c4e-8fc1-6fbcdda6e8f8",
-			"child": "85df329b-275a-4ec4-a207-f690056048fd",
+			"parent_key": "0ca15ed6-b578-47d2-9b2a-fcb1e9cb8cc0",
+			"parent": "85df329b-275a-4ec4-a207-f690056048fd",
+			"child": "01371dd9-df7d-48e6-ae79-d92dd46db5d8",
 			"c_mp": "true",
 			"c_mch": "true",
 			"c_p": "one",
 			"c_ch": "many",
-			"c_cp": "",
-			"c_cch": "",
+			"c_cp": "1",
+			"c_cch": "10",
 			"cols": [
 				{
-					"id": "71151d1c-c8e7-4695-8112-cb6ca6543df4",
-					"parentcol": "4190aa34-ff93-40d6-8300-9caaa1362213",
-					"childcol": "388de8a8-8713-4b30-bbf6-5c7771cc8f50"
+					"id": "2fe5c2f4-49a9-4930-85c9-178feb1f1841",
+					"parentcol": "388de8a8-8713-4b30-bbf6-5c7771cc8f50",
+					"childcol": "93d9987d-8028-4b5c-92c3-0a39763d85c0"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"relationColor": "transparent"
+		},
+		"dac5b8d7-77b5-4879-aab0-92f2ff459119": {
+			"id": "dac5b8d7-77b5-4879-aab0-92f2ff459119",
+			"visible": true,
+			"name": "pet_stay",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "0ca15ed6-b578-47d2-9b2a-fcb1e9cb8cc0",
+			"parent": "85df329b-275a-4ec4-a207-f690056048fd",
+			"child": "968de7fc-7f34-4c4e-8fc1-6fbcdda6e8f8",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "1",
+			"c_cch": "10",
+			"cols": [
+				{
+					"id": "80a50460-13e9-409c-8f98-5815e01460d0",
+					"parentcol": "388de8a8-8713-4b30-bbf6-5c7771cc8f50",
+					"childcol": "0e5845c4-0060-4c6d-b6c8-8cf06fb4e482"
 				}
 			],
 			"generate": true,
@@ -1520,11 +1584,11 @@
 	"lines": {},
 	"model": {
 		"name": "pet_care",
-		"id": "67313374-240e-4a27-9381-dc0578fd79d9",
+		"id": "a0e7851f-3237-47a7-a0e9-bd428a46d2f3",
 		"activeDiagram": "65f2e647-78f5-47f3-af2f-002b4ee777e3",
 		"desc": "",
 		"path": "",
-		"type": "MONGODB",
+		"type": "MONGOOSE",
 		"version": 1,
 		"parentTableInFkCols": true,
 		"caseConvention": "under",
@@ -1543,7 +1607,7 @@
 		"def_validationAction": "na",
 		"def_collation": "",
 		"def_others": "",
-		"lastSaved": "",
+		"lastSaved": 1706533382996,
 		"authorName": "",
 		"companyDetails": "",
 		"companyUrl": "",
@@ -1561,7 +1625,7 @@
 			"id": "65f2e647-78f5-47f3-af2f-002b4ee777e3",
 			"keysgraphics": true,
 			"linegraphics": "detailed",
-			"zoom": 1,
+			"zoom": 1.1,
 			"background": "transparent",
 			"lineColor": "transparent",
 			"isOpen": true,
@@ -1569,10 +1633,10 @@
 			"diagramItems": {
 				"01371dd9-df7d-48e6-ae79-d92dd46db5d8": {
 					"referencedItemId": "01371dd9-df7d-48e6-ae79-d92dd46db5d8",
-					"x": 61,
-					"y": 375,
-					"gHeight": 218,
-					"gWidth": 207,
+					"x": 147,
+					"y": 356,
+					"gHeight": 225,
+					"gWidth": 231,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": false,
@@ -1581,8 +1645,8 @@
 				},
 				"85df329b-275a-4ec4-a207-f690056048fd": {
 					"referencedItemId": "85df329b-275a-4ec4-a207-f690056048fd",
-					"x": 526,
-					"y": 172,
+					"x": 662,
+					"y": 191,
 					"gHeight": 207,
 					"gWidth": 229,
 					"color": "#ffffff",
@@ -1643,10 +1707,10 @@
 				},
 				"d1c1a159-0e49-4554-ac6a-7b8843748671": {
 					"referencedItemId": "d1c1a159-0e49-4554-ac6a-7b8843748671",
-					"x": 645,
-					"y": 522,
+					"x": 626,
+					"y": 505,
 					"gHeight": 153,
-					"gWidth": 213,
+					"gWidth": 214,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": false,
@@ -1706,10 +1770,10 @@
 				},
 				"968de7fc-7f34-4c4e-8fc1-6fbcdda6e8f8": {
 					"referencedItemId": "968de7fc-7f34-4c4e-8fc1-6fbcdda6e8f8",
-					"x": 104,
+					"x": 215,
 					"y": 30,
-					"gHeight": 117,
-					"gWidth": 200,
+					"gHeight": 135,
+					"gWidth": 217,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": false,
