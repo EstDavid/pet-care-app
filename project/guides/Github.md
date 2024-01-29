@@ -13,9 +13,9 @@ Create a new branch with the name of the feature | `git switch -c <new-feature>`
 Create/modify the files that we need for the feature |
 Make commits to the new branch as needed | `git add` + `git commit`
 Once the feature is ready, or if it takes a long time, it's good practice to merge the latest status of the main branch into our feature branch | [Steps to merge main into our feature](#steps-to-merge-main-into-our-feature)
-Resolve any potential merge conflicts | See 'resolving merge conflicts'
+Resolve any potential merge conflicts | [Resolving merge conflicts](#resolving-merge-conflicts)
 Push the feature to Github repo | `git push origin <new-feature>`
-On Github create and merge pull request | See 'creating and merging a pull request'
+On Github create and merge pull request | [Creating and merging a pull request](#creating-and-merging-a-pull-request)
 
 ## Merging latest version of main into our feature branch
 
@@ -86,3 +86,29 @@ A file with the name COMMIT_EDITMSG pops up in VS Code. We edit the message if n
 !["COMMIT_EDITMSG file on Vs Code"](./images/vs-code-edit-msg.png)
 
 And that's it! We can continue with the [usual workflow](#working-on-a-new-feature) by pushing the feature to the remote repo and creating a pull request.
+
+## Creating and merging a pull request
+
+We have finished our feature, we have locally merged with a rebase the latest version of the `main` branch and we have pushed the `<new-feature>` branch the remote repo.
+
+Let's see how to do a pull request:
+
+A message should appear in the github page of the repo. We click on `Compare & pull request`:
+
+!["Github message to compare & pull request"](./images/github-new-branch.png)
+
+We are taken to the 'Open a pull request' page. Here we can add some more info, although most of the time the commit message will be fine. We can check the top bar which says that we are merging from our feature branch into main, and the branch is _Able to merge_. We click on `Create pull request`.
+
+!["Github open pull request page"](./images/github-open-pull-request-page.png)
+
+Now we are in the pull request page. In this page we can assign people to review the pull request, add labels. If nothing else is needed we can merge the the PR ourselves by clicking on `Merge pull request`.
+
+!["Github pull request page"](./images/github-pull-request-page.png)
+
+Next, we are asked to confirm the merge. We can add some additional message here or just click on `Confirm merge`.
+
+!["Github confirm merge page"](./images/github-confirm-merge.png)
+
+Now the merge is done so we can, and should delete the feature branch by clicking on `Delete branch`.
+
+!["Github delete branch after merge"](./images/github-delete-branch.png)
