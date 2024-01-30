@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import { Schema, Types } from 'mongoose';
 
-export interface Stay extends mongoose.Document {
+export interface Stay {
+  _id: string
   from: Date
   to: Date
   sitter: Types.ObjectId
@@ -40,4 +41,5 @@ const staySchema = new mongoose.Schema<Stay>({
   timestamps: true
 });
 
-export default mongoose.models.Stay || mongoose.model<Stay>('Stay', staySchema);
+const Stay = mongoose.model<Stay>('Stay', staySchema);
+export default Stay;

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Schema, Types } from 'mongoose';
 
-interface Contact extends mongoose.Document{
+interface Contact {
   phone: string
   email: string
   address: string
@@ -31,10 +31,11 @@ const contactSchema = new mongoose.Schema<Contact>({
   }
 });
 
-export interface Pet extends mongoose.Document {
+export interface Pet {
+  _id: string
   name: string
-  owner: Types.ObjectId,
-  species: String,
+  owner: Types.ObjectId
+  species: String
   breed: String
   pfpUrl:String
   notes: String
@@ -84,4 +85,6 @@ const petSchema = new Schema({
   timestamps: true
 });
 
-export default mongoose.models.Pet || mongoose.model<Pet>('Pet', petSchema);
+const Pet = mongoose.model<Pet>('Pet', petSchema)
+
+export default Pet;
