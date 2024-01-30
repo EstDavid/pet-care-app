@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
@@ -16,6 +16,10 @@ const config = {
       screens: {
         "2xl": "1400px",
       },
+    },
+    colors: {
+      'brand-bg': '#4C9993',
+      'brand-fg': '#FFEAD3',
     },
     extend: {
       keyframes: {
@@ -35,6 +39,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
