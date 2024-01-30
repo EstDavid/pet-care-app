@@ -41,3 +41,50 @@ export async function addPet(newPet:IPet):Promise<IPet | undefined> {
     console.error(e);
   }
 }
+
+export async function setPetSitter(pet:IPet, sitter:IUser):Promise<IPet | undefined> {
+  await dbConnect();
+  try {
+    const petToUpdate = await Pet.findOne({_id:pet._id});
+    if (!petToUpdate) throw new Error('pet not found')
+
+    const sitterToUpdate = await User.findOne({_id:sitter._id})
+    if (!sitterToUpdate) throw new Error('sitter not found')
+
+    if (petToUpdate.sitter) throw new Error('pet already has a sitter')
+
+    petToUpdate.sitter = sitterToUpdate._id // add sitter to pet
+    sitterToUpdate.petsSitting.push(petToUpdate._id) // add pet to sitter's list of pets
+    petToUpdate.save();
+    sitterToUpdate.save();
+
+    return petToUpdate;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function removePetSitter(pet:IPet, sitter:IUser):Promise<IPet | undefined> {
+  await dbConnect();
+  try {
+    const petToUpdate = await Pet.findOne({_id:pet._id});
+    if (!petToUpdate) throw new Error('pet not found')
+
+    const sitterToUpdate = await User.findOne({_id:sitter._id})
+    if (!sitterToUpdate) throw new Error('sitter not found')
+
+    // if (petToUpdate.sitter) throw new Error('pet already has a sitter')
+
+    delete petToUpdate.sitter; // remove sitter from pet
+    const petIndex = sitterToUpdate.petsSitting.findIndex((el => el._id == petToUpdate._id))
+    sitterToUpdate.petsSitting.splice(petIndex,1);
+
+    petToUpdate.save();
+    sitterToUpdate.save();
+
+    return petToUpdate;
+  } catch (e) {
+    console.error(e);
+  }
+}
+

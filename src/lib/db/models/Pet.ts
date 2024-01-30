@@ -42,7 +42,7 @@ export interface Pet {
   notes: String
   sex: String
   fixed:  Boolean
-  sitter: Types.ObjectId,
+  sitter?: Types.ObjectId,
   vet: Contact
 }
 
