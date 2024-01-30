@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 import { Schema, Types } from 'mongoose';
 
-interface Contact extends mongoose.Document{
-  phone: string
-  email: string
-  address: string
-  location: {
+interface Contact{
+  phone?: string
+  email?: string
+  address?: string
+  location?: {
     lat: Number
     long:Number
   }
@@ -31,17 +31,19 @@ const contactSchema = new mongoose.Schema<Contact>({
   }
 });
 
-export interface User extends mongoose.Document {
-  firstname: string;
-  surname: string;
-  clerkID: string
-  role: string
-  pfpUrl: string
+export interface User {
+  id:string
+  _id?: Types.ObjectId
+  firstname?: string
+  surname?: string
+  clerkID?: string
+  role?: string
+  pfpUrl?: string
   messages: Types.ObjectId[]
   stays: Types.ObjectId[]
   petsOwned: Types.ObjectId[]
   petsSitting: Types.ObjectId[]
-  contact: Contact
+  contact?: Contact
 }
 
 const userSchema = new mongoose.Schema<User>({
@@ -89,4 +91,6 @@ const userSchema = new mongoose.Schema<User>({
   timestamps: true
 });
 
-export default mongoose.models.User || mongoose.model<User>('User', userSchema);
+const User = mongoose.model<User>('User', userSchema);
+
+export default User;
