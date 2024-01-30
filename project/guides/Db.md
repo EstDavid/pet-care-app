@@ -1,12 +1,16 @@
 # Current DB methods available in data.ts:
 
-## get methods
+## get methods: User
 
 ### getAllUsers()
  : returns the first 10 users. for testing I guess???
 
 ### getUserById(id : string) :Promise<IUser | undefined>
 returns a user with their petsOwned, petsSitting, messages and stays fields auto-populated
+
+
+
+## get methods: Pet
 
 ### getPetById(id : string) :Promise<IPet | undefined>
 returns a pet with their owner and sitter populated
