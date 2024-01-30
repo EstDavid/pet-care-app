@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import { Schema, Types } from 'mongoose';
 
-export interface Message extends mongoose.Document {
+export interface Message {
+  _id:Types.ObjectId
+  id:string
   textContent: string
   mediaUrl: string
   type: string
@@ -39,4 +41,5 @@ const messageSchema = new Schema<Message>({
   timestamps: true
 });
 
-export default mongoose.models.Message || mongoose.model<Message>('Message', messageSchema);
+const Message = mongoose.model<Message>('Message', messageSchema);
+export default Message;
