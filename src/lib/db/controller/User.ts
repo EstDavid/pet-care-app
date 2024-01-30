@@ -1,7 +1,8 @@
 import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
-import {Pet as IPet} from '../models/Pet';
+import Pet, {Pet as IPet} from '../models/Pet';
 import {Message as IMessage} from '../models/Message'
+import mongoose, { Types } from 'mongoose';
 
 export async function getAllUsers():Promise<IUser[] | undefined> {
   await dbConnect();
@@ -17,6 +18,7 @@ export async function getAllUsers():Promise<IUser[] | undefined> {
     console.error(e);
   }
 }
+
 export async function getUserById(id: string):Promise<IUser | undefined> {
   await dbConnect();
 
@@ -98,37 +100,71 @@ export async function getUserMessages(id:string):Promise<IMessage[] | undefined>
 }
 
 
-export async function addUser(firstname: string, surname: string, role: string):Promise<IUser | undefined> {
+export async function addUser(user:IUser):Promise<IUser | undefined> {
   await dbConnect();
-
+  if (user.firstname === undefined || user.surname === undefined){
+    throw new Error('firstname and surname are required to create new user')
+  }
   try {
-    const newUser = { firstname, surname, role };
-    const result = await User.create({ newUser });
+    Object.assign(user, {messages:[], stays:[], petsOwned:[], petsSitting:[]}) //assigns blank arrays to fill later
+    const result = await User.create(user);
     return result;
-
   } catch (e) {
     console.error(e);
   }
 }
 
 export async function modifyUser(id: string, newValues:IUser):Promise<IUser | undefined> {
-
   await dbConnect();
-
   try {
-    let user = await User.findOne({_id:id})
-
+    let user = await User.findOneAndUpdate({_id:id}, newValues);
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID')
     }
-
-    user = {... user, ...newValues}
-
-
     return user;
-
   } catch (e) {
     console.error(e);
   }
+}
 
+export async function _addOwnedPetToUser(ownerId: string, petId:string):Promise<IUser | undefined> {
+  await dbConnect();
+  try {
+    let user = await User.findOne({_id:ownerId});
+    if (user === undefined || user === null) {
+      throw new Error('cannot find user by that ID')
+    }
+    let pet = await Pet.findOne({_id:petId});
+    if (pet === undefined || pet === null) {
+      throw new Error('cannot find pet by that ID')
+    }
+    const idToAdd = pet._id
+    if (user.petsOwned) {
+    user.petsOwned.push(idToAdd);
+    user.save();
+  }
+    return user;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function addSatPetToUser(id: string, petId:string):Promise<IUser | undefined> {
+  await dbConnect();
+  try {
+    let user = await User.findOne({_id:id});
+    if (user === undefined || user === null) {
+      throw new Error('cannot find user by that ID')
+    }
+    let pet = await Pet.findOne({_id:petId});
+    if (pet === undefined || pet === null) {
+      throw new Error('cannot find pet by that ID')
+    }
+    const idToAdd = pet._id
+    user.petsSitting.push(idToAdd);
+    user.save();
+    return user;
+  } catch (e) {
+    console.error(e);
+  }
 }

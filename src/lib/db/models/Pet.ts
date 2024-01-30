@@ -32,7 +32,8 @@ const contactSchema = new mongoose.Schema<Contact>({
 });
 
 export interface Pet {
-  _id: string
+  id:string
+  _id: Types.ObjectId
   name: string
   owner: Types.ObjectId
   species: String

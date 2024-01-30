@@ -1,6 +1,7 @@
 import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
 import Pet, {Pet as IPet} from '../models/Pet';
+import { _addOwnedPetToUser } from './User';
 
 export async function getPetById(id: string):Promise<IPet | undefined> {
   await dbConnect();
@@ -14,23 +15,28 @@ export async function getPetById(id: string):Promise<IPet | undefined> {
     if (pet === undefined || pet === null) {
       throw new Error('cannot find pet by that ID')
     }
-
     return pet;
-
   } catch (e) {
     console.error(e);
   }
 }
 
-
-export async function addPet(name: string, owner: string, species: string):Promise<IPet | undefined> {
+export async function addPet(newPet:IPet):Promise<IPet | undefined> {
   await dbConnect();
-
   try {
-    const newPet = { name, owner, species };
-    const result = await Pet.create({ newPet });
-    return result;
+    if(!newPet.owner) {
+      throw new Error('must include an owner ID')
+    }
 
+    const owner = await User.findOne({_id:newPet.owner})
+    if (owner === undefined || owner === null) {
+      throw new Error('cannot find owner for that pet')
+    }
+
+    const result = await Pet.create(newPet);
+    await _addOwnedPetToUser(owner.id, result.id)
+
+    return result;
   } catch (e) {
     console.error(e);
   }

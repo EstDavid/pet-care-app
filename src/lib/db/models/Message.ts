@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 import { Schema, Types } from 'mongoose';
 
 export interface Message {
-  _id:string
+  _id:Types.ObjectId
+  id:string
   textContent: string
   mediaUrl: string
   type: string

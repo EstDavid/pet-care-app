@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 import { Schema, Types } from 'mongoose';
 
 export interface Stay {
-  _id: string
+  _id: Types.ObjectId
+  id: string
   from: Date
   to: Date
   sitter: Types.ObjectId

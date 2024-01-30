@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 import { Schema, Types } from 'mongoose';
 
 interface Contact{
-  phone: string
-  email: string
-  address: string
-  location: {
+  phone?: string
+  email?: string
+  address?: string
+  location?: {
     lat: Number
     long:Number
   }
@@ -32,17 +32,18 @@ const contactSchema = new mongoose.Schema<Contact>({
 });
 
 export interface User {
-  _id: string
-  firstname: string
-  surname: string
-  clerkID: string
-  role: string
-  pfpUrl: string
+  id:string
+  _id?: Types.ObjectId
+  firstname?: string
+  surname?: string
+  clerkID?: string
+  role?: string
+  pfpUrl?: string
   messages: Types.ObjectId[]
   stays: Types.ObjectId[]
   petsOwned: Types.ObjectId[]
   petsSitting: Types.ObjectId[]
-  contact: Contact
+  contact?: Contact
 }
 
 const userSchema = new mongoose.Schema<User>({
