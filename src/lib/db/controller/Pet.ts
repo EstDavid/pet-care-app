@@ -73,11 +73,9 @@ export async function removePetSitter(pet:IPet, sitter:IUser):Promise<IPet | und
     const sitterToUpdate = await User.findOne({_id:sitter._id})
     if (!sitterToUpdate) throw new Error('sitter not found')
 
-    // if (petToUpdate.sitter) throw new Error('pet already has a sitter')
-
     delete petToUpdate.sitter; // remove sitter from pet
-    const petIndex = sitterToUpdate.petsSitting.findIndex((el => el._id == petToUpdate._id))
-    sitterToUpdate.petsSitting.splice(petIndex,1);
+    const petIndex = sitterToUpdate.petsSitting.findIndex((el => el._id == petToUpdate._id)) //TODO test if this works
+    sitterToUpdate.petsSitting.splice(petIndex,1); // remove pet from sitter array
 
     petToUpdate.save();
     sitterToUpdate.save();

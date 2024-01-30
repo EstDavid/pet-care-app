@@ -148,23 +148,3 @@ export async function _addOwnedPetToUser(ownerId: string, petId:string):Promise<
     console.error(e);
   }
 }
-
-export async function addSatPetToUser(id: string, petId:string):Promise<IUser | undefined> {
-  await dbConnect();
-  try {
-    let user = await User.findOne({_id:id});
-    if (user === undefined || user === null) {
-      throw new Error('cannot find user by that ID')
-    }
-    let pet = await Pet.findOne({_id:petId});
-    if (pet === undefined || pet === null) {
-      throw new Error('cannot find pet by that ID')
-    }
-    const idToAdd = pet._id
-    user.petsSitting.push(idToAdd);
-    user.save();
-    return user;
-  } catch (e) {
-    console.error(e);
-  }
-}

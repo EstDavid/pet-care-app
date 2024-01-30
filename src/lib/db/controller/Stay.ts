@@ -39,6 +39,5 @@ export async function confirmStay(stay: IStay): Promise<IStay | undefined> {
     else throw new Error('error, stay confirm failed');
   } catch (e) {
     console.log(e);
-
   }
 }
