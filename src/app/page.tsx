@@ -1,8 +1,18 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import {RocketIcon} from '@radix-ui/react-icons';
+'use client';
 
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { RocketIcon } from '@radix-ui/react-icons';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
+
+  // TODO: update this variable with context
+  const loggedinUser = undefined;
+
+  if (!loggedinUser) {
+    router.push('/homepage');
+  }
   return (
     <main>
       <h1>Hello world</h1>
