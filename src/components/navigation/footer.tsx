@@ -17,7 +17,7 @@ export default function Footer() {
   ];
   return (
     <nav className="w-full h-footer-nav bg-brand-bg">
-      <ul className="flex h-full flex-row justify-between items-center px-x-pad-footer">
+      <ul className="flex h-full flex-row justify-between items-center px-x-pad-footer container">
         {navLinks.map((navLink, index) => {
           return (
             <div key={index}>

@@ -14,7 +14,9 @@ export default function Layout({
   return (
     <section className="flex h-screen flex-col justify-between bg-brand-fg">
       <Header />
-      <div className="w-full flex-grow p-5 overflow-auto">{children}</div>
+      <div className="w-full flex-grow p-5 overflow-auto container">
+        {children}
+      </div>
       <Footer />
     </section>
   );
