@@ -1,29 +1,19 @@
-'use client';
-
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { RocketIcon } from '@radix-ui/react-icons';
-import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import logo from '@/../public/logo.png';
+import Link from 'next/link';
 
 export default function Home() {
-  const router = useRouter();
-
-  // TODO: update this variable with context
-  const loggedinUser = undefined;
-
-  if (!loggedinUser) {
-    router.push('/homepage');
-  }
   return (
-    <main>
-      <h1>Hello world</h1>
-      <h2>Here we go</h2>
-      <Alert>
-        <RocketIcon className="h-4 w-4" />
-        <AlertTitle>Heads up!</AlertTitle>
-        <AlertDescription>
-          You can add components and dependencies to your app using the cli.
-        </AlertDescription>
-      </Alert>
-    </main>
+    <section className="bg-brand-bg h-screen flex flex-col justify-center items-center">
+      <Image
+        className="px-8 mb-8 max-w-[480px]"
+        alt="CADO logo"
+        src={logo}
+      ></Image>
+      <h1 className="text-brand-fg text-3xl">Welcome to CADO</h1>
+      <Link className="text-brand-fg mt-3 text-2xl underline" href="/dashboard">
+        Dashboard
+      </Link>
+    </section>
   );
 }
