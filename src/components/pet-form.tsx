@@ -42,7 +42,7 @@ export function PetForm() {
           ></Image>
         ) : (
           <div className="w-[120px] h-[120px] bg-white text-center my-auto pt-8 rounded-full ">
-            Please add your pet's photo
+            Please add your pet&apos;s photo
           </div>
         )}
 
