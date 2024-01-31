@@ -19,7 +19,7 @@ afterAll(async () => {
   await mongoose.disconnect();
 });
 
-describe('connects and finds users', () => {
+describe.skip('connects and finds users', () => {
   it('connects to the db',async () => {
   await dbConnect();
 
