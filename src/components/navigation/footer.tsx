@@ -17,10 +17,10 @@ export default function Footer() {
   ];
   return (
     <nav className="w-full h-footer-nav bg-brand-bg">
-      <ul className="flex h-full flex-row justify-between items-center px-x-pad-footer container">
+      <ul className="flex h-full flex-row justify-end items-center px-x-pad-footer container">
         {navLinks.map((navLink, index) => {
           return (
-            <div key={index}>
+            <div key={index} className="flex-1">
               <Link
                 href={`/${navLink.href}`}
                 className="text-brand-fg h-auto text-2xl"
