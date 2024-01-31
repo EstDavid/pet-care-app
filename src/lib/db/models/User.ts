@@ -32,21 +32,25 @@ const contactSchema = new mongoose.Schema<Contact>({
 });
 
 export interface User {
-  id:string
+  id?:string
   _id?: Types.ObjectId
-  firstname?: string
-  surname?: string
+  email: string
+  firstname: string
+  surname: string
   clerkID?: string
   role?: string
   pfpUrl?: string
-  messages: Types.ObjectId[]
-  stays: Types.ObjectId[]
-  petsOwned: Types.ObjectId[]
-  petsSitting: Types.ObjectId[]
+  messages?: Types.ObjectId[]
+  stays?: Types.ObjectId[]
+  petsOwned?: Types.ObjectId[]
+  petsSitting?: Types.ObjectId[]
   contact?: Contact
 }
 
 const userSchema = new mongoose.Schema<User>({
+  email :{
+    type:String
+  },
   firstname: {
     type: String,
     required: true

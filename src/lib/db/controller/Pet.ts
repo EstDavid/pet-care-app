@@ -1,7 +1,6 @@
 import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
 import Pet, {Pet as IPet} from '../models/Pet';
-import { _addOwnedPetToUser } from './User';
 
 export async function getPetById(id: string):Promise<IPet | undefined> {
   await dbConnect();
@@ -34,7 +33,10 @@ export async function addPet(newPet:IPet):Promise<IPet | undefined> {
     }
 
     const result = await Pet.create(newPet);
-    await _addOwnedPetToUser(owner.id, result.id)
+    if (!owner.petsOwned) owner.petsOwned = []
+
+    owner.petsOwned.push(result._id)
+    await owner.save(); //!! thanks david
 
     return result;
   } catch (e) {
@@ -54,6 +56,7 @@ export async function setPetSitter(pet:IPet, sitter:IUser):Promise<IPet | undefi
     if (petToUpdate.sitter) throw new Error('pet already has a sitter')
 
     petToUpdate.sitter = sitterToUpdate._id // add sitter to pet
+    if (!sitterToUpdate.petsSitting) sitterToUpdate.petsSitting = [];
     sitterToUpdate.petsSitting.push(petToUpdate._id) // add pet to sitter's list of pets
     petToUpdate.save();
     sitterToUpdate.save();
@@ -73,8 +76,11 @@ export async function removePetSitter(pet:IPet, sitter:IUser):Promise<IPet | und
     const sitterToUpdate = await User.findOne({_id:sitter._id})
     if (!sitterToUpdate) throw new Error('sitter not found')
 
-    delete petToUpdate.sitter; // remove sitter from pet
+    if (!sitterToUpdate.petsSitting) throw new Error('this sitter has no pets assigned, this must be the wrong sitter');
     const petIndex = sitterToUpdate.petsSitting.findIndex((el => el._id == petToUpdate._id)) //TODO test if this works
+    if (petIndex === -1) throw new Error('error, pet not found on sitter!')
+
+    delete petToUpdate.sitter; // remove sitter from pet
     sitterToUpdate.petsSitting.splice(petIndex,1); // remove pet from sitter array
 
     petToUpdate.save();

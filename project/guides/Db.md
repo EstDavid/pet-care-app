@@ -10,6 +10,9 @@
 ### getUserById(id : string) :Promise<IUser | undefined>
 returns a user with their petsOwned, petsSitting, messages and stays fields auto-populated
 
+### getSitters():Promise<IUser[] | undefined>
+returns a list of users with role 'sitter'. currently fields aren't populated, this is for the sitter search
+
 ### getPetsOwnedByUser(id: string):Promise<IPet[] | undefined>
 Returns an array of pets owned by a user ID
 
@@ -27,11 +30,7 @@ adds a user to the DB and returns the new user if successful.
 user must be an object with firstname and surname *required*
 
 ### modifyUser(id: string, newValues:IUser):Promise<IUser | undefined>
-takes a string id and an user object and overwrites the user with those properties. use carefully please.
-
-### _addOwnedPetToUser(id: string, petId:string):Promise<IUser | undefined>
-takes a user id and a pet id and adds that pet to the user's owned pets
-**IMPORTANT** This gets called as part of addPet, don't call it yourself please
+takes a string id and an user object and overwrites the user with those properties. use carefully please. **not for adding petsOwned or petsSitting!!!!!!!!!!**
 
 
 ## Pet
