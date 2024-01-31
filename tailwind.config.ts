@@ -43,7 +43,7 @@ const config = {
       colors: {
         'brand-bg': '#4C9993',
         'brand-fg': '#FFEAD3',
-        'brand-white': '#ffffff',
+        'brand-cta': '#11212C'
       },
     },
   },

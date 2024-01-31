@@ -39,7 +39,7 @@ export default function UploadWidget({ onUploadedSuccess }: Props) {
         }
         return (
           <Button
-            className="bg-blue-400"
+            className="bg-brand-cta text-white"
             variant="outline"
             onClick={handleOnClick}
           >
