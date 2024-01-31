@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
-import { Model, Schema, Types } from 'mongoose';
+import {Model, Schema, Types} from 'mongoose';
 
 interface Contact {
+  name?: string;
   phone?: string;
   email?: string;
   street?: string;
@@ -14,6 +15,9 @@ interface Contact {
 }
 
 const contactSchema = new mongoose.Schema<Contact>({
+  name: {
+    type: String,
+  },
   phone: {
     type: String,
   },
@@ -45,11 +49,18 @@ export interface Pet {
   name: string;
   owner: Types.ObjectId;
   species: String;
+  age: String;
   breed: String;
   pfpUrl: String;
   notes: String;
   sex: String;
+  medication: String;
+  allergies: String;
+  vaccinations: String;
   fixed: Boolean;
+  emergencyInstructions: String;
+  insurance: String;
+  microchip: String;
   sitter?: Types.ObjectId;
   vet: Contact;
 }
@@ -68,6 +79,10 @@ const petSchema = new Schema(
     species: {
       type: String,
       enum: ['dog', 'cat'],
+      required: true,
+    },
+    age: {
+      type: String,
     },
     breed: {
       type: String,
@@ -81,8 +96,26 @@ const petSchema = new Schema(
     sex: {
       type: String,
     },
+    medication: {
+      type: String,
+    },
+    allergies: {
+      type: String,
+    },
+    vaccinations: {
+      type: String,
+    },
     fixed: {
       type: Boolean,
+    },
+    emergencyInstructions: {
+      type: String,
+    },
+    insurance: {
+      type: String,
+    },
+    microchip: {
+      type: String,
     },
     sitter: {
       type: Schema.Types.ObjectId,

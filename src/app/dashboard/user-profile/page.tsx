@@ -31,7 +31,7 @@ export default function UserProfile() {
             className="rounded-full mx-auto"
           ></Image>
         ) : (
-          <div className="w-[120px] h-[120px] bg-brand-white text-center my-auto pt-10 rounded-full ">
+          <div className="w-[120px] h-[120px] bg-white text-center my-auto pt-10 rounded-full ">
             Please add your photo
           </div>
         )}
