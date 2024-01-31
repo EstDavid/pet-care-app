@@ -1,5 +1,5 @@
-import Footer from '@/components/ui/navigation/footer';
-import Header from '@/components/ui/navigation/header';
+import Footer from '@/components/navigation/footer';
+import Header from '@/components/navigation/header';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
