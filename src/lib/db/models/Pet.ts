@@ -46,18 +46,18 @@ const contactSchema = new mongoose.Schema<Contact>({
 export interface Pet {
   id: string;
   _id: Types.ObjectId;
-  name: string;
   owner: Types.ObjectId;
   species: String;
+  name: string;
   age: String;
   breed: String;
+  sex: String;
   pfpUrl: String;
   notes: String;
-  sex: String;
   medication: String;
   allergies: String;
   vaccinations: String;
-  fixed: Boolean;
+  sprayed: Boolean;
   emergencyInstructions: String;
   insurance: String;
   microchip: String;
@@ -87,6 +87,9 @@ const petSchema = new Schema(
     breed: {
       type: String,
     },
+    gender: {
+      type: String,
+    },
     pfpUrl: {
       type: String,
     },
@@ -105,7 +108,7 @@ const petSchema = new Schema(
     vaccinations: {
       type: String,
     },
-    fixed: {
+    sprayed: {
       type: Boolean,
     },
     emergencyInstructions: {
