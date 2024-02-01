@@ -19,6 +19,8 @@ import {Separator} from '@/components/ui/separator';
 import UploadWidget from '@/components/media-upload/upload-widget';
 import {useState} from 'react';
 import Image from 'next/image';
+import {createPet} from '@/lib/actions/pet-actions';
+import {string} from 'zod';
 
 export function PetForm() {
   const [mediaUrl, setMediaUrl] = useState('');
@@ -26,7 +28,14 @@ export function PetForm() {
     setMediaUrl(result);
   };
 
-  console.log(mediaUrl);
+  // const url = new FormData();
+  // url.append('mediaUrl', mediaUrl);
+  // const createPetWithImg = createPet.bind(null, url);
+
+  // async function onCreate (formData: FormData, mediaUrl: string) {
+  //   const data = await createPet(formData, mediaUrl);
+  //   console.log(data, 'pet form data');
+  //  }
 
   return (
     <>
@@ -53,10 +62,11 @@ export function PetForm() {
               <CardTitle>Basic Information</CardTitle>
             </CardHeader>
             <CardContent>
-              <form>
+              <form action={createPet}>
                 <div className="grid w-full items-center gap-4">
+                  <input type="hidden" name="pfpUrl" value={mediaUrl} />
                   <div className="space-y-2">
-                    <Select required>
+                    <Select name="species" required>
                       <SelectTrigger aria-label="Species">
                         <SelectValue placeholder="Species" />
                       </SelectTrigger>
@@ -95,12 +105,18 @@ export function PetForm() {
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
-                    <Input
-                      id="gender"
-                      name="gender"
-                      placeholder="Gender"
-                      type="text"
-                    />
+                    <Select name="sex">
+                      <SelectTrigger aria-label="Sex">
+                        <SelectValue placeholder="Sex" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Sex</SelectLabel>
+                          <SelectItem value="male">Male</SelectItem>
+                          <SelectItem value="female">Female</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <Separator className="bg-brand-bg" />
@@ -131,9 +147,9 @@ export function PetForm() {
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     <div className="flex items-center space-x-2">
-                      <Checkbox id="terms" />
+                      <Checkbox name="sprayed" value="true" />
                       <label
-                        htmlFor="terms"
+                        htmlFor="sprayed"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Sprayed/ neutered
@@ -153,33 +169,33 @@ export function PetForm() {
                   <h3 className="font-semibold">Emergency Information</h3>
                   <div className="flex flex-col space-y-1.5">
                     <Input
-                      id="emergency-instructions"
-                      name="emergency-instructions"
+                      id="emergencyInstructions"
+                      name="emergencyInstructions"
                       placeholder="Instructions (if any)"
                       type="text"
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     <Input
-                      id="vet-name"
-                      name="vet-name"
+                      id="vetName"
+                      name="vetName"
                       placeholder="Vet Name"
                       type="text"
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     <Input
-                      id="vet-address"
-                      name="vet-address"
-                      placeholder="Vet Address"
+                      id="vetPhone"
+                      name="vetPhone"
+                      placeholder="Vet Phone Number"
                       type="text"
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     <Input
-                      id="vet-phone"
-                      name="vet-phone"
-                      placeholder="Vet Phone Number"
+                      id="vetAddress"
+                      name="vetAddress"
+                      placeholder="Vet Address"
                       type="text"
                     />
                   </div>
