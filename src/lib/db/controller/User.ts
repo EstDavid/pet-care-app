@@ -38,16 +38,14 @@ export async function getUserById(id: string): Promise<IUser | undefined> {
     console.error(e);
   }
 }
-export async function getUserByClerkId (id: string): Promise<IUser | undefined> {
+export async function getUserByClerkId(clerkID: string): Promise<IUser | undefined> {
   await dbConnect();
 
   try {
-    let user = await User.findOne({clerkID:id})
-    .populate({path: 'petsOwned', model: Pet})
-    .populate({path:'messages', model: Message})
-    .populate({path:'stays', model: Stay});
-
-    // console.log(user);
+    let user = await User.findOne({ clerkID})
+      .populate({ path: 'petsOwned', model: Pet })
+      .populate({ path: 'messages', model: Message })
+      .populate({ path: 'stays', model: Stay });
 
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
@@ -80,18 +78,33 @@ export async function createUserByClerkId({
     const newUser = await User.create({ clerkID, firstname, surname });
 
     return newUser;
+  }catch (e) {
+    console.error(e);
+  }
+}
+
+
+export async function checkUserRole(clerkID: string): Promise<string | undefined> {
+  await dbConnect();
+
+  try {
+    let user = await User.findOne({ clerkID})
+
+    if (user === undefined || user === null) {
+      throw new Error('cannot find user by that ID');
+    }
+
+    return user.role;
   } catch (e) {
     console.error(e);
   }
 }
 
-export async function getPetsOwnedByUser(
-  id: string
-): Promise<IPet[] | undefined> {
+export async function getPetsOwnedByUser(id: string): Promise<IPet[] | undefined> {
   await dbConnect();
 
   try {
-    let _id = new mongoose.Types.ObjectId(id);
+    let _id = new mongoose.Types.ObjectId(id)
     const user = await User.findOne({ _id }).populate<{
       petsOwned: IPet[];
     }>({ path: 'petsOwned', model: Pet });
