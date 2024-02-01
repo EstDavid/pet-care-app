@@ -8,6 +8,7 @@ export default function Page() {
       <Link href="/dashboard/pet">
         <Button className="mt-10">Add a pet</Button>
       </Link>
+      <p>Hello test</p>
     </div>
   );
 }
