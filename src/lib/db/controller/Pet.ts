@@ -20,17 +20,17 @@ export async function getPetById(id: string):Promise<IPet | undefined> {
   }
 }
 
-export async function addPet(newPet:IPet):Promise<IPet | undefined> {
+export async function addPet(ownerClerk:string, newPet:IPet):Promise<IPet | undefined> {
   await dbConnect();
   try {
-    if(!newPet.owner) {
-      throw new Error('must include an owner ID')
-    }
 
-    const owner = await User.findOne({_id:newPet.owner})
+
+    const owner = await User.findOne({clerkID:ownerClerk})
     if (owner === undefined || owner === null) {
       throw new Error('cannot find owner for that pet')
     }
+
+    newPet.owner = owner._id;
 
     const result = await Pet.create(newPet);
     if (!owner.petsOwned) owner.petsOwned = []
