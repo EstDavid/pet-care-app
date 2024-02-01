@@ -4,12 +4,12 @@ import Pet, {Pet as IPet} from '../models/Pet';
 
 export async function getPetById(id: string):Promise<IPet | undefined> {
   await dbConnect();
-
+  let _id = new mongoose.Types.ObjectId(id)
   try {
     const pet = await Pet
-      .findOne({ _id: id })
-      .populate('owner')
-      .populate('sitter')
+      .findOne({ _id})
+      .populate({path:'owner', model:User})
+      .populate({path:'sitter', model:User})
 
     if (pet === undefined || pet === null) {
       throw new Error('cannot find pet by that ID')
