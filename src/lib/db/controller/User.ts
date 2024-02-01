@@ -21,7 +21,7 @@ export async function getUserById(id: string): Promise<IUser | undefined> {
   await dbConnect();
 
   try {
-    let _id = new mongoose.Types.ObjectId(id);
+    let _id = new mongoose.Types.ObjectId(id)
     let user = await User.findOne({ _id })
       .populate({ path: 'petsOwned', model: Pet })
       .populate({ path: 'messages', model: Message })
@@ -56,33 +56,6 @@ export async function getUserByClerkId(clerkID: string): Promise<IUser | undefin
     console.error(e);
   }
 }
-
-export async function createUserByClerkId({
-  clerkID,
-  firstname,
-  surname,
-}: {
-  clerkID: string;
-  firstname: string;
-  surname: string;
-}): Promise<IUser | undefined> {
-  await dbConnect();
-
-  try {
-    const user = await User.findOne({ clerkID });
-
-    if (user) {
-      throw new Error('user already exists');
-    }
-
-    const newUser = await User.create({ clerkID, firstname, surname });
-
-    return newUser;
-  }catch (e) {
-    console.error(e);
-  }
-}
-
 
 export async function checkUserRole(clerkID: string): Promise<string | undefined> {
   await dbConnect();
@@ -123,7 +96,7 @@ export async function getPetsSatByUser(
   id: string
 ): Promise<IPet[] | undefined> {
   await dbConnect();
-  let _id = new mongoose.Types.ObjectId(id);
+  let _id = new mongoose.Types.ObjectId(id)
   try {
     const user = await User.findOne({ _id }).populate<{
       petsSitting: IPet[];
@@ -156,7 +129,7 @@ export async function getUserMessages(
   id: string
 ): Promise<IMessage[] | undefined> {
   await dbConnect();
-  let _id = new mongoose.Types.ObjectId(id);
+  let _id = new mongoose.Types.ObjectId(id)
   try {
     const user = await User.findOne({ _id }).populate<{
       messages: IMessage[];
@@ -196,7 +169,7 @@ export async function modifyUser(
   newValues: IUser
 ): Promise<IUser | undefined> {
   await dbConnect();
-  let _id = new mongoose.Types.ObjectId(id);
+  let _id = new mongoose.Types.ObjectId(id)
   try {
     let user = await User.findOneAndUpdate({ _id }, newValues);
     if (user === undefined || user === null) {
