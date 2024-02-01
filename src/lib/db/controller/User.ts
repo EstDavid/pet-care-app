@@ -48,7 +48,7 @@ export async function getUserByClerkId(clerkID: string): Promise<IUser | undefin
       .populate({ path: 'stays', model: Stay });
 
     if (user === undefined || user === null) {
-      throw new Error('cannot find user by that ID');
+      return undefined
     }
 
     return user;
@@ -205,13 +205,12 @@ export async function addUser(user: IUser): Promise<IUser | undefined> {
 
 
 export async function modifyUser(
-  clerkId: string,
+  clerkID: string,
   newValues: IUser
 ): Promise<IUser | undefined> {
   await dbConnect();
-  let _id = new mongoose.Types.ObjectId(clerkId);
   try {
-    let user = await User.findOneAndUpdate({ _id }, newValues);
+    let user = await User.findOneAndUpdate({ clerkID}, newValues);
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
     }

@@ -11,6 +11,7 @@ const setRole = async function (role: string) {
   const user = await currentUser();
   if (user && user.id) modifyUser(user?.id, {role})
 
+  // console.log(role);
   redirect('/dashboard')
 }
 
