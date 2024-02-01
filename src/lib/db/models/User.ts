@@ -52,6 +52,9 @@ export interface User {
   petsOwned?: Types.ObjectId[];
   petsSitting?: Types.ObjectId[];
   contact?: Contact;
+  sitsDogs?: boolean;
+  sitsCats?: boolean;
+  sitterDescription?: string;
 }
 
 const userSchema = new mongoose.Schema<User>(
@@ -103,6 +106,15 @@ const userSchema = new mongoose.Schema<User>(
     ],
     contact: {
       type: contactSchema,
+    },
+    sitsDogs: {
+      type: Boolean
+    },
+    sitsCats: {
+      type: Boolean
+    },
+    sitterDescription: {
+      type: String
     },
   },
   {
