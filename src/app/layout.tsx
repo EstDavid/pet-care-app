@@ -16,7 +16,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        elements: {
+          formButtonPrimary: 'bg-brand-bg',
+          footerActionLink: 'text-brand-bg',
+          socialButtonsBlockButton: 'bg-white',
+          card: 'bg-brand-fg',
+        },
+        variables: {
+          colorPrimary: 'black',
+        },
+      }}
+    >
       <html lang="en">
         <body className={`${inter.className} bg-brand-fg`}>{children}</body>
       </html>
