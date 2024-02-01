@@ -38,6 +38,26 @@ export async function getUserById(id: string): Promise<IUser | undefined> {
     console.error(e);
   }
 }
+export async function getUserByClerkId (id: string): Promise<IUser | undefined> {
+  await dbConnect();
+
+  try {
+    let user = await User.findOne({clerkID:id})
+    .populate({path: 'petsOwned', model: Pet})
+    .populate({path:'messages', model: Message})
+    .populate({path:'stays', model: Stay});
+
+    // console.log(user);
+
+    if (user === undefined || user === null) {
+      throw new Error('cannot find user by that ID');
+    }
+
+    return user;
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 export async function createUserByClerkId({
   clerkID,
