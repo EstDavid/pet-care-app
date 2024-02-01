@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 import { use, useEffect, useState } from "react";
 
 export default function Page() {
@@ -96,7 +97,9 @@ export default function Page() {
               <CardTitle>Complete Your Profile</CardTitle>
             </CardHeader>
             <CardContent>
-              <Button>Manage Profile</Button>
+              <Link href="/dashboard/account-settings">
+                <Button>Manage Profile</Button>
+              </Link>
             </CardContent>
           </Card>
         </div>
