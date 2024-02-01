@@ -10,6 +10,7 @@ export default function Home() {
         className="px-8 mb-8 w-full sm:max-w-[480px]"
         alt="CADO logo"
         src={logo}
+        priority={true}
       ></Image>
       <h1 className="text-brand-fg text-3xl">Welcome to CADO</h1>
       <Link className="text-brand-fg mt-3 text-2xl underline" href="/dashboard">
