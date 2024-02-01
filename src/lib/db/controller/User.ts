@@ -1,7 +1,8 @@
 import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
 import Pet, { Pet as IPet } from '../models/Pet';
-import { Message as IMessage } from '../models/Message';
+import Stay from '../models/Stay';
+import Message, { Message as IMessage } from '../models/Message';
 import mongoose, { Types } from 'mongoose';
 
 export async function getAllUsers(): Promise<IUser[] | undefined> {
@@ -20,11 +21,13 @@ export async function getUserById(id: string): Promise<IUser | undefined> {
   await dbConnect();
 
   try {
-    const user = await User.findOne({ _id: id })
-      .populate('petsOwned')
-      .populate('petsSitting')
-      .populate('messages')
-      .populate('stays');
+    let _id = new mongoose.Types.ObjectId(id)
+    let user = await User.findOne({_id})
+    .populate({path: 'petsOwned', model: Pet})
+    .populate({path:'messages', model: Message})
+    .populate({path:'stays', model: Stay});
+
+    // console.log(user);
 
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
@@ -42,9 +45,10 @@ export async function getPetsOwnedByUser(
   await dbConnect();
 
   try {
-    const user = await User.findOne({ _id: id }).populate<{
+    let _id = new mongoose.Types.ObjectId(id)
+    const user = await User.findOne({ _id}).populate<{
       petsOwned: IPet[];
-    }>('petsOwned');
+    }>({path:'petsOwned',model:Pet});
 
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
@@ -60,9 +64,9 @@ export async function getPetsSatByUser(
   id: string
 ): Promise<IPet[] | undefined> {
   await dbConnect();
-
+  let _id = new mongoose.Types.ObjectId(id)
   try {
-    const user = await User.findOne({ _id: id }).populate<{
+    const user = await User.findOne({ _id}).populate<{
       petsSitting: IPet[];
     }>('petsOwned');
 
@@ -93,9 +97,9 @@ export async function getUserMessages(
   id: string
 ): Promise<IMessage[] | undefined> {
   await dbConnect();
-
+  let _id = new mongoose.Types.ObjectId(id)
   try {
-    const user = await User.findOne({ _id: id }).populate<{
+    const user = await User.findOne({ _id}).populate<{
       messages: IMessage[];
     }>('messages');
 
@@ -133,8 +137,9 @@ export async function modifyUser(
   newValues: IUser
 ): Promise<IUser | undefined> {
   await dbConnect();
+  let _id = new mongoose.Types.ObjectId(id)
   try {
-    let user = await User.findOneAndUpdate({ _id: id }, newValues);
+    let user = await User.findOneAndUpdate({ _id }, newValues);
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
     }
