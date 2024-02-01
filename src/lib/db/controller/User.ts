@@ -42,7 +42,7 @@ export async function getUserByClerkId(clerkID: string): Promise<IUser | undefin
   await dbConnect();
 
   try {
-    let user = await User.findOne({ clerkID})
+    let user = await User.findOne({ clerkID })
       .populate({ path: 'petsOwned', model: Pet })
       .populate({ path: 'messages', model: Message })
       .populate({ path: 'stays', model: Stay });
@@ -61,7 +61,7 @@ export async function checkUserRole(clerkID: string): Promise<string | undefined
   await dbConnect();
 
   try {
-    let user = await User.findOne({ clerkID})
+    let user = await User.findOne({ clerkID })
 
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
@@ -73,20 +73,56 @@ export async function checkUserRole(clerkID: string): Promise<string | undefined
   }
 }
 
-export async function getPetsOwnedByUser(id: string): Promise<IPet[] | undefined> {
+export async function getPetsOwnedByUser(clerkID: string): Promise<IPet[] | undefined> {
   await dbConnect();
 
   try {
-    let _id = new mongoose.Types.ObjectId(id)
-    const user = await User.findOne({ _id }).populate<{
-      petsOwned: IPet[];
-    }>({ path: 'petsOwned', model: Pet });
+    let user = await User.findOne({ clerkID })
+      .populate<{
+        petsOwned: IPet[];
+      }>({ path: 'petsOwned', model: Pet })
+      .populate({ path: 'messages', model: Message })
+      .populate({ path: 'stays', model: Stay });
 
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
     }
-    if (!user.petsOwned) throw new Error('weird error');
+
     return user.petsOwned;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function createUserByClerkId({
+  clerkID,
+  firstname,
+  surname,
+}: {
+  clerkID: string;
+  firstname: string;
+  surname: string;
+}): Promise<IUser | undefined> {
+  await dbConnect();
+
+  try {
+    const user = await User.findOne({ clerkID });
+
+    if (user) {
+      throw new Error('user already exists');
+    }
+
+    const newUser = await User.create({
+      clerkID,
+      firstname,
+      surname,
+      messages: [],
+      stays: [],
+      petsOwned: [],
+      petsSitting: [],
+    });
+
+    return newUser;
   } catch (e) {
     console.error(e);
   }
@@ -98,9 +134,10 @@ export async function getPetsSatByUser(
   await dbConnect();
   let _id = new mongoose.Types.ObjectId(id)
   try {
-    const user = await User.findOne({ _id }).populate<{
-      petsSitting: IPet[];
-    }>('petsOwned');
+    const user = await User.findOne({ _id })
+      .populate<{
+        petsSitting: IPet[];
+      }>('petsSitting');
 
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
@@ -131,6 +168,7 @@ export async function getUserMessages(
   await dbConnect();
   let _id = new mongoose.Types.ObjectId(id)
   try {
+
     const user = await User.findOne({ _id }).populate<{
       messages: IMessage[];
     }>('messages');
@@ -144,6 +182,7 @@ export async function getUserMessages(
     console.error(e);
   }
 }
+
 
 export async function addUser(user: IUser): Promise<IUser | undefined> {
   await dbConnect();
@@ -164,12 +203,13 @@ export async function addUser(user: IUser): Promise<IUser | undefined> {
   }
 }
 
+
 export async function modifyUser(
-  id: string,
+  clerkId: string,
   newValues: IUser
 ): Promise<IUser | undefined> {
   await dbConnect();
-  let _id = new mongoose.Types.ObjectId(id)
+  let _id = new mongoose.Types.ObjectId(clerkId);
   try {
     let user = await User.findOneAndUpdate({ _id }, newValues);
     if (user === undefined || user === null) {
