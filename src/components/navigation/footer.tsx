@@ -18,7 +18,7 @@ export default function Footer() {
     },
     {
       name: 'Settings',
-      href: 'dashboard/account-settings',
+      href: 'dashboard/user-profile',
       icon: <CiSettings size="2em" />
     }
   ];

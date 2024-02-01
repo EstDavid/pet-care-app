@@ -41,9 +41,9 @@ const config = {
         'x-pad-footer': '20px',
       },
       colors: {
-        'brand-bg': '#4C9993',
-        'brand-fg': '#FFEAD3',
-        'brand-cta': '#11212C'
+        'brand-bg': 'hsl(175,34,45)',
+        'brand-fg': 'hsl(31,100,97)',
+        'brand-cta': 'hsl(205,44,12)'
       },
     },
   },
