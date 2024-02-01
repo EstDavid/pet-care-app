@@ -83,7 +83,7 @@ const config = {
           '900': 'hsl(204, 36%, 24%)',
           '950': 'hsl(204, 44%, 12%)',
         }
-      },
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],
