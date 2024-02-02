@@ -4,7 +4,6 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle
@@ -30,8 +29,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   const user = await getUserByClerkId(userId);
   const sitter = await getUserById(id);
 
-  console.log(userId);
-
   const pfpUrl = 'https://avatars.githubusercontent.com/u/114820366?v=4';
   const descriptions = [
     "Hi, I'm Emily, your go-to cat sitter! In my cozy home, every cat is treated like a member of the family. I specialize in providing a tranquil and stimulating environment tailored specifically for cats. Whether your kitty loves chasing lasers or snuggling on laps, I ensure they receive all the love and attention they need. I offer daily play sessions, grooming, and personalized care for any special needs. Let me give your feline friend the purr-fect home away from home!",
@@ -44,6 +41,12 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   const conversation = await getConversationByPair(
+    user._id.toString(),
+    sitter._id.toString()
+  );
+
+  const createConversation = createConversationWithSitter.bind(
+    null,
     user._id.toString(),
     sitter._id.toString()
   );
@@ -90,27 +93,15 @@ export default async function Page({ params }: { params: { id: string } }) {
             </div>
             {conversation ? (
               <Link
-                href={`/chat/${conversation._id}`}
+                href={`/dashboard/chat/${conversation._id}`}
                 className="flex items-center"
               >
                 <span>Get latest messages with {sitter.firstname}</span>
                 <FaRegEnvelope size="3em" />
               </Link>
             ) : (
-              <form action={createConversationWithSitter}>
-                <input
-                  type="text"
-                  className="hidden"
-                  name="user"
-                  value={user._id.toString()}
-                />
-                <input
-                  type="text"
-                  className="hidden"
-                  name="sitter"
-                  value={sitter._id.toString()}
-                />
-                <Button>
+              <form action={createConversation}>
+                <Button type="submit">
                   <p>Contact {sitter.firstname}</p>
                   <FaRegEnvelope size="3em" />
                 </Button>

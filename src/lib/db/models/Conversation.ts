@@ -8,7 +8,7 @@ export interface IConversation {
   id: string;
   user1: IUser;
   user2: IUser;
-  messages?: IMessage[];
+  messages: IMessage[];
 }
 
 const conversationSchema = new Schema<IConversation>(

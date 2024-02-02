@@ -1,15 +1,14 @@
 import dbConnect from '../dbConnect';
-import User, { User as IUser } from '../models/User';
 import Message, { IMessage } from '../models/Message';
 import mongoose from 'mongoose';
 import Conversation, { IConversation } from '../models/Conversation';
 
-export async function getConversationById (id: string): Promise<IUser | undefined> {
+export async function getConversationById (id: string): Promise<IConversation | undefined> {
   await dbConnect();
 
   try {
     let _id = new mongoose.Types.ObjectId(id);
-    let conversation = await User.findOne({ _id })
+    let conversation = await Conversation.findOne({ _id })
       .populate({ path: 'messages', model: Message });
 
     if (conversation === undefined || conversation === null) {
@@ -22,7 +21,7 @@ export async function getConversationById (id: string): Promise<IUser | undefine
   }
 }
 
-export async function getConversationByPair (id1: string, id2: string): Promise<IConversation | undefined> {
+export async function getConversationByPair (id1: string, id2: string): Promise<IConversation | undefined | null> {
   await dbConnect();
 
   try {
@@ -46,17 +45,13 @@ export async function getConversationByPair (id1: string, id2: string): Promise<
     })
       .populate({ path: 'messages', model: Message });
 
-    if (conversation === undefined || conversation === null) {
-      throw new Error('cannot find user by that ID');
-    }
-
     return conversation;
   } catch (e) {
     console.error(e);
   }
 }
 
-export async function createConversation (id1: string, id2: string) {
+export async function createConversation (id1: string, id2: string): Promise<IConversation | undefined> {
   try {
     let _id1 = new mongoose.Types.ObjectId(id1);
     let _id2 = new mongoose.Types.ObjectId(id2);
@@ -71,7 +66,7 @@ export async function createConversation (id1: string, id2: string) {
   }
 }
 
-export async function postMessageToConversation (id: string, message: IMessage) {
+export async function postMessageToConversation (id: string, message: IMessage): Promise<IConversation | undefined> {
   try {
     const newMessage = await Message.create(message);
 
@@ -87,7 +82,7 @@ export async function postMessageToConversation (id: string, message: IMessage) 
   }
 }
 
-export async function deleteMessageFromConversation (id: string, message: IMessage) {
+export async function deleteMessageFromConversation (id: string, message: IMessage): Promise<IConversation | undefined> {
   try {
     await Message.findByIdAndDelete(message._id);
 
