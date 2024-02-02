@@ -2,7 +2,6 @@
 import Pet from '@/lib/db/models/Pet';
 import {addPet} from '@/lib/db/controller/Pet';
 import {revalidatePath} from 'next/cache';
-import {Types} from 'mongoose';
 import {redirect} from 'next/navigation';
 import { currentUser } from '@clerk/nextjs';
 import { getUserByClerkId } from '../db/controller/User';
@@ -66,7 +65,7 @@ export async function createPet(formData: FormData) {
     console.log('savedPet', savedPet);
 } catch (error) {
   console.log('Error editing data', error);
-  // throw new Error('Failed to edit data.');
+  throw new Error('Failed to edit data.');
 }
 // revalidatePath('/dashboard/pet/edit');
 redirect(`/dashboard/pet/profile/${newPet.id}`);

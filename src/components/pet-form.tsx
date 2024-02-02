@@ -28,21 +28,22 @@ export function PetForm() {
   };
 
   return (
-    <>
+  
       <div className="flex flex-col items-center gap-4">
-        {mediaUrl ? (
-          <Image
-            src={mediaUrl}
-            width={120}
-            height={120}
-            alt="User Picture"
-            className="rounded-full mx-auto"
-          ></Image>
-        ) : (
-          <div className="w-[120px] h-[120px] bg-white text-center my-auto pt-8 rounded-full ">
-            Please add your pet&apos;s photo
-          </div>
-        )}
+        <div className="w-[120px] h-[120px] bg-white relative">
+          {mediaUrl ? (
+            <Image
+              className=" w-[120px] h-[120px]"
+              src={mediaUrl}
+              // width={120}
+              // height={120}
+              alt="Your pet's picture"
+              fill={true}
+            ></Image>
+          ) : (
+            <div className="text-center">Please add your pet&apos;s photo</div>
+          )}
+        </div>
 
         <UploadWidget onUploadedSuccess={imgUploaded} />
         <div>
@@ -111,6 +112,17 @@ export function PetForm() {
                   <Separator className="bg-brand-bg" />
                   <h3 className="font-semibold">Health Information</h3>
                   <div className="flex flex-col space-y-1.5">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox name="sprayed" value="true" />
+                      <label
+                        htmlFor="sprayed"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Sprayed/ neutered
+                      </label>
+                    </div>
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
                     <Input
                       id="medication"
                       name="medication"
@@ -133,17 +145,6 @@ export function PetForm() {
                       placeholder="Vaccinations"
                       type="text"
                     />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox name="sprayed" value="true" />
-                      <label
-                        htmlFor="sprayed"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Sprayed/ neutered
-                      </label>
-                    </div>
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     {/* <Label htmlFor="message">Behavior Notes</Label> */}
@@ -213,6 +214,6 @@ export function PetForm() {
           </Card>
         </div>
       </div>
-    </>
+    
   );
 }
