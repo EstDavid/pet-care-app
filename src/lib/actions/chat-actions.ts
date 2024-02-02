@@ -25,7 +25,8 @@ export default async function postMessage(formData: FormData) {
       textContent: formData.get('message') as string,
     });
 
-    const savedMessage = await CONTROLLERFUNCTION(newMessage);
+    // const savedMessage = await CONTROLLERFUNCTION(newMessage);
+    const savedMessage = await newMessage.save();
     console.log(savedMessage);
   } catch (error) {
     console.log(error);
