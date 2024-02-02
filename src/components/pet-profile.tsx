@@ -12,6 +12,7 @@ import {Button} from '@/components/ui/button';
 import {Separator} from '@radix-ui/react-separator';
 import {getPetById} from '@/lib/db/controller/Pet';
 import {Pet} from '@/lib/db/models/Pet';
+import Image from 'next/image';
 
 // DOugal to check
 export default async function PetProfile({pet}: {pet: Pet}) {
@@ -24,10 +25,22 @@ export default async function PetProfile({pet}: {pet: Pet}) {
           <Card className="w-[350px]">
             <CardHeader>
               <CardTitle>{pet.name}</CardTitle>
+              <div>
+                <Image src={String(pet.pfpUrl)} width={120} height={120} alt={`profile picture of ${pet.name}`} />
+              </div>
             </CardHeader>
             <CardContent>
               <Separator className="bg-brand-bg" />
               <h3 className="font-semibold">Basic Information</h3>
+                <CardDescription>
+                  <span className="font-semibold">Name:</span> {pet.name}
+                </CardDescription>
+                <CardDescription>
+                  <span className="font-semibold">Breed:</span> {pet.breed}
+                </CardDescription>
+                <CardDescription>
+                  <span className="font-semibold">Age:</span> {pet.age}
+                </CardDescription>
               <Separator className="bg-brand-bg" />
               <h3 className="font-semibold">Health Information</h3>
               <div className="flex flex-col space-y-1.5"></div>
