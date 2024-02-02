@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import { Model, Schema, Types } from 'mongoose';
 
-export interface Message {
+export interface IMessage {
   _id: Types.ObjectId;
-  id: string
+  id: string;
   textContent?: string;
   mediaUrl?: string;
   type?: string;
@@ -11,7 +11,7 @@ export interface Message {
   taggedPets?: Types.ObjectId[];
 }
 
-const messageSchema = new Schema<Message>(
+const messageSchema = new Schema<IMessage>(
   {
     textContent: {
       type: String,
@@ -41,5 +41,5 @@ const messageSchema = new Schema<Message>(
 );
 
 const Message = (mongoose.models.Message ||
-  mongoose.model('Message', messageSchema)) as Model<Message>;
+  mongoose.model('Message', messageSchema)) as Model<IMessage>;
 export default Message;

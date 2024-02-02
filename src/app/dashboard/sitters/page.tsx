@@ -8,6 +8,7 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { getSitters } from '@/lib/db/controller/User';
+import Link from 'next/link';
 import { FaDog, FaCat } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 
@@ -48,51 +49,56 @@ export default async function Page() {
         {sitters?.slice(0, 3).map((sitter, index) => {
           if (sitter._id) {
             return (
-              <Card key={sitter._id.toString()}>
-                <CardHeader>
-                  <div className="flex justify-between">
-                    <div className="flex flex-col gap-2">
-                      <Avatar>
-                        <AvatarImage src={pfpUrl} />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                      <CardTitle>{sitter.firstname}</CardTitle>
+              <Link
+                key={sitter._id.toString()}
+                href={`/dashboard/sitters/${sitter._id}`}
+              >
+                <Card>
+                  <CardHeader>
+                    <div className="flex justify-between">
+                      <div className="flex flex-col gap-2">
+                        <Avatar>
+                          <AvatarImage src={pfpUrl} />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                        <CardTitle>{sitter.firstname}</CardTitle>
+                      </div>
+                      <div className="flex gap-3">
+                        {catDogs[index].dogs ? (
+                          <FaDog className="text-brand-bg-400" size="2em" />
+                        ) : null}
+                        {catDogs[index].cats ? (
+                          <FaCat className="text-brand-fg-400" size="2em" />
+                        ) : null}
+                      </div>
                     </div>
-                    <div className="flex gap-3">
-                      {catDogs[index].dogs ? (
-                        <FaDog className="text-brand-bg-400" size="2em" />
-                      ) : null}
-                      {catDogs[index].cats ? (
-                        <FaCat className="text-brand-fg-400" size="2em" />
-                      ) : null}
+                  </CardHeader>
+                  <CardContent>
+                    <div>
+                      {descriptions[index]
+                        .slice(0, 90)
+                        .concat('...')
+                        .split('\n')
+                        .map((desc, index) => {
+                          return (
+                            <p
+                              key={index}
+                              className="text-sm text-brand-bg-500 italic"
+                            >
+                              {desc}
+                            </p>
+                          );
+                        })}
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div>
-                    {descriptions[index]
-                      .slice(0, 90)
-                      .concat('...')
-                      .split('\n')
-                      .map((desc, index) => {
-                        return (
-                          <p
-                            key={index}
-                            className="text-sm text-brand-bg-500 italic"
-                          >
-                            {desc}
-                          </p>
-                        );
-                      })}
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <div className="flex w-full justify-start items-end gap-4">
-                    <FaLocationDot size="2em" className="text-brand-fg-700" />
-                    <p className="text-center">5 km from you</p>
-                  </div>
-                </CardFooter>
-              </Card>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="flex w-full justify-start items-end gap-4">
+                      <FaLocationDot size="2em" className="text-brand-fg-700" />
+                      <p className="text-center">5 km from you</p>
+                    </div>
+                  </CardFooter>
+                </Card>
+              </Link>
             );
           }
         })}
