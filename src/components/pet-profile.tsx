@@ -15,7 +15,7 @@ import {Pet} from '@/lib/db/models/Pet';
 import Image from 'next/image';
 
 // DOugal to check
-export default function PetProfile({name, breed, age}: {name:string, breed:string, age:string}) {
+export default function PetProfile({name, breed, age, url}: {name:string, breed:string, age:string, url:string}) {
 
   console.log(name);
   ;
@@ -28,7 +28,7 @@ export default function PetProfile({name, breed, age}: {name:string, breed:strin
             <CardHeader>
               <CardTitle>{name}</CardTitle>
               <div>
-                {/* <Image src={pet.pfpUrl} width={120} height={120} alt={`profile picture of ${pet.name}`} /> */}
+                {url && <Image src={url} width={120} height={120} alt={`profile picture of ${name}`} />}
               </div>
             </CardHeader>
             <CardContent>

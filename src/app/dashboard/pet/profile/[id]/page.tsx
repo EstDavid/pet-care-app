@@ -8,8 +8,6 @@ export default async function Page({params}: {params: {id: string}}) {
 
   const petId = params.id;
   const pet = await getPetById(petId);
-  const petName = pet.name
-  const petBreed = pet.breed
   if (!pet) {
     notFound();
   }
@@ -18,7 +16,7 @@ export default async function Page({params}: {params: {id: string}}) {
       <h1 className="text-2xl text-brand-bg font-semibold text pb-5">
         Pet profile
       </h1>
-      <PetProfile name={petName} breed={petBreed} age={pet.age}/>
+      <PetProfile name={pet.name} breed={pet.breed} age={pet.age} url={pet.pfpUrl}/>
     </div>
   );
 }
