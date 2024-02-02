@@ -16,7 +16,7 @@ export default async function createConversationWithSitter (formData: FormData) 
       throw new Error("Conversation couldn't be created");
     }
 
-    redirect(`/dashboard/conversations/${conversation._id}`);
+    redirect(`/dashboard/chat/${conversation._id}`);
   } catch (error) {
     console.log('Error editing data', error);
     throw new Error('Failed to edit data.');
