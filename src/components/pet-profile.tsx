@@ -15,8 +15,8 @@ import {Pet} from '@/lib/db/models/Pet';
 import Image from 'next/image';
 
 // DOugal to check
-export default async function PetProfile({pet}: {pet: Pet}) {
-  console.log(pet);
+export default function PetProfile({pet}: {pet: Pet}) {
+  // console.log(pet);
 
   return (
     <>

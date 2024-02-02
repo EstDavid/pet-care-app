@@ -4,6 +4,8 @@ import {notFound} from 'next/navigation';
 
 // Dougal to check
 export default async function Page({params}: {params: {id: string}}) {
+  // console.log(params.id);
+
   const petId = params.id;
   const pet = await getPetById(petId);
 

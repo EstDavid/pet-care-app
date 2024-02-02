@@ -4,6 +4,8 @@ import {addPet} from '@/lib/db/controller/Pet';
 import {revalidatePath} from 'next/cache';
 import {Types} from 'mongoose';
 import {redirect} from 'next/navigation';
+import { currentUser } from '@clerk/nextjs';
+import { getUserByClerkId } from '../db/controller/User';
 
 export async function createPet(formData: FormData) {
   const data = Object.fromEntries(formData.entries());
@@ -28,8 +30,15 @@ export async function createPet(formData: FormData) {
     microchip,
   } = data;
 
-  const newPet = new Pet({
-    owner: new Types.ObjectId('65ba64b7c08954453b260011'),
+  const clerkUser = await currentUser();
+  if (!clerkUser){
+    throw new Error('oops') // mushroom
+  }
+
+  const owner = await getUserByClerkId(clerkUser.id)
+
+  let newPet = new Pet({
+    owner: owner?._id,
     species: species?.toString(),
     name: name?.toString(),
     age: age?.toString(),
@@ -52,13 +61,14 @@ export async function createPet(formData: FormData) {
   });
 
   try {
-    // Dougal: to check
-    const savedPet = await addPet(newPet);
+    const savedPet = await addPet(clerkUser.id, newPet); //hi diana hopefully you see this
+    if (!savedPet) throw new Error('double oops')
     console.log('savedPet', savedPet);
-  } catch (error) {
-    console.log('Error editing data', error);
-    throw new Error('Failed to edit data.');
-  }
-  revalidatePath('/dashboard/pet/edit');
-  redirect(`/dashboard/pet/profile/${newPet.id}`);
+} catch (error) {
+  console.log('Error editing data', error);
+  throw new Error('Failed to edit data.');
+}
+revalidatePath('/dashboard/pet/edit');
+redirect(`/dashboard/pet/profile/${newPet.id}`);
+
 }

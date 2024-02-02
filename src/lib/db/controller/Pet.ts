@@ -2,14 +2,22 @@ import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
 import Pet, {Pet as IPet} from '../models/Pet';
 
-export async function getPetById(id: string):Promise<IPet | undefined> {
+const test = function(a:number, b:number):number {
+  return a+b;
+}
+
+export async function getPetById(id: string) {
   await dbConnect();
-  let _id = new mongoose.Types.ObjectId(id)
+  // let _id = new mongoose.Types.ObjectId(id)
   try {
+    console.log('inside pet by id' + id);
+
     const pet = await Pet
-      .findOne({ _id})
-      .populate({path:'owner', model:User})
-      .populate({path:'sitter', model:User})
+      .findById(id);
+      console.log(pet);
+
+      // .populate({path:'owner', model:User})
+      // .populate({path:'sitter', model:User})
 
     if (pet === undefined || pet === null) {
       throw new Error('cannot find pet by that ID')
