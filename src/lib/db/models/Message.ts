@@ -3,13 +3,12 @@ import { Model, Schema, Types } from 'mongoose';
 
 export interface Message {
   _id: Types.ObjectId;
-  id: string;
-  textContent: string;
-  mediaUrl: string;
-  type: string;
-  sender: Types.ObjectId;
-  receiver: Types.ObjectId;
-  taggedPets: Types.ObjectId[];
+  id: string
+  textContent?: string;
+  mediaUrl?: string;
+  type?: string;
+  sender?: Types.ObjectId;
+  taggedPets?: Types.ObjectId[];
 }
 
 const messageSchema = new Schema<Message>(
@@ -25,11 +24,6 @@ const messageSchema = new Schema<Message>(
       enum: ['text', 'photo', 'video', 'walk'],
     },
     sender: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    receiver: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User',
