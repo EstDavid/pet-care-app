@@ -34,7 +34,6 @@ export default function MessageForm() {
       <Textarea
         placeholder="Type your message here."
         name="message"
-        defaultValue=""
         required
         value={textarea}
         onKeyDown={handleKeyDown}
