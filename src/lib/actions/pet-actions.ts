@@ -2,9 +2,8 @@
 import Pet from '@/lib/db/models/Pet';
 import {addPet} from '@/lib/db/controller/Pet';
 import {revalidatePath} from 'next/cache';
-import { Types } from 'mongoose';
-
-
+import {Types} from 'mongoose';
+import {redirect} from 'next/navigation';
 
 export async function createPet(formData: FormData) {
   const data = Object.fromEntries(formData.entries());
@@ -29,7 +28,7 @@ export async function createPet(formData: FormData) {
     microchip,
   } = data;
 
-  const newPet = new Pet ({
+  const newPet = new Pet({
     owner: new Types.ObjectId('65ba64b7c08954453b260011'),
     species: species?.toString(),
     name: name?.toString(),
@@ -53,11 +52,13 @@ export async function createPet(formData: FormData) {
   });
 
   try {
+    // Dougal: to check
     const savedPet = await addPet(newPet);
     console.log('savedPet', savedPet);
   } catch (error) {
     console.log('Error editing data', error);
     throw new Error('Failed to edit data.');
   }
-  revalidatePath('/dashboard/pet');
+  revalidatePath('/dashboard/pet/edit');
+  redirect(`/dashboard/pet/profile/${newPet.id}`);
 }

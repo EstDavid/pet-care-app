@@ -1,10 +1,10 @@
-import { revalidatePath } from 'next/cache';
+import {revalidatePath} from 'next/cache';
 
 ('use client');
 
-import { useState } from 'react';
-import UploadWidget from '../../../components/media-upload/upload-widget';
-import { getMediaUrl } from '@/lib/actions/pet-actions';
+import {useState} from 'react';
+import UploadWidget from '../../../components/upload-widget';
+import {getMediaUrl} from '@/lib/actions/pet-actions';
 
 // export type UploadResult = {
 //   info: {

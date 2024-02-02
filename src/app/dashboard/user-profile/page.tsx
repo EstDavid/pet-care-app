@@ -1,12 +1,12 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import UploadWidget from '@/components/media-upload/upload-widget';
-import { useState } from 'react';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import {Label} from '@/components/ui/label';
+import UploadWidget from '@/components/upload-widget';
+import {useState} from 'react';
 import createUser from '@/lib/actions/actions';
-import { Separator } from '@/components/ui/separator';
+import {Separator} from '@/components/ui/separator';
 import Image from 'next/image';
 
 export default function UserProfile() {

@@ -16,11 +16,10 @@ import {Button} from '@/components/ui/button';
 import {CardContent, Card, CardHeader, CardTitle} from '@/components/ui/card';
 import {Checkbox} from '@/components/ui/checkbox';
 import {Separator} from '@/components/ui/separator';
-import UploadWidget from '@/components/media-upload/upload-widget';
+import UploadWidget from '@/components/upload-widget';
 import {useState} from 'react';
 import Image from 'next/image';
 import {createPet} from '@/lib/actions/pet-actions';
-import {string} from 'zod';
 
 export function PetForm() {
   const [mediaUrl, setMediaUrl] = useState('');
@@ -28,19 +27,9 @@ export function PetForm() {
     setMediaUrl(result);
   };
 
-  // const url = new FormData();
-  // url.append('mediaUrl', mediaUrl);
-  // const createPetWithImg = createPet.bind(null, url);
-
-  // async function onCreate (formData: FormData, mediaUrl: string) {
-  //   const data = await createPet(formData, mediaUrl);
-  //   console.log(data, 'pet form data');
-  //  }
-
   return (
     <>
       <div className="flex flex-col items-center gap-4">
-        <h1 className="text-2xl text-brand-bg font-semibold">Your pet</h1>
         {mediaUrl ? (
           <Image
             src={mediaUrl}
