@@ -7,15 +7,25 @@ import { IMessage } from '@/lib/db/models/Message';
 import { User } from '@/lib/db/models/User';
 import postMessage from '@/lib/actions/chat-actions';
 import { getUserByClerkId } from '@/lib/db/controller/User';
-import { getConversationById } from '@/lib/db/controller/Conversation';
+import {
+  getConversationById,
+  getConversationByPair,
+} from '@/lib/db/controller/Conversation';
 import { notFound } from 'next/navigation';
 
 export default async function Chat({ params }: { params: { id: string } }) {
+  // userId --> clerkId
   const { userId }: { userId: string | null } = auth();
 
+  // retrieve conversationId from params
   const { id: conversationId } = params;
   const conversation = await getConversationById(conversationId);
-  const messages = conversation?.messages;
+  // const conversation2 = await getConversationByPair(conversationId);
+
+  let messages: IMessage[];
+  if (conversation) {
+    messages = conversation?.messages;
+  }
 
   let dbUser: User | undefined;
   // let messages: IMessage[] | undefined = [];
