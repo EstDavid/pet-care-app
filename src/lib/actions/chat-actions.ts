@@ -1,36 +1,27 @@
 'use server';
 import { revalidatePath } from 'next/cache';
 import Message from '@/lib/db/models/Message';
+import { postMessageToConversation } from '../db/controller/Conversation';
 
-export default async function postMessage(formData: FormData) {
+export default async function postMessage(
+  formData: FormData,
+  conversationId: string,
+  userId: string
+) {
   try {
-    // const firstname = formData.get('firstname')?.toString();
-    // const surname = formData.get('surname')?.toString();
-    // const phone = formData.get('mobileNumber')?.toString();
-    // const city = formData.get('city')?.toString();
-    // const street = formData.get('street')?.toString();
-    // const postcode = formData.get('postcode')?.toString();
-
-    // const newUser: User = {
-    //   firstname: firstname,
-    //   surname: surname,
-    //   contact: {
-    //     phone,
-    //     city,
-    //     street,
-    //     postcode,
-    //   },
-    // };
     const newMessage = new Message({
       textContent: formData.get('message') as string,
+      sender: userId,
     });
 
-    // const savedMessage = await CONTROLLERFUNCTION(newMessage);
-    const savedMessage = await newMessage.save();
+    const savedMessage = await postMessageToConversation(
+      conversationId,
+      newMessage
+    );
     console.log(savedMessage);
   } catch (error) {
     console.log(error);
   }
 
-  revalidatePath('/dashboard/chat');
+  revalidatePath(`/dashboard/chat/${conversationId}`);
 }
