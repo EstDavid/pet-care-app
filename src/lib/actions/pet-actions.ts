@@ -66,9 +66,9 @@ export async function createPet(formData: FormData) {
     console.log('savedPet', savedPet);
 } catch (error) {
   console.log('Error editing data', error);
-  throw new Error('Failed to edit data.');
+  // throw new Error('Failed to edit data.');
 }
-revalidatePath('/dashboard/pet/edit');
+// revalidatePath('/dashboard/pet/edit');
 redirect(`/dashboard/pet/profile/${newPet.id}`);
 
 }
