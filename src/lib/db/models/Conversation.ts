@@ -1,17 +1,17 @@
 import mongoose from 'mongoose';
 import { Model, Schema, Types } from 'mongoose';
-import { User as IUser } from './User'
-import { Message as IMessage} from './Message'
+import { User as IUser } from './User';
+import { IMessage } from './Message';
 
-export interface Conversation {
-  _id: Types.ObjectId
-  id: string
-  user1: IUser
-  user2: IUser
-  messages?:IMessage[]
+export interface IConversation {
+  _id: Types.ObjectId;
+  id: string;
+  user1: IUser;
+  user2: IUser;
+  messages?: IMessage[];
 }
 
-const conversationSchema = new Schema<Conversation>(
+const conversationSchema = new Schema<IConversation>(
   {
     user1: {
       type: Schema.Types.ObjectId,
@@ -29,8 +29,8 @@ const conversationSchema = new Schema<Conversation>(
     }]
 
   }
-)
+);
 
 const Conversation = (mongoose.models.Conversation ||
-  mongoose.model('Conversation', conversationSchema)) as Model<Conversation>;
+  mongoose.model('Conversation', conversationSchema)) as Model<IConversation>;
 export default Conversation;
