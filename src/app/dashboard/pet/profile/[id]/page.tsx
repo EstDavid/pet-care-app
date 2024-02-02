@@ -2,18 +2,14 @@ import PetProfile from '@/components/pet-profile';
 import {getPetById} from '@/lib/db/controller/Pet';
 import {notFound} from 'next/navigation';
 
-// Dougal to check
 export default async function Page({params}: {params: {id: string}}) {
-  // console.log(params.id);
 
   const petId = params.id;
-  const pet = await getPetById(petId);
-  const petProp = {
-    name: pet?.name,
-    age: pet?.age,
-    breed: pet?.breed,
-    url: pet?.pfpUrl
-  }
+  const rawPetData = await getPetById(petId);
+
+  // serializing the pet object to avoid circular structure error
+  const pet = JSON.parse(JSON.stringify(rawPetData));
+
   if (!pet) {
     notFound();
   }
@@ -22,8 +18,7 @@ export default async function Page({params}: {params: {id: string}}) {
       <h1 className="text-2xl text-brand-bg font-semibold text pb-5">
         Pet profile
       </h1>
-      <PetProfile pet={petProp}/>
-      {/* <PetProfile pet={pet}/> */}
+      <PetProfile pet={pet} />
     </div>
   );
 }
