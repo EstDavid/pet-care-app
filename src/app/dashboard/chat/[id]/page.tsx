@@ -1,41 +1,35 @@
 import { Card } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 
 import { auth } from '@clerk/nextjs';
 import { IMessage } from '@/lib/db/models/Message';
-import { User } from '@/lib/db/models/User';
 import postMessage from '@/lib/actions/chat-actions';
 import { getUserByClerkId } from '@/lib/db/controller/User';
-import {
-  getConversationById,
-  getConversationByPair,
-} from '@/lib/db/controller/Conversation';
+import { getConversationById } from '@/lib/db/controller/Conversation';
 import { notFound } from 'next/navigation';
+import MessageForm from '@/components/message-form';
 
 export default async function Chat({ params }: { params: { id: string } }) {
-  // userId --> clerkId
   const { userId }: { userId: string | null } = auth();
-
-  // retrieve conversationId from params
   const { id: conversationId } = params;
   const conversation = await getConversationById(conversationId);
-  // const conversation2 = await getConversationByPair(conversationId);
 
-  let messages: IMessage[];
-  if (conversation) {
-    messages = conversation?.messages;
+  if (!conversation || !userId) {
+    return notFound();
   }
 
-  let dbUser: User | undefined;
-  // let messages: IMessage[] | undefined = [];
+  const dbUser = await getUserByClerkId(userId);
 
-  if (userId) {
-    dbUser = await getUserByClerkId(userId);
-    // if (dbUser && dbUser._id)
-    // messages = await getUserMessages(dbUser._id.toString());
+  if (!dbUser || !dbUser._id) {
+    return notFound();
   }
-  if (!dbUser || !dbUser._id) return notFound();
+
+  const postNewMessage = postMessage.bind(
+    null,
+    conversationId,
+    dbUser._id.toString()
+  );
+
+  const { messages } = conversation;
 
   return (
     <div className="flex flex-col justify-between items-center">
@@ -57,7 +51,7 @@ export default async function Chat({ params }: { params: { id: string } }) {
                   <p className="text-xs text-right text-slate-400 leading-4">
                     {new Date(message.createdAt).toLocaleString([], {
                       hour: '2-digit',
-                      minute: '2-digit',
+                      minute: '2-digit'
                     })}
                   </p>
                 </Card>
@@ -66,17 +60,8 @@ export default async function Chat({ params }: { params: { id: string } }) {
           })}
       </div>
       <div className="grid w-full gap-2">
-        <form
-          action={(formData) =>
-            postMessage(formData, conversationId, dbUser._id.toString())
-          }
-        >
-          <Textarea
-            placeholder="Type your message here."
-            name="message"
-            required
-          />
-          <Button type="submit">Send message</Button>
+        <form action={postNewMessage}>
+          <MessageForm />
         </form>
       </div>
     </div>

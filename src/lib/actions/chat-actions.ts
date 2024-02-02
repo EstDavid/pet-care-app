@@ -3,25 +3,25 @@ import { revalidatePath } from 'next/cache';
 import Message from '@/lib/db/models/Message';
 import { postMessageToConversation } from '../db/controller/Conversation';
 
-export default async function postMessage(
-  formData: FormData,
+export default async function postMessage (
   conversationId: string,
-  userId: string
+  senderId: string,
+  formData: FormData
 ) {
+
   try {
     const newMessage = new Message({
       textContent: formData.get('message') as string,
-      sender: userId,
+      sender: senderId
     });
 
-    const savedMessage = await postMessageToConversation(
+    await postMessageToConversation(
       conversationId,
       newMessage
     );
-    console.log(savedMessage);
+
   } catch (error) {
     console.log(error);
   }
-
   revalidatePath(`/dashboard/chat/${conversationId}`);
 }

@@ -9,6 +9,7 @@ export interface IMessage {
   type?: string;
   sender?: Types.ObjectId;
   taggedPets?: Types.ObjectId[];
+  createdAt: string;
 }
 
 const messageSchema = new Schema<IMessage>(
