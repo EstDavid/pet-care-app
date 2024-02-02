@@ -13,6 +13,7 @@ import {Separator} from '@radix-ui/react-separator';
 import {getPetById} from '@/lib/db/controller/Pet';
 import {Pet} from '@/lib/db/models/Pet';
 
+// DOugal to check
 export default async function PetProfile({pet}: {pet: Pet}) {
   console.log(pet);
 
