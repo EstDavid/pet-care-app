@@ -15,9 +15,9 @@ import {Pet} from '@/lib/db/models/Pet';
 import Image from 'next/image';
 
 // DOugal to check
-export default function PetProfile({name, breed, age, url}: {name:string, breed:string, age:string, url:string}) {
+export default function PetProfile({pet}:Pet) {
 
-  console.log(name);
+  console.log(pet.name);
   ;
 
   return (
@@ -26,9 +26,9 @@ export default function PetProfile({name, breed, age, url}: {name:string, breed:
         <div>
           <Card className="w-[350px]">
             <CardHeader>
-              <CardTitle>{name}</CardTitle>
+              <CardTitle>{pet.name}</CardTitle>
               <div>
-                {url && <Image src={url} width={120} height={120} alt={`profile picture of ${name}`} />}
+                {pet.url && <Image src={pet.url} width={120} height={120} alt={`profile picture of ${pet.name}`} />}
               </div>
             </CardHeader>
             <CardContent>
@@ -37,10 +37,10 @@ export default function PetProfile({name, breed, age, url}: {name:string, breed:
                 <CardDescription>
                 </CardDescription>
                 <CardDescription>
-                  <span className="font-semibold">Breed:</span> {breed}
+                  <span className="font-semibold">Breed:</span> {pet.breed}
                 </CardDescription>
                 <CardDescription>
-                  <span className="font-semibold">Age:</span> {age}
+                  <span className="font-semibold">Age:</span> {pet.age}
                 </CardDescription>
               <Separator className="bg-brand-bg" />
               <h3 className="font-semibold">Health Information</h3>
