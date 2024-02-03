@@ -23,5 +23,5 @@ export default async function postMessage (
   } catch (error) {
     console.log(error);
   }
-  revalidatePath(`/dashboard/chat/${conversationId}`);
+  revalidatePath(`/chat/${conversationId}`);
 }

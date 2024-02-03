@@ -51,7 +51,7 @@ export default async function Page() {
             return (
               <Link
                 key={sitter._id.toString()}
-                href={`/dashboard/sitters/${sitter._id}`}
+                href={`/sitters/${sitter._id}`}
               >
                 <Card>
                   <CardHeader>
