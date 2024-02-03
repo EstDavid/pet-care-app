@@ -93,7 +93,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </div>
             {conversation ? (
               <Link
-                href={`/dashboard/chat/${conversation._id}`}
+                href={`/chat/${conversation._id}`}
                 className="flex items-center"
               >
                 <span>Get latest messages with {sitter.firstname}</span>

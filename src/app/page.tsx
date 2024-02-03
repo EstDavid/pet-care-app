@@ -13,7 +13,7 @@ export default function Home() {
         priority={true}
       ></Image>
       <h1 className="text-brand-fg text-3xl">Welcome to CADO</h1>
-      <Link className="text-brand-fg mt-3 text-2xl underline" href="/dashboard/chooseRole">
+      <Link className="text-brand-fg mt-3 text-2xl underline" href="/chooseRole">
         <div className="flex flex-col items-center">
           <IoMdPaw size="4em" />
           {'Tap here to begin'}
