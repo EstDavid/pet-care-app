@@ -5,18 +5,21 @@ import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Label} from '@/components/ui/label';
 import UploadWidget from '@/components/upload-widget';
 import {useState} from 'react';
-import createUser from '@/lib/actions/actions';
+import editUser from '@/lib/actions/actions';
 import {Separator} from '@/components/ui/separator';
 import Image from 'next/image';
+import { useUser } from '@clerk/nextjs';
 
 export default function UserProfile() {
   const [mediaUrl, setMediaUrl] = useState('');
+  const { isSignedIn, user } = useUser();
+  if(!isSignedIn) {
+    return null;
+  }
 
   const imgUploaded = (result: string) => {
     setMediaUrl(result);
   };
-
-  console.log(mediaUrl);
 
   return (
     <>
@@ -44,27 +47,15 @@ export default function UserProfile() {
               <CardTitle>Personal Information</CardTitle>
             </CardHeader>
             <CardContent>
-              <form action={createUser}>
+              <form action={editUser}>
                 <div className="grid w-full items-center gap-4">
                   {/* First Name */}
                   <div className="flex flex-col space-y-1.5">
-                    <Input
-                      id="firstname"
-                      name="firstname"
-                      placeholder="First Name"
-                      type="text"
-                      required
-                    />
+                 {user.firstName}
                   </div>
                   {/* Last Name */}
                   <div className="flex flex-col space-y-1.5">
-                    <Input
-                      id="surname"
-                      name="surname"
-                      placeholder="Surname"
-                      type="text"
-                      required
-                    />
+                    {user.lastName}
                   </div>
                   {/* <div className="grid w-full items-center gap-4"> */}
                   <div className="flex flex-col space-y-1.5">
