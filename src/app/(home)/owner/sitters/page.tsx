@@ -49,7 +49,7 @@ export default async function Page() {
         {sitters?.map((sitter, index) => {
           if (sitter._id) {
             return (
-              <Link key={sitter._id.toString()} href={`/sitters/${sitter._id}`}>
+              <Link key={sitter._id.toString()} href={`/owner/sitters/${sitter._id}`}>
                 <Card>
                   <CardHeader>
                     <div className="flex justify-between">
