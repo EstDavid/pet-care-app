@@ -1,20 +1,19 @@
 'use server';
-import { User } from '@/lib/db/models/User';
-import { addUser } from '@/lib/db/controller/User';
+import { User as IUser} from '@/lib/db/models/User';
+import {modifyUser } from '@/lib/db/controller/User';
 import { revalidatePath } from 'next/cache';
+import {currentUser } from '@clerk/nextjs/server';
 
-export default async function createUser(formData: FormData) {
+export default async function editUser(formData: FormData) {
   try {
-    const firstname = formData.get('firstname')?.toString();
-    const surname = formData.get('surname')?.toString();
     const phone = formData.get('mobileNumber')?.toString();
     const city = formData.get('city')?.toString();
     const street = formData.get('street')?.toString();
     const postcode = formData.get('postcode')?.toString();
 
-    const newUser: User = {
-      firstname: firstname,
-      surname: surname,
+    const clerkUser = await currentUser();
+    if (!clerkUser) throw new Error('auth error')
+    const updatedUser: IUser = {
       contact: {
         phone,
         city,
@@ -22,11 +21,11 @@ export default async function createUser(formData: FormData) {
         postcode,
       },
     };
-    const savedUser = await addUser(newUser);
+    const savedUser = await modifyUser(clerkUser?.id, updatedUser);
     console.log(savedUser);
   } catch (error) {
     console.log('Error editing data', error);
-    throw new Error('Failed to edit data.');
+    // throw new Error('Failed to edit data.');
   }
   revalidatePath('/dashboard/user-profile');
 }
