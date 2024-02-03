@@ -7,7 +7,9 @@ import { getUser } from '@/lib/utils';
 export default async function Home() {
   const user = await getUser();
 
-  const href = user ? '/dashboard' : 'chooseRole';
+  const href = user && user.role ? `/${user.role}/dashboard` : 'chooseRole';
+
+  const cta = user ? 'Go to Dashboard' : 'Tap here to begin';
 
   return (
     <section className="bg-brand-bg h-screen flex flex-col justify-center items-center">
@@ -21,7 +23,7 @@ export default async function Home() {
       <Link className="text-brand-fg mt-3 text-2xl underline" href={href}>
         <div className="flex flex-col items-center">
           <IoMdPaw size="4em" />
-          {'Tap here to begin'}
+          {cta}
         </div>
       </Link>
     </section>
