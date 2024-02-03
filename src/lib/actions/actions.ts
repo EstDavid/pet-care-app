@@ -27,5 +27,5 @@ export default async function editUser(formData: FormData) {
     console.log('Error editing data', error);
     // throw new Error('Failed to edit data.');
   }
-  revalidatePath('/dashboard/user-profile');
+  revalidatePath('/user-profile');
 }

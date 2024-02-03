@@ -13,12 +13,12 @@ export default function Footer() {
     },
     {
       name: 'Sitters',
-      href: 'dashboard/sitters',
+      href: 'sitters',
       icon: <HiUsers size="2em" />
     },
     {
       name: 'Settings',
-      href: 'dashboard/user-profile',
+      href: 'user-profile',
       icon: <CiSettings size="2em" />
     }
   ];

@@ -97,7 +97,7 @@ export default function Page() {
               <CardTitle>Complete Your Profile</CardTitle>
             </CardHeader>
             <CardContent>
-              <Link href="/dashboard/user-profile">
+              <Link href="/user-profile">
                 <Button>Manage Profile</Button>
               </Link>
             </CardContent>
@@ -111,7 +111,7 @@ export default function Page() {
               <CardTitle>You haven’t added any Pet yet</CardTitle>
             </CardHeader>
             <CardContent>
-              <Link href="/dashboard/pet/edit">
+              <Link href="/pet/edit">
                 <Button>Add Pet</Button>
               </Link>
             </CardContent>
