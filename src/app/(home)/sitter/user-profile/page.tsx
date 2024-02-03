@@ -24,7 +24,7 @@ export default function UserProfile() {
   return (
     <>
       <div className="flex flex-col items-center gap-4">
-        <h1>Account Settings</h1>
+        <h1>!!! SITTER Account Settings</h1>
         {mediaUrl ? (
           <Image
             src={mediaUrl}
