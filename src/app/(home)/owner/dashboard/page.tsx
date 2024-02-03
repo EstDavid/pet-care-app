@@ -97,7 +97,7 @@ export default function Page() {
               <CardTitle>Complete Your Profile</CardTitle>
             </CardHeader>
             <CardContent>
-              <Link href="/user-profile">
+              <Link href="/owner/user-profile">
                 <Button>Manage Profile</Button>
               </Link>
             </CardContent>
