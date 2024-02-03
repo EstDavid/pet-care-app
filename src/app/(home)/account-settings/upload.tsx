@@ -4,7 +4,6 @@ import {revalidatePath} from 'next/cache';
 
 import {useState} from 'react';
 import UploadWidget from '../../../components/upload-widget';
-import {getMediaUrl} from '@/lib/actions/pet-actions';
 
 // export type UploadResult = {
 //   info: {
@@ -23,7 +22,7 @@ export default function MediaUpload() {
     console.log('finally');
     setMediaUrl(result);
     alert('ready bitch');
-    getMediaUrl(result);
+    // getMediaUrl(result);
 
     revalidatePath('/account-settings');
   };

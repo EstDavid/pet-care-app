@@ -32,6 +32,6 @@ export default async function createConversationWithSitter (
   const conversation = await addConversationToDatabase(userId, sitterId);
 
   if (conversation) {
-    return redirect(`/dashboard/chat/${conversation?._id}`);
+    return redirect(`/chat/${conversation?._id}`);
   }
 }
