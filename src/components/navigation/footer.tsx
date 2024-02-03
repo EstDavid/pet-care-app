@@ -12,7 +12,7 @@ export default async function Footer() {
   const clerkUser = await currentUser();
   const clerkUserId = clerkUser?.id;
   const role = await checkUserRole(clerkUserId || '');
-  console.log(role);
+
 
   let navLinks: {name: string; href: string; icon: JSX.Element}[] = [];
   if (role === 'owner') {
@@ -41,7 +41,7 @@ export default async function Footer() {
         icon: <GoHomeFill size="2em" />,
       },
       {
-        name: '?',
+        name: '??',
         href: 'sitter/dashboard',
         icon: <HiUsers size="2em" />,
       },
