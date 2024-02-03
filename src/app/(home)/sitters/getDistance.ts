@@ -3,7 +3,7 @@ type Loc = {
   long: number
 }
 
-export default function distance(location1:Loc, location2:Loc) {
+export default function getDistance(location1:Loc, location2:Loc) {
   const R = 6371;
 const φ1 = location1.lat * Math.PI/180; // φ, λ in radians
 const φ2 = location2.lat * Math.PI/180;
