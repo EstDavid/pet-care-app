@@ -7,7 +7,9 @@ import { getUser } from '@/lib/utils';
 export default async function Home() {
   const user = await getUser();
 
-  const href = user && user.role ? `/${user.role}/dashboard` : 'chooseRole';
+  console.log(user, 'user in the database');
+
+  const href = user && user.role ? `/${user.role}/dashboard` : '/chooseRole';
 
   const cta = user ? 'Go to Dashboard' : 'Tap here to begin';
 
