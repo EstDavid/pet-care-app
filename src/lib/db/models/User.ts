@@ -7,6 +7,7 @@ interface Contact {
   street?: string;
   city?: string;
   postcode?: string;
+  country?: string;
   location?: {
     lat: Number;
     long: Number;
@@ -24,6 +25,9 @@ const contactSchema = new mongoose.Schema<Contact>({
     type: String,
   },
   city: {
+    type: String,
+  },
+  country: {
     type: String,
   },
   postcode: {

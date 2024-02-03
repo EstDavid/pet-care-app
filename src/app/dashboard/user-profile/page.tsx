@@ -76,6 +76,7 @@ export default function UserProfile() {
                     <Input name="street" placeholder="Street" />
                     <Input name="city" placeholder="City" />
                     <Input name="postcode" placeholder="Postcode" />
+                    <Input name="country" placeholder="Country" />
                   </div>
                   {/* </div> */}
                   <Button variant="outline" type="submit">
