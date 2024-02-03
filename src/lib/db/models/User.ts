@@ -78,6 +78,7 @@ const userSchema = new mongoose.Schema<User>(
       type: String,
       enum: ['owner', 'sitter'],
     },
+    // profile picture url
     pfpUrl: {
       type: String,
     },

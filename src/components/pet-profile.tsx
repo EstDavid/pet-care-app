@@ -16,6 +16,7 @@ import Link from 'next/link';
 export default function PetProfile({pet}: {pet: Pet}) {
 
   const sprayed = pet.sprayed ? 'Yes' : 'No';
+  const user = 'owner';
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -92,6 +93,14 @@ export default function PetProfile({pet}: {pet: Pet}) {
             {pet.microchip}
           </CardDescription>
           <div className="flex flex-col space-y-1.5"></div>
+          {user === 'owner' && (
+            <CardFooter>
+              <Link href={`/pet/edit/${pet.id}`}>
+                <Button className="bg-brand-cta text-white" type="button">
+                  Edit Pet
+                </Button>
+              </Link>
+            </CardFooter>)}
           <Link href="/dashboard">
             <Button className="bg-brand-cta text-white" type="button">
               Go Back
