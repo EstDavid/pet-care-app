@@ -1,9 +1,9 @@
 'use client';
 
-import { CldUploadButton, CldUploadWidgetResults } from 'next-cloudinary';
-import { CldUploadWidget } from 'next-cloudinary';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import {CldUploadButton, CldUploadWidgetResults} from 'next-cloudinary';
+import {CldUploadWidget} from 'next-cloudinary';
+import {useState} from 'react';
+import {Button} from '@/components/ui/button';
 
 export type UploadResult = {
   info: {
@@ -16,7 +16,7 @@ type Props = {
   onUploadedSuccess: (mediaUrl: string) => void;
 };
 
-export default function UploadWidget({ onUploadedSuccess }: Props) {
+export default function UploadWidget({onUploadedSuccess}: Props) {
   return (
     <CldUploadWidget
       uploadPreset="n7j1dejh"
@@ -33,14 +33,14 @@ export default function UploadWidget({ onUploadedSuccess }: Props) {
         onUploadedSuccess(result.info?.secure_url);
       }}
     >
-      {({ open }) => {
+      {({open}) => {
         function handleOnClick() {
           open();
         }
         return (
           <Button
-            className="bg-brand-cta text-white"
-            variant="outline"
+            // className="bg-brand-cta text-white"
+            variant="default"
             onClick={handleOnClick}
           >
             Upload an Image
