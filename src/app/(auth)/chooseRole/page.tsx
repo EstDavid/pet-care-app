@@ -24,6 +24,8 @@ export default async function ChooseRole() {
       surname: user.lastName
     };
     let result = await createUserByClerkId(newUser);
+  } else if (dbUser && dbUser.role) {
+    redirect(`/${dbUser.role}/dashboard`);
   }
 
   if (!user?.id) {
