@@ -1,5 +1,4 @@
-'use server';
-import { currentUser, auth } from '@clerk/nextjs';
+import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import {
   createUserByClerkId,

@@ -2,12 +2,10 @@ import Image from 'next/image';
 import logo from '@/../public/logo.png';
 import Link from 'next/link';
 import { IoMdPaw } from 'react-icons/io';
-import { getUser } from '@/lib/utils';
+import { getUser } from '@/lib/serverHelpers';
 
 export default async function Home() {
   const user = await getUser();
-
-  console.log(user, 'user in the database');
 
   const href = user && user.role ? `/${user.role}/dashboard` : '/chooseRole';
 
