@@ -2,14 +2,10 @@ import Image from 'next/image';
 import logo from '@/../public/logo.png';
 import Link from 'next/link';
 import { IoMdPaw } from 'react-icons/io';
-import { getUser } from '@/lib/serverHelpers';
 
-export default async function Home() {
-  const user = await getUser();
-
-  const href = user && user.role ? `/${user.role}/dashboard` : '/chooseRole';
-
-  const cta = user ? 'Go to Dashboard' : 'Tap here to begin';
+export default function Home() {
+  const href = '/chooseRole';
+  const cta = 'Tap here to begin';
 
   return (
     <section className="bg-brand-bg h-screen flex flex-col justify-center items-center">

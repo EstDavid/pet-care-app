@@ -44,9 +44,10 @@ export default async function ChooseRole() {
           src={logo}
           priority={true}
         ></Image>
-        <h1 className="text-brand-fg-100 bg-brand-bg-600 text-2xl font-bold text-center py-5 rounded-xl">
-          Hello {user?.firstName}! Are you an owner or a pet sitter?
-        </h1>
+        <div className="w-full text-brand-fg-50 bg-brand-bg-300 text-2xl font-bold text-center py-3 shadow-lg rounded-md leading-loose">
+          <h1>Hello {user?.firstName}!</h1>
+          <h1>Choose a role</h1>
+        </div>
         <div className="w-full flex gap-4">
           <form action={selectOwner}>
             <RoleButton title="Owner" photo={photoOwner} />
