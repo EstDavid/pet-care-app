@@ -10,24 +10,37 @@ import {
 
 interface NotificationsProps {
   notification: string;
+  newNotification: boolean;
+  notificationContent: string;
 }
 
-const Notifications: React.FC<NotificationsProps> = ({ notification }) => {
+const Notifications: React.FC<NotificationsProps> = ({
+  notification,
+  newNotification,
+  notificationContent,
+}: NotificationsProps) => {
   return (
     <div>
       <Card>
         <CardHeader>
           <CardTitle>{notification}</CardTitle>
           <CardDescription>
-            <div className="relative flex items-center justify-center mt-4"></div>
+            <p className="relative flex items-center justify-center mt-4"></p>
+            {newNotification ? (
+              <CardDescription>
+                {notificationContent}
+                <Button className="w-1/2 mt-4" variant="secondary">
+                  Go to Chat
+                </Button>
+              </CardDescription>
+            ) : (
+              <p className="font-regular">
+                Notifications should appear here when you have new ones
+                {/* <span className="font-normal">complete</span> */}
+              </p>
+            )}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <p className="font-bold">
-            Notifications should appear here when you have new ones
-            {/* <span className="font-normal">complete</span> */}
-          </p>
-        </CardContent>
       </Card>
     </div>
   );

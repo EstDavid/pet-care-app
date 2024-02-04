@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 interface AddPetProps {
   petAdded: boolean;
@@ -22,7 +23,9 @@ const AddPet = ({ petAdded }: AddPetProps) => (
       )}
     </CardHeader>
     <CardContent>
-      <Button>Add Pet</Button>
+      <Link href="/pet/edit">
+        <Button>Add Pet</Button>
+      </Link>
     </CardContent>
   </Card>
 );

@@ -62,4 +62,20 @@ export async function getStaysForPet(
     return []; // Return an empty array in case of any error
   }
 }
+
+export async function isPetInStay(
+  petId: string,
+  stayId: string
+): Promise<boolean> {
+  await dbConnect();
+
+  try {
+    const stay = await Stay.findOne({ _id: stayId });
+    if (!stay) return false;
+    return stay.pet.includes(petId);
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
 // Added by Alaa Ends here

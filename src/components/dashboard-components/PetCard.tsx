@@ -11,13 +11,23 @@ import {
 import Image from "next/image";
 import dogDummyImg from "@/../public/dogDummy.png";
 import catDummyImg from "@/../public/catDummy.png";
+import Link from "next/link";
 
 interface PetCardProps {
-  petIsHome: boolean;
+  petId: string;
   petName: string;
+  petImage: string;
+  petIsHome: boolean;
+  petType: string;
 }
 
-function PetCard({ petName, petImage, petIsHome, petType }: PetCardProps) {
+function PetCard({
+  petId,
+  petName,
+  petImage,
+  petIsHome,
+  petType,
+}: PetCardProps) {
   const getPetImageUrl = () => {
     if (petImage) {
       return petImage;
@@ -52,7 +62,9 @@ function PetCard({ petName, petImage, petIsHome, petType }: PetCardProps) {
             {petIsHome ? (
               <>
                 <Button className="w-60">Find sitter for {petName}</Button>
-                <Button className="w-60">Preview {petName} Info</Button>
+                <Link href={`/pet/profile/${petId}`} passHref>
+                  <Button className="w-60">Preview {petName} Info</Button>
+                </Link>
               </>
             ) : (
               <>
