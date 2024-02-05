@@ -3,49 +3,55 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Textarea} from '@/components/ui/textarea';
-import {Label} from '@/components/ui/label';
 import {Checkbox} from '@/components/ui/checkbox';
 import UploadWidget from '@/components/upload-widget';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import editUser from '@/lib/actions/user-actions';
 import {Separator} from '@/components/ui/separator';
 import Image from 'next/image';
 import {useUser} from '@clerk/nextjs';
 import {User} from '@/lib/db/models/User';
-import dbConnect from '@/lib/db/dbConnect';
 
+// rename user received from the server component to dbUser because Clerk's useUser hook uses user
 export default function UserForm({user: dbUser}: {user: User}) {
   const [imageUrl, setImageUrl] = useState('');
+  const [newImgUploaded, setNewImgUploaded] = useState(false);
   const {isLoaded, isSignedIn, user} = useUser();
   if (!isLoaded || !isSignedIn) {
     return null;
   }
 
+  // upload widget callback
   const imgUploaded = (result: string) => {
     setImageUrl(result);
+    setNewImgUploaded(true);
   };
 
-  const editUserWithImg = editUser.bind(null, imageUrl);
+  // use url from the DB or the newly uploaded one
+  const imgSrc = newImgUploaded ? imageUrl : dbUser.pfpUrl || imageUrl;
+  // edit user with the actual url
+  const editUserWithImg = editUser.bind(null, imgSrc);
 
   return (
     <div className="flex flex-col items-center gap-4 relative">
-      {imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt="User Picture"
-          // width={120}
-          // height={120}
-          fill={true}
-          className="rounded-md w-[120px] h-[120px] bg-white"
-          style={{
-            objectFit: 'cover',
-          }}
-        ></Image>
-      ) : (
-        <div className="w-[120px] h-[120px] bg-white text-center rounded-md flex items-center">
-          Please add your photo
-        </div>
-      )}
+      <div className="relative w-[120px] h-[120px]">
+        {imgSrc ? (
+          <Image
+            src={imgSrc}
+            alt="User Picture"
+            fill={true}
+            sizes="120px"
+            priority={true}
+            style={{
+              objectFit: 'cover',
+            }}
+          ></Image>
+        ) : (
+          <div className="w-[120px] h-[120px] bg-white text-center rounded-md flex items-center">
+            Please add your photo
+          </div>
+        )}
+      </div>
 
       <UploadWidget onUploadedSuccess={imgUploaded} />
       <Card className="w-[350px]">

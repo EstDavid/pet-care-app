@@ -14,18 +14,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
+  console.log('pet profile', pet);
+  console.log('id', pet._id);
   return (
     <div className="flex flex-col items-center gap-4">
       <Card className="w-[350px]">
         <CardHeader className="flex flex-row items-center justify-around">
-          {pet.pfpUrl && (
-            <Image
-              src={pet.pfpUrl}
-              width={120}
-              height={120}
-              alt={`profile picture of ${pet.name}`}
-            />
-          )}
+          <div className="relative w-[120px] h-[120px]">
+            {pet.pfpUrl && (
+              <Image
+                src={pet.pfpUrl}
+                alt={`profile picture of ${pet.name}`}
+                fill={true}
+                sizes="120px"
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            )}
+          </div>
           <CardTitle className="text-2xl">{pet.name}</CardTitle>
         </CardHeader>
         <CardContent className="grid w-full items-center gap-4">
@@ -72,13 +79,14 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
             {pet.emergencyInstructions}
           </CardDescription>
           <CardDescription>
-            <span className="font-semibold">Vet Name:</span> {pet.vet.name}
+            <span className="font-semibold">Vet Name:</span> {pet.vet?.name}
           </CardDescription>
           <CardDescription>
-            <span className="font-semibold">Vet Number:</span> {pet.vet.phone}
+            <span className="font-semibold">Vet Number:</span> {pet.vet?.phone}
           </CardDescription>
           <CardDescription>
-            <span className="font-semibold">Vet Address:</span> {pet.vet.street}
+            <span className="font-semibold">Vet Address:</span>{' '}
+            {pet.vet?.street}
           </CardDescription>
           <CardDescription>
             <span className="font-semibold">Insurance Number:</span>{' '}
@@ -91,14 +99,14 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
           {role === 'owner' ? (
             <>
               <Button variant="default" type="button">
-                <Link href={`/pet/edit/${pet.id}`}>Edit pet</Link>
+                <Link href={`/pet/edit/${pet._id}`}>Edit pet</Link>
               </Button>
-              <Button variant="default" type="button">
+              <Button variant="outline" type="button">
                 <Link href="/owner/dashboard">Go back</Link>
               </Button>
             </>
           ) : (
-            <Button variant="default" type="button">
+            <Button variant="outline" type="button">
               <Link href="/sitter/dashboard">Go back</Link>
             </Button>
           )}

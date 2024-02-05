@@ -61,7 +61,6 @@ export async function createPet(imageUrl: string, formData: FormData) {
   try {
     const savedPet = await addPet(clerkUser.id, newPet);
     if (!savedPet) throw new Error('double oops');
-    console.log('savedPet', savedPet);
   } catch (error) {
     console.log('Error editing data', error);
     throw new Error('Failed to edit data.');

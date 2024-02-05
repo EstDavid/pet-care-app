@@ -44,25 +44,25 @@ const contactSchema = new mongoose.Schema<Contact>({
 });
 
 export interface Pet {
-  id: string;
-  _id: Types.ObjectId;
-  owner: Types.ObjectId;
-  species: string;
-  name: string;
-  age: string;
-  breed: string;
-  sex: string;
-  pfpUrl: string;
-  notes: string;
-  medication: string;
-  allergies: string;
-  vaccinations: string;
-  sprayed: boolean;
-  emergencyInstructions: string;
-  insurance: string;
-  microchip: string;
+  id?: string;
+  _id?: Types.ObjectId;
+  owner?: Types.ObjectId;
+  species?: string;
+  name?: string;
+  age?: string;
+  breed?: string;
+  sex?: string;
+  pfpUrl?: string;
+  notes?: string;
+  medication?: string;
+  allergies?: string;
+  vaccinations?: string;
+  sprayed?: boolean;
+  emergencyInstructions?: string;
+  insurance?: string;
+  microchip?: string;
   sitter?: Types.ObjectId;
-  vet: Contact;
+  vet?: Contact;
 }
 
 const petSchema = new Schema(
