@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Model, Schema, Types } from 'mongoose';
+import {Model, Schema, Types} from 'mongoose';
 
 interface Contact {
   phone?: string;
@@ -62,7 +62,10 @@ export interface User {
   sitsDogs?: boolean;
   sitsCats?: boolean;
   sitterDescription?: string;
-
+  maxPets?: string;
+  qualifications?: string;
+  firstAid?: string;
+  insuranceDetails?: string;
 }
 
 const userSchema = new mongoose.Schema<User>(
@@ -117,13 +120,25 @@ const userSchema = new mongoose.Schema<User>(
       type: contactSchema,
     },
     sitsDogs: {
-      type: Boolean
+      type: Boolean,
     },
     sitsCats: {
-      type: Boolean
+      type: Boolean,
     },
     sitterDescription: {
-      type: String
+      type: String,
+    },
+    qualifications: {
+      type: String,
+    },
+    firstAid: {
+      type: String,
+    },
+    insuranceDetails: {
+      type: String,
+    },
+    maxPets: {
+      type: String,
     },
 
   },

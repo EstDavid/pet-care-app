@@ -11,11 +11,13 @@ import editUser from '@/lib/actions/user-actions';
 import {Separator} from '@/components/ui/separator';
 import Image from 'next/image';
 import {useUser} from '@clerk/nextjs';
+import {User} from '@/lib/db/models/User';
+import dbConnect from '@/lib/db/dbConnect';
 
-export default function UserForm({role}: {role: string}) {
+export default function UserForm({user: dbUser}: {user: User}) {
   const [imageUrl, setImageUrl] = useState('');
-  const {isSignedIn, user} = useUser();
-  if (!isSignedIn) {
+  const {isLoaded, isSignedIn, user} = useUser();
+  if (!isLoaded || !isSignedIn) {
     return null;
   }
 
@@ -26,17 +28,21 @@ export default function UserForm({role}: {role: string}) {
   const editUserWithImg = editUser.bind(null, imageUrl);
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 relative">
       {imageUrl ? (
         <Image
           src={imageUrl}
-          width={120}
-          height={120}
           alt="User Picture"
-          className="rounded-full mx-auto"
+          // width={120}
+          // height={120}
+          fill={true}
+          className="rounded-md w-[120px] h-[120px] bg-white"
+          style={{
+            objectFit: 'cover',
+          }}
         ></Image>
       ) : (
-        <div className="w-[120px] h-[120px] bg-white text-center rounded-full flex items-center">
+        <div className="w-[120px] h-[120px] bg-white text-center rounded-md flex items-center">
           Please add your photo
         </div>
       )}
@@ -49,12 +55,6 @@ export default function UserForm({role}: {role: string}) {
         <CardContent>
           <form action={editUserWithImg}>
             <div className="grid w-full items-center gap-4">
-              {/* <div className="flex flex-col space-y-1.5">
-                First name: {user.firstName}
-              </div> */}
-              {/* <div className="flex flex-col space-y-1.5">
-                Last name: {user.lastName}
-              </div> */}
               <Input value={user.firstName || ''} disabled />
               <Input value={user.lastName || ''} disabled />
               <Input
@@ -67,13 +67,32 @@ export default function UserForm({role}: {role: string}) {
                 name="mobileNumber"
                 placeholder="Mobile Number"
                 type="number"
+                defaultValue={dbUser.contact?.phone || ''}
               />
-              <Input name="street" placeholder="Street" />
-              <Input name="city" placeholder="City" />
-              <Input name="postcode" placeholder="Postcode" />
-              <Input name="country" placeholder="Country" />
+              <Input
+                name="street"
+                placeholder="Street"
+                defaultValue={dbUser.contact?.street || ''}
+              />
+              <Input
+                name="city"
+                placeholder="City"
+                defaultValue={dbUser.contact?.city || ''}
+              />
+              <Input
+                name="postcode"
+                placeholder="Postcode"
+                defaultValue={dbUser.contact?.postcode || ''}
+                required
+              />
+              <Input
+                name="country"
+                placeholder="Country"
+                defaultValue={dbUser.contact?.country || ''}
+                required
+              />
               {/* additional sitter specific fields */}
-              {role === 'sitter' && (
+              {dbUser.role === 'sitter' && (
                 <>
                   <Separator className="bg-brand-bg" />
                   <h3 className="font-semibold">Pet sitting</h3>
@@ -81,9 +100,14 @@ export default function UserForm({role}: {role: string}) {
                     className="min-h-[100px]"
                     name="sitterDescription"
                     placeholder="Please describe yourself and your experience with pets"
+                    defaultValue={dbUser.sitterDescription || ''}
                   />
                   <div className="flex items-center space-x-2">
-                    <Checkbox name="sitsDogs" value="true" />
+                    <Checkbox
+                      name="sitsDogs"
+                      value="true"
+                      defaultChecked={dbUser.sitsDogs || false}
+                    />
                     <label
                       htmlFor="sitsDogs"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -92,7 +116,11 @@ export default function UserForm({role}: {role: string}) {
                     </label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Checkbox name="sitsCats" value="true" />
+                    <Checkbox
+                      name="sitsCats"
+                      value="true"
+                      defaultChecked={dbUser.sitsCats || false}
+                    />
                     <label
                       htmlFor="sitsCats"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -104,12 +132,22 @@ export default function UserForm({role}: {role: string}) {
                     name="maxPets"
                     placeholder="Maximum pets you can look after"
                     type="number"
+                    defaultValue={dbUser.maxPets || ''}
                   />
-                  <Input name="qualifications" placeholder="Qualifications" />
-                  <Input name="first-aid" placeholder="First aid experience" />
+                  <Input
+                    name="qualifications"
+                    placeholder="Qualifications"
+                    defaultValue={dbUser.qualifications || ''}
+                  />
+                  <Input
+                    name="firstAid"
+                    placeholder="First aid experience"
+                    defaultValue={dbUser.firstAid || ''}
+                  />
                   <Input
                     name="insuranceDetails"
                     placeholder="Insurance details"
+                    defaultValue={dbUser.insuranceDetails || ''}
                   />
                 </>
               )}
