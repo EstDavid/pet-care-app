@@ -38,9 +38,7 @@ export async function getUserById(id: string): Promise<IUser | undefined> {
     console.error(e);
   }
 }
-export async function getUserByClerkId(
-  clerkID: string
-): Promise<IUser | undefined> {
+export async function getUserByClerkId(clerkID: string): Promise<IUser | undefined> {
   await dbConnect();
 
   try {
@@ -59,9 +57,7 @@ export async function getUserByClerkId(
   }
 }
 
-export async function checkUserRole(
-  clerkID: string
-): Promise<string | undefined> {
+export async function checkUserRole(clerkID: string): Promise<string | undefined> {
   await dbConnect();
 
   try {
@@ -77,9 +73,7 @@ export async function checkUserRole(
   }
 }
 
-export async function getPetsOwnedByUser(
-  clerkID: string
-): Promise<IPet[] | undefined> {
+export async function getPetsOwnedByUser(clerkID: string): Promise<IPet[] | undefined> {
   await dbConnect();
 
   try {
@@ -166,6 +160,29 @@ export async function getSitters(): Promise<IUser[] | undefined> {
     console.error(e);
   }
 }
+/** Finds 10 nearest sitters. Pass it the loc.coordinates of the current user.*/
+export async function getNearestSitters(coords:[number,number]): Promise<IUser[] | undefined> {
+  await dbConnect();
+
+  try {
+    const sitters = await User.find({
+      role: 'sitter',
+      "contact.loc":
+      {
+        $near:
+        {
+          $geometry: { type: "Point", coordinates: coords },
+          $maxDistance: 500000
+        }
+      }
+    }).limit(10);
+    if (!sitters) throw new Error('no sitters!');
+
+    return sitters;
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 export async function getUserMessages(
   id: string
@@ -186,6 +203,7 @@ export async function getUserMessages(
     console.error(e);
   }
 }
+
 
 export async function addUser(user: IUser): Promise<IUser | undefined> {
   await dbConnect();
@@ -212,7 +230,7 @@ export async function modifyUser(
 ): Promise<IUser | undefined> {
   await dbConnect();
   try {
-    let user = await User.findOneAndUpdate({clerkID}, newValues);
+    let user = await User.findOneAndUpdate({ clerkID }, newValues, { new: true });
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
     }

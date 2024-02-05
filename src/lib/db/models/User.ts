@@ -8,10 +8,10 @@ interface Contact {
   city?: string;
   postcode?: string;
   country?: string;
-  location?: {
-    lat: Number;
-    long: Number;
-  };
+  loc?:{
+    type:'Point';
+    coordinates:[number,number];
+  }
 }
 
 const contactSchema = new mongoose.Schema<Contact>({
@@ -33,14 +33,17 @@ const contactSchema = new mongoose.Schema<Contact>({
   postcode: {
     type: String,
   },
-  location: {
-    lat: {
-      type: Number,
+  loc: {
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      required: true
     },
-    long: {
-      type: Number,
-    },
-  },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  }
 });
 
 export interface User {
@@ -137,6 +140,7 @@ const userSchema = new mongoose.Schema<User>(
     maxPets: {
       type: String,
     },
+
   },
   {
     timestamps: true,
