@@ -8,6 +8,7 @@ export interface IMessage {
   mediaUrl?: string;
   type?: string;
   sender?: Types.ObjectId;
+  messageRead: boolean;
   taggedPets?: Types.ObjectId[];
   createdAt: string;
 }
@@ -28,6 +29,10 @@ const messageSchema = new Schema<IMessage>(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User',
+    },
+    messageRead: {
+      type: Boolean,
+      required: true
     },
     taggedPets: [
       {

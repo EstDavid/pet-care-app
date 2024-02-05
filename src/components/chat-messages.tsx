@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 export default function ChatMessages({
   messages: initialMessages,
   conversationId,
-  dbUser,
+  dbUser
 }: {
   messages: IMessage[];
   conversationId: string;
@@ -58,11 +58,13 @@ export default function ChatMessages({
         messages.map((message: IMessage, index) => (
           <div
             key={index}
-            className={`flex ${
+            className={`flex 
+            ${
               message.sender?.toString() === dbUser
                 ? 'justify-end'
                 : 'justify-start'
-            }`}
+            } 
+            ${index === 0 ? 'mt-[60px]' : ''}`}
             // Open modal when clicking on a message with mediaUrl
             onClick={() => message.mediaUrl && openMessageModal(message)}
           >
@@ -82,7 +84,7 @@ export default function ChatMessages({
                 <p className="text-[0.6rem] text-right text-slate-500 self-end w-full">
                   {new Date(message.createdAt).toLocaleString([], {
                     hour: '2-digit',
-                    minute: '2-digit',
+                    minute: '2-digit'
                   })}
                 </p>
               </div>
