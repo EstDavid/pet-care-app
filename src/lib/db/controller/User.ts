@@ -161,22 +161,22 @@ export async function getSitters(): Promise<IUser[] | undefined> {
     console.error(e);
   }
 }
-
+/** Finds 10 nearest sitters. Pass it the loc.coordinates of the current user.*/
 export async function getNearestSitters(coords:[number,number]): Promise<IUser[] | undefined> {
   await dbConnect();
 
   try {
     const sitters = await User.find({
-      // role: 'sitter',
+      role: 'sitter',
       "contact.loc":
       {
         $near:
         {
-          $geometry: { type: "Point", coordinates: [-5.142,50.19655] },
+          $geometry: { type: "Point", coordinates: coords },
           $maxDistance: 500000
         }
       }
-    });
+    }).limit(10);
     if (!sitters) throw new Error('no sitters!');
 
     return sitters;
