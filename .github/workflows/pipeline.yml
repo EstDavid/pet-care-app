@@ -2,7 +2,8 @@ name: Deployment pipeline
 
 on:
   pull_request:
-    branches: -main
+    branches:
+      - main
 
 env:
   MONGODB_URI: ${{secrets.DATABASE_REMOTE_TEST}}
