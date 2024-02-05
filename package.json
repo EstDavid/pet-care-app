@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "socket": "nodemon ./src/server.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.5",
