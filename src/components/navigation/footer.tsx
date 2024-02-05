@@ -29,7 +29,7 @@ export default async function Footer() {
       },
       {
         name: 'Settings',
-        href: 'owner/user-profile',
+        href: 'user-profile',
         icon: <CiSettings size="2em" />,
       },
     ];
@@ -47,7 +47,7 @@ export default async function Footer() {
       },
       {
         name: 'Settings',
-        href: 'sitter/user-profile',
+        href: 'user-profile',
         icon: <CiSettings size="2em" />,
       },
     ];

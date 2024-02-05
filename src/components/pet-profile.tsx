@@ -13,14 +13,11 @@ import {Pet} from '@/lib/db/models/Pet';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function PetProfile({pet, role}: {pet: Pet, role: string}) {
-  const sprayed = pet.sprayed ? 'Yes' : 'No';
-
+export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
   return (
     <div className="flex flex-col items-center gap-4">
       <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle className="text-xl">{pet.name}</CardTitle>
+        <CardHeader className="flex flex-row items-center justify-around">
           {pet.pfpUrl && (
             <Image
               src={pet.pfpUrl}
@@ -29,6 +26,7 @@ export default function PetProfile({pet, role}: {pet: Pet, role: string}) {
               alt={`profile picture of ${pet.name}`}
             />
           )}
+          <CardTitle className="text-2xl">{pet.name}</CardTitle>
         </CardHeader>
         <CardContent className="grid w-full items-center gap-4">
           <Separator className="bg-brand-bg" />
@@ -61,7 +59,8 @@ export default function PetProfile({pet, role}: {pet: Pet, role: string}) {
             {pet.vaccinations}
           </CardDescription>
           <CardDescription>
-            <span className="font-semibold">Sprayed/neutred:</span> {sprayed}
+            <span className="font-semibold">Sprayed/neutred:</span>{' '}
+            {pet.sprayed ? 'Yes' : 'No'}
           </CardDescription>
           <CardDescription>
             <span className="font-semibold">Behavior Notes:</span> {pet.notes}
@@ -92,18 +91,18 @@ export default function PetProfile({pet, role}: {pet: Pet, role: string}) {
           {role === 'owner' ? (
             <>
               <Button variant="default" type="button">
-                <Link href={`/pet/edit/${pet.id}`}>Edit Pet</Link>
+                <Link href={`/pet/edit/${pet.id}`}>Edit pet</Link>
               </Button>
               <Button variant="default" type="button">
-                <Link href="/owner/dashboard">Go Back</Link>
+                <Link href="/owner/dashboard">Go back</Link>
               </Button>
             </>
           ) : (
             <Button variant="default" type="button">
-              <Link href="/sitter/dashboard">Go Back</Link>
+              <Link href="/sitter/dashboard">Go back</Link>
             </Button>
           )}
-          </CardContent>
+        </CardContent>
       </Card>
     </div>
   );
