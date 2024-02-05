@@ -7,13 +7,22 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { getSitters } from '@/lib/db/controller/User';
+import { getNearestSitters, getSitters, getUserByClerkId } from '@/lib/db/controller/User';
+import { currentUser } from '@clerk/nextjs';
+import { User } from '@clerk/nextjs/server';
+import {User as IUser } from '../../../../lib/db/models/User'
 import Link from 'next/link';
 import { FaDog, FaCat } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 
 export default async function Page() {
+  const clerkUser = await currentUser() as User;
+  const user = await getUserByClerkId(clerkUser.id) as IUser
   const sitters = await getSitters();
+
+  const nearSitters = await getNearestSitters(user.contact.loc?.coordinates)
+  console.log('near sitters = ' + nearSitters);
+
 
   // BOILER PLATE STARTS HERE
   const pfpUrl = 'https://avatars.githubusercontent.com/u/114820366?v=4';

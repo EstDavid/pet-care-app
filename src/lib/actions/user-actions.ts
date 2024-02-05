@@ -18,13 +18,11 @@ async function getLatLong(addressString: string):Promise<number[]> {
   }
 
   const result = await res.json();
-  console.log(result);
-
   return [result[0].lon, result[0].lat]
 }
 
 export default async function editUser (imageUrl: string, formData: FormData) {
-  console.log('imageUrl', imageUrl)
+  // console.log('imageUrl', imageUrl)
   try {
     const pfpUrl = imageUrl;
     const phone = formData.get('mobileNumber')?.toString();
@@ -35,7 +33,7 @@ export default async function editUser (imageUrl: string, formData: FormData) {
 
     let coords = [0,0];
     if (postcode) coords = await getLatLong(`${postcode}+${country}`);
-    console.log('coords = ' +coords);
+    // console.log('coords = ' +coords);
 
     const clerkUser = await currentUser();
     if (!clerkUser) throw new Error('auth error');

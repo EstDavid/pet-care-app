@@ -5,7 +5,7 @@ import Stay from '../models/Stay';
 import Message, { IMessage } from '../models/Message';
 import mongoose, { Types } from 'mongoose';
 
-export async function getAllUsers (): Promise<IUser[] | undefined> {
+export async function getAllUsers(): Promise<IUser[] | undefined> {
   await dbConnect();
 
   try {
@@ -17,7 +17,7 @@ export async function getAllUsers (): Promise<IUser[] | undefined> {
   }
 }
 
-export async function getUserById (id: string): Promise<IUser | undefined> {
+export async function getUserById(id: string): Promise<IUser | undefined> {
   await dbConnect();
 
   try {
@@ -38,7 +38,7 @@ export async function getUserById (id: string): Promise<IUser | undefined> {
     console.error(e);
   }
 }
-export async function getUserByClerkId (clerkID: string): Promise<IUser | undefined> {
+export async function getUserByClerkId(clerkID: string): Promise<IUser | undefined> {
   await dbConnect();
 
   try {
@@ -57,7 +57,7 @@ export async function getUserByClerkId (clerkID: string): Promise<IUser | undefi
   }
 }
 
-export async function checkUserRole (clerkID: string): Promise<string | undefined> {
+export async function checkUserRole(clerkID: string): Promise<string | undefined> {
   await dbConnect();
 
   try {
@@ -73,7 +73,7 @@ export async function checkUserRole (clerkID: string): Promise<string | undefine
   }
 }
 
-export async function getPetsOwnedByUser (clerkID: string): Promise<IPet[] | undefined> {
+export async function getPetsOwnedByUser(clerkID: string): Promise<IPet[] | undefined> {
   await dbConnect();
 
   try {
@@ -94,7 +94,7 @@ export async function getPetsOwnedByUser (clerkID: string): Promise<IPet[] | und
   }
 }
 
-export async function createUserByClerkId ({
+export async function createUserByClerkId({
   clerkID,
   firstname,
   surname,
@@ -128,7 +128,7 @@ export async function createUserByClerkId ({
   }
 }
 
-export async function getPetsSatByUser (
+export async function getPetsSatByUser(
   id: string
 ): Promise<IPet[] | undefined> {
   await dbConnect();
@@ -149,7 +149,7 @@ export async function getPetsSatByUser (
   }
 }
 
-export async function getSitters (): Promise<IUser[] | undefined> {
+export async function getSitters(): Promise<IUser[] | undefined> {
   await dbConnect();
 
   try {
@@ -162,7 +162,30 @@ export async function getSitters (): Promise<IUser[] | undefined> {
   }
 }
 
-export async function getUserMessages (
+export async function getNearestSitters(coords:[number,number]): Promise<IUser[] | undefined> {
+  await dbConnect();
+
+  try {
+    const sitters = await User.find({
+      // role: 'sitter',
+      "contact.loc":
+      {
+        $near:
+        {
+          $geometry: { type: "Point", coordinates: [-5.142,50.19655] },
+          $maxDistance: 500000
+        }
+      }
+    });
+    if (!sitters) throw new Error('no sitters!');
+
+    return sitters;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function getUserMessages(
   id: string
 ): Promise<IMessage[] | undefined> {
   await dbConnect();
@@ -184,7 +207,7 @@ export async function getUserMessages (
 }
 
 
-export async function addUser (user: IUser): Promise<IUser | undefined> {
+export async function addUser(user: IUser): Promise<IUser | undefined> {
   await dbConnect();
   if (user.firstname === undefined || user.surname === undefined) {
     throw new Error('firstname and surname are required to create new user');
@@ -203,14 +226,13 @@ export async function addUser (user: IUser): Promise<IUser | undefined> {
   }
 }
 
-
-export async function modifyUser (
+export async function modifyUser(
   clerkID: string,
   newValues: IUser
 ): Promise<IUser | undefined> {
   await dbConnect();
   try {
-    let user = await User.findOneAndUpdate({ clerkID }, newValues, {new:true});
+    let user = await User.findOneAndUpdate({ clerkID }, newValues, { new: true });
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
     }
