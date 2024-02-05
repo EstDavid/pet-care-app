@@ -6,7 +6,7 @@ import {redirect} from 'next/navigation';
 import {currentUser} from '@clerk/nextjs';
 import {getUserByClerkId} from '../db/controller/User';
 
-export async function createPet(formData: FormData) {
+export async function createPet(imageUrl: string, formData: FormData) {
   const data = Object.fromEntries(formData.entries());
 
   const {
@@ -15,7 +15,6 @@ export async function createPet(formData: FormData) {
     age,
     breed,
     sex,
-    pfpUrl,
     medication,
     allergies,
     vaccinations,
@@ -43,7 +42,7 @@ export async function createPet(formData: FormData) {
     age: age?.toString(),
     breed: breed?.toString(),
     sex: sex?.toString(),
-    pfpUrl: pfpUrl?.toString(),
+    pfpUrl: imageUrl,
     medication: medication?.toString(),
     allergies: allergies?.toString(),
     vaccinations: vaccinations?.toString(),
@@ -60,13 +59,13 @@ export async function createPet(formData: FormData) {
   });
 
   try {
-    const savedPet = await addPet(clerkUser.id, newPet); //hi diana hopefully you see this
+    const savedPet = await addPet(clerkUser.id, newPet);
     if (!savedPet) throw new Error('double oops');
     console.log('savedPet', savedPet);
   } catch (error) {
     console.log('Error editing data', error);
     throw new Error('Failed to edit data.');
   }
-  // revalidatePath('/pet/edit');
+  revalidatePath('/pet/edit');
   redirect(`/pet/profile/${newPet.id}`);
 }

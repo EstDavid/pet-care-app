@@ -1,5 +1,4 @@
 'use client';
-
 import {Label} from '@/components/ui/label';
 import {Input} from '@/components/ui/input';
 import {
@@ -22,23 +21,30 @@ import Image from 'next/image';
 import {createPet} from '@/lib/actions/pet-actions';
 
 export function PetForm() {
-  const [mediaUrl, setMediaUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+
   const imgUploaded = (result: string) => {
-    setMediaUrl(result);
+    setImageUrl(result);
   };
 
+  const createPetWithImg = createPet.bind(null, imageUrl);
+
   return (
-    <div className="flex flex-col items-center gap-4">
-      {mediaUrl ? (
+    <div className="flex flex-col items-center gap-4 relative">
+      {imageUrl ? (
         <Image
-          src={mediaUrl}
+          src={imageUrl}
           width={120}
           height={120}
           alt="Your pet's picture"
-          className="rounded-full mx-auto"
+          // fill
+          style={{
+            objectFit: 'cover',
+          }}
+          className="rounded-md w-[120px] h-[120px] bg-white"
         ></Image>
       ) : (
-        <div className="w-[120px] h-[120px] bg-white text-center rounded-full flex items-center">
+        <div className="w-[120px] h-[120px] bg-white text-center rounded-md flex items-center">
           Please add your pet&apos;s photo
         </div>
       )}
@@ -50,9 +56,8 @@ export function PetForm() {
           <CardTitle>Basic Information</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={createPet}>
+          <form action={createPetWithImg}>
             <div className="grid w-full items-center gap-4">
-              <input type="hidden" name="pfpUrl" value={mediaUrl} />
               <div className="space-y-2">
                 <Select name="species" required>
                   <SelectTrigger aria-label="Species">
@@ -68,22 +73,13 @@ export function PetForm() {
                 </Select>
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Input
-                  name="name"
-                  placeholder="Name"
-                  type="text"
-                  required
-                />
+                <Input name="name" placeholder="Name" type="text" required />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Input name="age" placeholder="Age" type="number" />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Input
-                  name="breed"
-                  placeholder="Breed"
-                  type="text"
-                />
+                <Input name="breed" placeholder="Breed" type="text" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Select name="sex">
@@ -152,11 +148,7 @@ export function PetForm() {
                 />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Input
-                  name="vetName"
-                  placeholder="Vet Name"
-                  type="text"
-                />
+                <Input name="vetName" placeholder="Vet Name" type="text" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Input

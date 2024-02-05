@@ -31,9 +31,9 @@ export default function UserProfile({user: dbUser}: {user: User}) {
           {dbUser.pfpUrl && (
             <Image
               src={dbUser.pfpUrl}
+              alt={`profile picture of ${user.firstName}`}
               width={120}
               height={120}
-              alt={`profile picture of ${user.firstName}`}
             />
           )}
         </CardHeader>

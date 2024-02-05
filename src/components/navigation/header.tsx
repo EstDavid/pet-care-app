@@ -26,6 +26,10 @@ export default async function Header() {
               alt="user photo"
               src={imageUrl || ''}
               fill={true}
+              sizes='100px'
+              style={{
+                objectFit: 'cover',
+              }}
               className="rounded-full"
             ></Image>
           </div>
