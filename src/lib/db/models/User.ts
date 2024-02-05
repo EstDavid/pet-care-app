@@ -10,7 +10,7 @@ interface Contact {
   country?: string;
   loc?:{
     type:'Point';
-    coordinates:number[];
+    coordinates:[number,number];
   }
 }
 

@@ -60,6 +60,7 @@ export default async function editUser(imageUrl: string, formData: FormData) {
         city,
         street,
         postcode,
+        country,
         loc:{
           type:'Point',
           coordinates:coords
