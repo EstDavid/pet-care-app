@@ -23,7 +23,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   // user?.firstname && user?.surname && user?.contact && user?.role;
   // const notifications = await getNotifications(user?._id);
   const pets = (await getPetsOwnedByUser(userId)) || [];
-  const petAdded = pets ? true : false;
+  // const petAdded = pets ? true : false;
+  const petAdded = true;
 
   let notification = "You have no new notifications";
   let newNotification = true;
