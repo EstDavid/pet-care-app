@@ -18,8 +18,9 @@ async function getLatLong(addressString: string):Promise<number[]> {
   }
 
   const result = await res.json();
+  console.log(result);
 
-  return [result.lon, result.lat]
+  return [result[0].lon, result[0].lat]
 }
 
 export default async function editUser (imageUrl: string, formData: FormData) {
@@ -34,7 +35,7 @@ export default async function editUser (imageUrl: string, formData: FormData) {
 
     let coords = [0,0];
     if (postcode) coords = await getLatLong(`${postcode}+${country}`);
-    console.log(coords);
+    console.log('coords = ' +coords);
 
     const clerkUser = await currentUser();
     if (!clerkUser) throw new Error('auth error');
