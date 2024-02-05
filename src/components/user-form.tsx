@@ -28,17 +28,21 @@ export default function UserForm({user: dbUser}: {user: User}) {
   const editUserWithImg = editUser.bind(null, imageUrl);
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 relative">
       {imageUrl ? (
         <Image
           src={imageUrl}
-          width={120}
-          height={120}
           alt="User Picture"
-          className="rounded-full mx-auto"
+          // width={120}
+          // height={120}
+          fill={true}
+          className="rounded-md w-[120px] h-[120px] bg-white"
+          style={{
+            objectFit: 'cover',
+          }}
         ></Image>
       ) : (
-        <div className="w-[120px] h-[120px] bg-white text-center rounded-full flex items-center">
+        <div className="w-[120px] h-[120px] bg-white text-center rounded-md flex items-center">
           Please add your photo
         </div>
       )}
