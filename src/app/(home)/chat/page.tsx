@@ -30,26 +30,33 @@ export default async function Page() {
               ? conversation.user2
               : conversation.user1;
 
-          const unreadMessages =
-            conversation.messages.filter((message) => !message.messageRead)
-              .length > 0;
+          const unreadMessages = conversation.messages.filter(
+            (message) => !message.messageRead
+          ).length;
 
           return (
             <Link
               key={conversation._id.toString()}
               href={`/chat/${conversation._id}`}
             >
-              <Card className={`${unreadMessages ? 'bg-brand-fg-200' : ''}`}>
+              <Card>
                 <div className="flex justify-between items-center p-2 h-auto w-full">
-                  <Image
-                    src={receiver.pfpUrl || ''}
-                    alt={receiver.firstname || 'User photo'}
-                    width={0}
-                    height={0}
-                    sizes="100vh"
-                    className="w-[60px] h-[60px] object-cover rounded-full"
-                  />
-                  <h3>{`${receiver.firstname} ${receiver.surname}`}</h3>
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={receiver.pfpUrl || ''}
+                      alt={receiver.firstname || 'User photo'}
+                      width={0}
+                      height={0}
+                      sizes="100vh"
+                      className="w-[60px] h-[60px] object-cover rounded-full"
+                    />
+                    <h3 className="text-xl text-brand-bg-600">{`${receiver.firstname} ${receiver.surname}`}</h3>
+                  </div>
+                  {unreadMessages > 0 ? (
+                    <div className="w-[40px] h-[40px] bg-brand-bg-400 text-brand-fg-50 flex justify-center items-center rounded-full text-xl leading-9 pt-1">
+                      <p>{unreadMessages}</p>
+                    </div>
+                  ) : null}
                 </div>
               </Card>
             </Link>

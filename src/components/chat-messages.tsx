@@ -58,11 +58,13 @@ export default function ChatMessages({
         messages.map((message: IMessage, index) => (
           <div
             key={index}
-            className={`flex ${
+            className={`flex 
+            ${
               message.sender?.toString() === dbUser
                 ? 'justify-end'
                 : 'justify-start'
-            }`}
+            } 
+            ${index === 0 ? 'mt-[60px]' : ''}`}
             // Open modal when clicking on a message with mediaUrl
             onClick={() => message.mediaUrl && openMessageModal(message)}
           >
