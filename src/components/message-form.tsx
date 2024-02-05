@@ -13,7 +13,7 @@ socket = io('http://localhost:3001');
 
 export default function MessageForm({
   conversationId,
-  dbUser,
+  dbUser
 }: {
   conversationId: string;
   dbUser: string;
@@ -28,7 +28,7 @@ export default function MessageForm({
       textContent: '',
       createdAt: new Date().toISOString(),
       sender: dbUser,
-      mediaUrl: result,
+      mediaUrl: result
     };
     socket.emit('send_msg', newMessage, conversationId);
     postImage(conversationId, dbUser, result);
@@ -44,7 +44,7 @@ export default function MessageForm({
     const newMessage = {
       textContent: textarea,
       createdAt: new Date().toISOString(),
-      sender: dbUser,
+      sender: dbUser
     };
     socket.emit('send_msg', newMessage, conversationId);
     setTextarea('');
@@ -60,14 +60,13 @@ export default function MessageForm({
   };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    // TODO not possible to delete last character
-    if (event.target && event.target.value) {
+    if (event.target) {
       setTextarea(event.target.value);
     }
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <Textarea
         placeholder="Type your message here."
         name="message"
@@ -77,10 +76,12 @@ export default function MessageForm({
         onChange={handleChange}
         className="bg-white"
       />
-      <Button onClick={handleSubmit} disabled={textarea === ''}>
-        Send message
-      </Button>
-      <UploadWidget onUploadedSuccess={handleImageUpload} />
+      <div className="flex justify-between">
+        <Button onClick={handleSubmit} disabled={textarea === ''}>
+          Send message
+        </Button>
+        <UploadWidget onUploadedSuccess={handleImageUpload} />
+      </div>
     </div>
   );
 }

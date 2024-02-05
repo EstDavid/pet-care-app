@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 export default function ChatMessages({
   messages: initialMessages,
   conversationId,
-  dbUser,
+  dbUser
 }: {
   messages: IMessage[];
   conversationId: string;
@@ -82,7 +82,7 @@ export default function ChatMessages({
                 <p className="text-[0.6rem] text-right text-slate-500 self-end w-full">
                   {new Date(message.createdAt).toLocaleString([], {
                     hour: '2-digit',
-                    minute: '2-digit',
+                    minute: '2-digit'
                   })}
                 </p>
               </div>
