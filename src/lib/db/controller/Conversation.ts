@@ -1,7 +1,9 @@
 import dbConnect from '../dbConnect';
 import Message, { IMessage } from '../models/Message';
-import mongoose from 'mongoose';
+import mongoose, { UpdateWriteOpResult } from 'mongoose';
 import Conversation, { IConversation } from '../models/Conversation';
+import { Schema } from 'zod';
+import User from '../models/User';
 
 export async function getConversationById (id: string): Promise<IConversation | undefined> {
   await dbConnect();
@@ -98,27 +100,64 @@ export async function deleteMessageFromConversation (id: string, message: IMessa
   }
 }
 
-export async function getUnreadMessages (userId: string) {
+export async function getConversationsByUser (userId: Object) {
   try {
     const messages = await Conversation.find({
-      $or: [{ user1: userId }, { user2: userId }],
-    }).populate('messages');
-
-    console.log(messages);
-
-    // .where('messages').;
-
-    // const messages = await Conversation.findOneAndUpdate(
-    //   { _id: id },
-    //   { $pull: { messages: message._id } },
-    //   { new: true }
-    // );
+      $or: [{ user1: userId }, { user2: userId }]
+    })
+      .populate({
+        path: 'user1',
+        model: User
+      })
+      .populate({
+        path: 'user2',
+        model: User
+      })
+      .populate({
+        path: 'messages',
+        model: Message
+      })
+      ;
 
     if (!messages) {
       throw new Error('Messages is undefined');
     }
 
     return messages;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getUnreadMessages (userId: Object) {
+  try {
+    const conversations = await Conversation.find({
+      $or: [{ user1: userId }, { user2: userId }]
+    })
+      .populate({
+        path: 'messages',
+        match: { messageRead: { $ne: true } },
+        model: Message
+      });
+
+    return conversations.filter(conversation => {
+      return conversation.messages.length > 0;
+    }).length;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function setReadMessages (messages: IMessage[]): Promise<boolean | undefined> {
+  try {
+    const messagesIds = messages.map(message => message._id);
+
+    await Message.updateMany(
+      { _id: { $in: messagesIds } },
+      { messageRead: true },
+    );
+
+    return;
   } catch (error) {
     console.error(error);
   }

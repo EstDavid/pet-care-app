@@ -30,7 +30,10 @@ const messageSchema = new Schema<IMessage>(
       required: true,
       ref: 'User',
     },
-    messageRead: Boolean,
+    messageRead: {
+      type: Boolean,
+      required: true
+    },
     taggedPets: [
       {
         type: Schema.Types.ObjectId,
