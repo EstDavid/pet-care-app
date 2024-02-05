@@ -98,3 +98,29 @@ export async function deleteMessageFromConversation (id: string, message: IMessa
   }
 }
 
+export async function getUnreadMessages (userId: string) {
+  try {
+    const messages = await Conversation.find({
+      $or: [{ user1: userId }, { user2: userId }],
+    }).populate('messages');
+
+    console.log(messages);
+
+    // .where('messages').;
+
+    // const messages = await Conversation.findOneAndUpdate(
+    //   { _id: id },
+    //   { $pull: { messages: message._id } },
+    //   { new: true }
+    // );
+
+    if (!messages) {
+      throw new Error('Messages is undefined');
+    }
+
+    return messages;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
