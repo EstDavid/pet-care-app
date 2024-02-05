@@ -5,7 +5,7 @@ import {revalidatePath} from 'next/cache';
 import {currentUser} from '@clerk/nextjs/server';
 import {env} from 'process';
 
-async function getLatLong(addressString: string) {
+async function getLatLong(addressString: string):Promise<number[]> {
   const api = process.env.GEOCODE_KEY;
   const res = await fetch(
     `https://geocode.maps.co/search?q=${addressString}&api_key=${api}`
@@ -17,7 +17,9 @@ async function getLatLong(addressString: string) {
     throw new Error('Failed to fetch data');
   }
 
-  return res.json();
+  const result = await res.json();
+
+  return [result.lon, result.lat]
 }
 
 export default async function editUser (imageUrl: string, formData: FormData) {
@@ -30,9 +32,9 @@ export default async function editUser (imageUrl: string, formData: FormData) {
     const postcode = formData.get('postcode')?.toString();
     const country = formData.get('country')?.toString();
 
-    let location;
-    if (postcode) location = await getLatLong(`${postcode}+${country}`);
-    console.log(location);
+    let coords = [0,0];
+    if (postcode) coords = await getLatLong(`${postcode}+${country}`);
+    console.log(coords);
 
     const clerkUser = await currentUser();
     if (!clerkUser) throw new Error('auth error');
@@ -43,10 +45,14 @@ export default async function editUser (imageUrl: string, formData: FormData) {
         city,
         street,
         postcode,
-        location: {
-          lat: location[0].lat,
-          long: location[0].lon,
-        },
+        loc:{
+          type:'Point',
+          coordinates:coords
+        }
+        // location: {
+        //   lat: location[0].lat,
+        //   long: location[0].lon,
+        // },
       },
     };
     const savedUser = await modifyUser(clerkUser?.id, updatedUser);

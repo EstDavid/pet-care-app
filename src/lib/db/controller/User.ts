@@ -210,7 +210,7 @@ export async function modifyUser (
 ): Promise<IUser | undefined> {
   await dbConnect();
   try {
-    let user = await User.findOneAndUpdate({ clerkID }, newValues);
+    let user = await User.findOneAndUpdate({ clerkID }, newValues, {new:true});
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');
     }
