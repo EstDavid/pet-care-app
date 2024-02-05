@@ -3,7 +3,6 @@ import logo from '@/../public/logo.png';
 import Image from 'next/image';
 import {currentUser} from '@clerk/nextjs';
 import { getUserByClerkId } from '@/lib/db/controller/User';
-import userimg from '@/../public/mock-user-photo.jpg';
 
 export default async function Header() {
   const clerkUser = await currentUser();

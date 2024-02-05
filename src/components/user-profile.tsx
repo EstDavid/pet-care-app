@@ -14,9 +14,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {useUser} from '@clerk/nextjs';
 
-// renamed user received from the server component to dbUser because Clerk's useUser hook uses user
+// rename user received from the server component to dbUser because Clerk's useUser hook uses user
 export default function UserProfile({user: dbUser}: {user: User}) {
-  console.log('user profile:', dbUser);
   const {isLoaded, isSignedIn, user} = useUser();
 
   if (!isLoaded || !isSignedIn) {
@@ -28,14 +27,19 @@ export default function UserProfile({user: dbUser}: {user: User}) {
       <Card className="w-[350px]">
         <CardHeader className="flex flex-row items-center justify-around">
           <CardTitle className="text-xl">{user.firstName}</CardTitle>
-          {dbUser.pfpUrl && (
-            <Image
-              src={dbUser.pfpUrl}
-              alt={`profile picture of ${user.firstName}`}
-              width={120}
-              height={120}
-            />
-          )}
+          <div className="relative w-[120px] h-[120px]">
+            {dbUser.pfpUrl && (
+              <Image
+                src={dbUser.pfpUrl}
+                alt={`profile picture of ${user.firstName}`}
+                fill={true}
+                sizes="120px"
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            )}
+          </div>
         </CardHeader>
         <CardContent className="grid w-full items-center gap-4">
           <Separator className="bg-brand-bg" />
