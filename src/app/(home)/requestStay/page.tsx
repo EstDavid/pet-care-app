@@ -51,6 +51,12 @@ export default function RequestStay({
   //   to: date.to,
   // );
 
+  // Date is a object
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    console.log(typeof date?.from?.toLocaleDateString());
+  }
+
   return (
     <Drawer>
       <DrawerTrigger>Sitter1</DrawerTrigger>
@@ -63,7 +69,7 @@ export default function RequestStay({
               {/* Render Pet checkboxes */}
               <div className="flex gap-4">
                 {pets?.map((pet: any) => (
-                  <div className="flex gap-1">
+                  <div className="flex gap-1" key={pet._id}>
                     <Checkbox id={pet._id} name={pet._id} />
                     <label
                       htmlFor={pet._id}
@@ -86,20 +92,18 @@ export default function RequestStay({
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    <input>
-                      {date?.from ? (
-                        date.to ? (
-                          <>
-                            {format(date.from, 'LLL dd, y')} -{' '}
-                            {format(date.to, 'LLL dd, y')}
-                          </>
-                        ) : (
-                          format(date.from, 'LLL dd, y')
-                        )
+                    {date?.from ? (
+                      date.to ? (
+                        <>
+                          {format(date.from, 'LLL dd, y')} -{' '}
+                          {format(date.to, 'LLL dd, y')}
+                        </>
                       ) : (
-                        <span>Pick a date</span>
-                      )}
-                    </input>
+                        format(date.from, 'LLL dd, y')
+                      )
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -117,7 +121,7 @@ export default function RequestStay({
           </DrawerHeader>
           {/* Buttons */}
           <DrawerFooter>
-            <Button type="submit">Submit</Button>
+            <Button onClick={handleClick}>Submit</Button>
             <DrawerClose>
               <Button variant="outline" className="w-full">
                 Cancel
