@@ -2,19 +2,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import AddPet from "./AddPet";
+import { string } from "zod";
 
-// interface AccountReadyProps {
-//   percentage: number;
-//   profileComplete: boolean;
-//   petAdded: boolean;
-//   accountReady: boolean;
-// }
+interface AccountReadyProps {
+  percentage: number;
+  profileComplete: boolean;
+  petAdded: boolean;
+  accountReady: boolean;
+  userRole: string;
+}
 
 const AccountReady = ({
   percentage = 33,
   profileComplete = false,
   petAdded = false,
   accountReady = false,
+  userRole = "",
 }) => {
   return (
     <div className="flex flex-col text-center gap-y-4">
@@ -85,14 +88,14 @@ a 15.9155 15.9155 0 0 1 0 -31.831"
               <CardTitle>Complete Your Profile</CardTitle>
             </CardHeader>
             <CardContent>
-              <Link href="/dashboard/account-settings">
+              <Link href="/user-profile/edit">
                 <Button>Manage Profile</Button>
               </Link>
             </CardContent>
           </Card>
         </div>
       )}
-      {!petAdded && <AddPet petAdded={petAdded} />}
+      {!petAdded && userRole === "owner" && <AddPet petAdded={petAdded} />}
     </div>
   );
 };

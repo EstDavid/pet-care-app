@@ -63,16 +63,31 @@ export async function getStaysForPet(
   }
 }
 
-export async function isPetInStay(
-  petId: string,
-  stayId: string
-): Promise<boolean> {
+// Confirm Stay is Eneded
+export async function confirmStayIsEnded(stayId: string): Promise<boolean> {
   await dbConnect();
 
   try {
     const stay = await Stay.findOne({ _id: stayId });
     if (!stay) return false;
-    return stay.pet.includes(petId);
+    const today = new Date();
+    return today > stay.to;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
+
+// Check if isPetInStay by checking is stay is there and if stay not ended
+export async function isPetInStay(petId: string): Promise<boolean> {
+  await dbConnect();
+
+  try {
+    const stays = (await getStaysForPet(petId)) ?? []; // Add nullish coalescing operator to handle undefined stays
+    for (let stay of stays) {
+      if (!(await confirmStayIsEnded(stay._id.toString()))) return true;
+    }
+    return false;
   } catch (e) {
     console.error(e);
     return false;

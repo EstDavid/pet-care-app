@@ -34,7 +34,7 @@ export default async function Header() {
             ></Image>
           </div>
         </div>
-        <h1 className="text-brand-fg text-2xl flex-1 text-center">
+        <h1 className="text-brand-fg font-semibold flex-1 text-xl text-center">
           Hi {clerkName}!
         </h1>
         <div className="relative h-full flex-1 flex justify-end">

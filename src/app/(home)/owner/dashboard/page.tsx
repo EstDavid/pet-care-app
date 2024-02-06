@@ -1,5 +1,5 @@
 "use server";
-import { auth } from "@clerk/nextjs";
+import { UserButton, auth } from "@clerk/nextjs";
 import AccountReady from "@/components/dashboard-components/AccountReady";
 import AddPet from "@/components/dashboard-components/AddPet";
 import PetCard from "@/components/dashboard-components/PetCard";
@@ -13,18 +13,45 @@ import Notifications from "@/components/dashboard-components/Notifications";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
-
   if (!userId) {
     return null;
   }
 
   const user = await getUserByClerkId(userId);
-  const profileStatus = true;
-  // user?.firstname && user?.surname && user?.contact && user?.role;
+  const profileStatus =
+    user?.role &&
+    user?.firstname &&
+    user?.surname &&
+    user?.contact?.phone &&
+    user?.contact?.street &&
+    user?.contact?.city &&
+    user?.contact?.postcode &&
+    user?.contact?.country;
   // const notifications = await getNotifications(user?._id);
   const pets = (await getPetsOwnedByUser(userId)) || [];
-  // const petAdded = pets ? true : false;
-  const petAdded = true;
+  const petAdded = pets.length >= 1 ? true : false;
+  // const petAdded = true;
+  // let profileStatusMessage =
+  // if (!profileStatus) {
+  //   if(!user?.contact?.phone) {
+  //     return "Please add your phone number";
+  //     }
+  //   if(!user?.contact?.street) {
+  //     return "Please add your street";
+  //     }
+  //   if(!user?.contact?.city) {
+  //     return "Please add your city";
+  //     }
+  //   if(!user?.contact?.postcode) {
+  //     return "Please add your postcode";
+  //     }
+  //   if(!user?.contact?.country) {
+  //     return "Please add your country";
+  //     }
+  //   return "Please complete your profile";
+  // }
+
+  ("Please complete your profile");
 
   let notification = "You have no new notifications";
   let newNotification = true;
@@ -38,20 +65,20 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   let readyToUse = profileStatus && petAdded;
 
-  // Check if the pet is in a stay
-  const isInStay = async (petId: string) => {
+  // create a function that will Check if the pet is in a stay by calling the isPetInStay and passing the petId
+  async function isInStay(petId: string) {
     const currentDateTime = new Date();
-    const staying = await isPetInStay(petId, stayId); // Pass the stayId argument to the isPetInStay function
-    for (const stay of staying) {
+    const stays = (await getStaysForPet(petId)) || [];
+    for (const stay of stays) {
       if (
         new Date(stay.from) <= currentDateTime &&
         new Date(stay.to) >= currentDateTime
       ) {
-        return true;
+        return false;
       }
     }
-    return false;
-  };
+    return true;
+  }
 
   // const currentDateTime = new Date();
   // for (const pet of pets) {
@@ -93,11 +120,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           />
           {pets.map((pet) => (
             <PetCard
-              key={pet._id}
-              petId={pet._id}
+              key={pet._id.toString()}
+              petId={pet._id.toString()}
               petName={pet.name}
               petImage={pet.pfpUrl || handleNoPetImage(pet.species)}
-              petIsHome={isInStay(pet._id.toString())} // when testing for Group app ! to show both cases
+              petIsHome={isInStay(pet._id.toString())}
               petType={pet.species}
             />
           ))}

@@ -61,18 +61,18 @@ function PetCard({
           <CardContent className="flex flex-col justify-center items-center gap-2 h-24 mt-4">
             {petIsHome ? (
               <>
-                <Button className="w-60">Find sitter for {petName}</Button>
+                <Button className="w-52">Find sitter for {petName}</Button>
                 <Link href={`/pet/profile/${petId}`} passHref>
-                  <Button className="w-60">Preview {petName} Info</Button>
+                  <Button className="w-52">Preview {petName} Info</Button>
                 </Link>
               </>
             ) : (
               <>
-                <Button className="w-60">Check {petName} updates</Button>
-                <Button className="w-60">Contact {petName} Sitter</Button>
+                <Button className="w-52">Check {petName} updates</Button>
+                <Button className="w-52">Contact {petName} Sitter</Button>
               </>
             )}
-            <Button className="w-60">Stays</Button>
+            <Button className="w-52">Stays</Button>
           </CardContent>
         </CardContent>
       </Card>
