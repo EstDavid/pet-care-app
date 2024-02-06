@@ -1,22 +1,22 @@
-'use client';
-import {Button} from '@/components/ui/button';
-import {Input} from '@/components/ui/input';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Textarea} from '@/components/ui/textarea';
-import {Checkbox} from '@/components/ui/checkbox';
-import UploadWidget from '@/components/upload-widget';
-import {useState, useEffect} from 'react';
-import editUser from '@/lib/actions/user-actions';
-import {Separator} from '@/components/ui/separator';
-import Image from 'next/image';
-import {useUser} from '@clerk/nextjs';
-import {User} from '@/lib/db/models/User';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import UploadWidget from "@/components/upload-widget";
+import { useState, useEffect } from "react";
+import editUser from "@/lib/actions/user-actions";
+import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
+import { User } from "@/lib/db/models/User";
 
 // rename user received from the server component to dbUser because Clerk's useUser hook uses user
-export default function UserForm({user: dbUser}: {user: User}) {
-  const [imageUrl, setImageUrl] = useState('');
+export default function UserForm({ user: dbUser }: { user: User }) {
+  const [imageUrl, setImageUrl] = useState("");
   const [newImgUploaded, setNewImgUploaded] = useState(false);
-  const {isLoaded, isSignedIn, user} = useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
   if (!isLoaded || !isSignedIn) {
     return null;
   }
@@ -43,7 +43,7 @@ export default function UserForm({user: dbUser}: {user: User}) {
             sizes="120px"
             priority={true}
             style={{
-              objectFit: 'cover',
+              objectFit: "cover",
             }}
           ></Image>
         ) : (
@@ -61,10 +61,10 @@ export default function UserForm({user: dbUser}: {user: User}) {
         <CardContent>
           <form action={editUserWithImg}>
             <div className="grid w-full items-center gap-4">
-              <Input value={user.firstName || ''} disabled />
-              <Input value={user.lastName || ''} disabled />
+              <Input value={user.firstName || ""} disabled />
+              <Input value={user.lastName || ""} disabled />
               <Input
-                value={user.primaryEmailAddress?.emailAddress || ''}
+                value={user.primaryEmailAddress?.emailAddress || ""}
                 disabled
               />
               <Separator className="bg-brand-bg" />
@@ -73,32 +73,32 @@ export default function UserForm({user: dbUser}: {user: User}) {
                 name="mobileNumber"
                 placeholder="Mobile Number"
                 type="number"
-                defaultValue={dbUser.contact?.phone || ''}
+                defaultValue={dbUser.contact?.phone || ""}
               />
               <Input
                 name="street"
                 placeholder="Street"
-                defaultValue={dbUser.contact?.street || ''}
+                defaultValue={dbUser.contact?.street || ""}
               />
               <Input
                 name="city"
                 placeholder="City"
-                defaultValue={dbUser.contact?.city || ''}
+                defaultValue={dbUser.contact?.city || ""}
               />
               <Input
                 name="postcode"
                 placeholder="Postcode"
-                defaultValue={dbUser.contact?.postcode || ''}
+                defaultValue={dbUser.contact?.postcode || ""}
                 required
               />
               <Input
                 name="country"
                 placeholder="Country"
-                defaultValue={dbUser.contact?.country || ''}
+                defaultValue={dbUser.contact?.country || ""}
                 required
               />
               {/* additional sitter specific fields */}
-              {dbUser.role === 'sitter' && (
+              {dbUser.role === "sitter" && (
                 <>
                   <Separator className="bg-brand-bg" />
                   <h3 className="font-semibold">Pet sitting</h3>
@@ -106,7 +106,7 @@ export default function UserForm({user: dbUser}: {user: User}) {
                     className="min-h-[100px]"
                     name="sitterDescription"
                     placeholder="Please describe yourself and your experience with pets"
-                    defaultValue={dbUser.sitterDescription || ''}
+                    defaultValue={dbUser.sitterDescription || ""}
                   />
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -138,22 +138,22 @@ export default function UserForm({user: dbUser}: {user: User}) {
                     name="maxPets"
                     placeholder="Maximum pets you can look after"
                     type="number"
-                    defaultValue={dbUser.maxPets || ''}
+                    defaultValue={dbUser.maxPets || ""}
                   />
                   <Input
                     name="qualifications"
                     placeholder="Qualifications"
-                    defaultValue={dbUser.qualifications || ''}
+                    defaultValue={dbUser.qualifications || ""}
                   />
                   <Input
                     name="firstAid"
                     placeholder="First aid experience"
-                    defaultValue={dbUser.firstAid || ''}
+                    defaultValue={dbUser.firstAid || ""}
                   />
                   <Input
                     name="insuranceDetails"
                     placeholder="Insurance details"
-                    defaultValue={dbUser.insuranceDetails || ''}
+                    defaultValue={dbUser.insuranceDetails || ""}
                   />
                 </>
               )}
