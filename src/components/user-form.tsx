@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import UploadWidget from "@/components/upload-widget";
 import { useState, useEffect } from "react";
-import { useState, useEffect } from "react";
 import editUser from "@/lib/actions/user-actions";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
@@ -18,7 +17,6 @@ import { User } from "@/lib/db/models/User";
 export default function UserForm({ user: dbUser }: { user: User }) {
   const [imageUrl, setImageUrl] = useState("");
   const [newImgUploaded, setNewImgUploaded] = useState(false);
-  const [newImgUploaded, setNewImgUploaded] = useState(false);
   const { isLoaded, isSignedIn, user } = useUser();
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -29,13 +27,8 @@ export default function UserForm({ user: dbUser }: { user: User }) {
   const imgUploaded = (result: string) => {
     setImageUrl(result);
     setNewImgUploaded(true);
-    setNewImgUploaded(true);
   };
 
-  // use url from the DB or the newly uploaded one
-  const imgSrc = newImgUploaded ? imageUrl : dbUser.pfpUrl || imageUrl;
-  // edit user with the actual url
-  const editUserWithImg = editUser.bind(null, imgSrc);
   // use url from the DB or the newly uploaded one
   const imgSrc = newImgUploaded ? imageUrl : dbUser.pfpUrl || imageUrl;
   // edit user with the actual url
