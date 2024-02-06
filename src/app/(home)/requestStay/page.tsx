@@ -21,6 +21,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Checkbox } from '@/components/ui/checkbox';
+import Pet from '@/lib/db/models/Pet';
 
 export default function RequestStay({
   className,
@@ -31,15 +32,35 @@ export default function RequestStay({
   // from: new Date(2022, 0, 20),
   // to: addDays(new Date(2022, 0, 20), 20),
   // }
+
+  // Pets need to be fetched in parent component
+  // const pets = (await getPetsOwnedByUser(userId)) || [];
+  const pets: any = [];
+
   return (
     <Drawer>
       <DrawerTrigger>Sitter1</DrawerTrigger>
-      <DrawerContent className="bg-brand-bg">
+
+      <DrawerContent className="bg-brand-bg flex flex-col gap-2">
         <DrawerHeader>
           <DrawerTitle>Request a stay</DrawerTitle>
           <DrawerDescription className="flex flex-col items-center w-full gap-2">
             {/* Render Pet checkboxes */}
-            <div className="flex gap-1">
+            {/* <div className="flex gap-1">
+              {pets?.map((pet: any) => (
+                <div>
+                  <Checkbox id={pet._id} />
+                  <label
+                    htmlFor={pet._id}
+                    className="text-sm font-medium text-brand-bg-950"
+                  >
+                    {pet.name}
+                  </label>
+                </div>
+              ))}
+            </div> */}
+
+            <div className="flex gap-2">
               <Checkbox id="terms" />
               <label
                 htmlFor="terms"
