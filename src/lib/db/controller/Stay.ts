@@ -74,8 +74,8 @@ export async function getStaysByClerkUser(
     const user = await User.findOne({clerkID:clerkId});
 
     const stays = await Stay.find({ sitter: user._id })
-    .populate({path: 'pet', model: Pet})
-    .populate({path: 'owner', model: User});
+    .populate<{pet:IPet[]}>({path: 'pet', model: Pet})
+    .populate<{owner:IUser}>({path: 'owner', model: User});
 
 
     return stays || []; // Return an empty array if there are no stays

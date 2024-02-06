@@ -9,6 +9,7 @@ import StayCard from '@/components/sitter/stay-card'
 export default async function Page() {
   const user = await currentUser() as User;
   let stays = await getStaysByClerkUser(user.id);
+  stays = JSON.parse(JSON.stringify(stays))
 
 
   return (
