@@ -1,0 +1,35 @@
+/* IPhoneFrame.module.css */
+
+.iphoneFrameContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* or 'screen' based on your preference */
+  background-color: var(--brand-bg);
+}
+
+.frameWrapper {
+  position: relative;
+  width: 642px;
+  height: 1389px;
+}
+
+.screenContent {
+  /* Adjust top, left, width, and height values based on your SVG's viewbox */
+  position: absolute;
+  top: ...;
+  left: ...;
+  width: ...;
+  height: ...;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
