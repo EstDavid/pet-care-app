@@ -1,15 +1,15 @@
-"use server";
-import { UserButton, auth } from "@clerk/nextjs";
-import AccountReady from "@/components/dashboard-components/AccountReady";
-import AddPet from "@/components/dashboard-components/AddPet";
-import PetCard from "@/components/dashboard-components/PetCard";
-import { getPetsOwnedByUser, getUserByClerkId } from "@/lib/db/controller/User"; // Assuming these functions are defined in your backend to fetch data
-import { Pet } from "@/lib/db/models/Pet";
-import { getStaysForPet, isPetInStay } from "@/lib/db/controller/Stay";
-import Image from "next/image";
-import dogDummyImg from "@/../public/dogDummy.png";
-import catDummyImg from "@/../public/catDummy.png";
-import Notifications from "@/components/dashboard-components/Notifications";
+'use server';
+import { UserButton, auth } from '@clerk/nextjs';
+import AccountReady from '@/components/dashboard-components/AccountReady';
+import AddPet from '@/components/dashboard-components/AddPet';
+import PetCard from '@/components/dashboard-components/PetCard';
+import { getPetsOwnedByUser, getUserByClerkId } from '@/lib/db/controller/User'; // Assuming these functions are defined in your backend to fetch data
+import { Pet } from '@/lib/db/models/Pet';
+import { getStaysForPet, isPetInStay } from '@/lib/db/controller/Stay';
+import Image from 'next/image';
+import dogDummyImg from '@/../public/dogDummy.png';
+import catDummyImg from '@/../public/catDummy.png';
+import Notifications from '@/components/dashboard-components/Notifications';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
@@ -51,14 +51,14 @@ export default async function Page({ params }: { params: { id: string } }) {
   //   return "Please complete your profile";
   // }
 
-  ("Please complete your profile");
+  ('Please complete your profile');
 
-  let notification = "You have no new notifications";
+  let notification = 'You have no new notifications';
   let newNotification = true;
   let notificationContent =
-    "Notifications should appear here when you have new ones";
+    'Notifications should appear here when you have new ones';
   if (newNotification) {
-    notification = "You have a new message from a sitter";
+    notification = 'You have a new message from a sitter';
     notificationContent =
       "Sitter: John Doe\nMessage: Hi, I'm interested in ..."; // Set the count of characters to display
   }
@@ -100,7 +100,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     profileStatus && petAdded ? 100 : profileStatus || petAdded ? 66 : 33;
 
   function handleNoPetImage(petType: string) {
-    return petType === "dog" ? dogDummyImg : catDummyImg;
+    return petType === 'dog' ? dogDummyImg : catDummyImg;
   }
 
   return (
@@ -110,6 +110,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           percentage={percentage}
           profileComplete={profileStatus}
           petAdded={petAdded}
+          userRole={user?.role}
         />
       ) : (
         <div className="flex flex-col gap-y-4">

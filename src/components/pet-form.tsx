@@ -1,5 +1,5 @@
 'use client';
-import {Input} from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import {
   SelectValue,
   SelectTrigger,
@@ -7,20 +7,21 @@ import {
   SelectItem,
   SelectGroup,
   SelectContent,
-  Select,
+  Select
 } from '@/components/ui/select';
-import {Textarea} from '@/components/ui/textarea';
-import {Button} from '@/components/ui/button';
-import {CardContent, Card, CardHeader, CardTitle} from '@/components/ui/card';
-import {Checkbox} from '@/components/ui/checkbox';
-import {Separator} from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { CardContent, Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
 import UploadWidget from '@/components/upload-widget';
-import {useState} from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import {createPet} from '@/lib/actions/pet-actions';
-import {Pet} from '@/lib/db/models/Pet';
+import { createOrUpdatePet } from '@/lib/actions/pet-actions';
+import { Pet } from '@/lib/db/models/Pet';
+import { ObjectId } from 'mongoose';
 
-export default function PetForm({pet}: {pet: Pet | {}}) {
+export default function PetForm({ pet }: { pet: Pet | {} }) {
   const [imageUrl, setImageUrl] = useState('');
   const [newImgUploaded, setNewImgUploaded] = useState(false);
 
@@ -33,8 +34,12 @@ export default function PetForm({pet}: {pet: Pet | {}}) {
   // use url from the DB or the newly uploaded one
   const imgSrc = newImgUploaded ? imageUrl : (pet as Pet)?.pfpUrl || imageUrl;
 
-  // edit pet with the actual url
-  const createPetWithImg = createPet.bind(null, imgSrc);
+  const createPetWithImg = createOrUpdatePet.bind(
+    null,
+    imgSrc,
+    (pet as Pet)?._id?.toString()
+  );
+
   return (
     <div className="flex flex-col items-center gap-4 relative">
       <div className="relative w-[120px] h-[120px]">
@@ -46,7 +51,7 @@ export default function PetForm({pet}: {pet: Pet | {}}) {
             sizes="120px"
             priority={true}
             style={{
-              objectFit: 'cover',
+              objectFit: 'cover'
             }}
           ></Image>
         ) : (
