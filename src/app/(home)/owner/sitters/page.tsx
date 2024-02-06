@@ -105,7 +105,7 @@ export default async function Page() {
                   <CardFooter>
                     <div className="flex w-full justify-start items-end gap-4">
                       <FaLocationDot size="2em" className="text-brand-fg-700" />
-                      <p className="text-center">{getDistance(userLoc, sitter.contact?.loc?.coordinates)} km from you</p>
+                      <p className="text-center">{userLoc ? getDistance(userLoc, sitter.contact?.loc?.coordinates) : ''} km from you</p>
                     </div>
                   </CardFooter>
                 </Card>
