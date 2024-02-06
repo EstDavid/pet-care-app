@@ -2,57 +2,39 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card';
-import { getNearestSitters, getSitters, getUserByClerkId } from '@/lib/db/controller/User';
+import {
+  getNearestSitters,
+  getSitters,
+  getUserByClerkId
+} from '@/lib/db/controller/User';
 import { currentUser } from '@clerk/nextjs';
 import { User } from '@clerk/nextjs/server';
-import {User as IUser } from '../../../../lib/db/models/User'
+import { User as IUser } from '../../../../lib/db/models/User';
 import Link from 'next/link';
 import { FaDog, FaCat } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 import { getDistance } from './getDistance';
 
 export default async function Page() {
-  const clerkUser = await currentUser() as User;
-  const user = await getUserByClerkId(clerkUser.id) as IUser
+  const clerkUser = (await currentUser()) as User;
+  const user = (await getUserByClerkId(clerkUser.id)) as IUser;
   let sitters = await getSitters();
 
-  if (user && user.contact && user.contact.loc && user.contact.loc.coordinates) {
-    sitters = await getNearestSitters(user.contact.loc.coordinates)as IUser[]}
+  const userWithLocation =
+    user && user.contact && user.contact.loc && user.contact.loc.coordinates;
+
+  if (userWithLocation) {
+    sitters = (await getNearestSitters(
+      user.contact.loc.coordinates
+    )) as IUser[];
+  }
   // const nearSitters = await getNearestSitters(user.contact.loc?.coordinates)
   const userLoc = user.contact?.loc?.coordinates;
   // const sitterLoc = nearSitters[0].contact?.loc?.coordinates
-
-
-
-  // BOILER PLATE STARTS HERE
-  const pfpUrl = 'https://avatars.githubusercontent.com/u/114820366?v=4';
-  const descriptions = [
-    "Hi, I'm kevin, your go-to cat sitter! In my cozy home, every cat is treated like a member of the family. I specialize in providing a tranquil and stimulating environment tailored specifically for cats. Whether your kitty loves chasing lasers or snuggling on laps, I ensure they receive all the love and attention they need. I offer daily play sessions, grooming, and personalized care for any special needs. Let me give your feline friend the purr-fect home away from home!",
-    "Hello! I'm Paul, and dogs are my passion. At my doggy daycare, your beloved pooch will find a second home filled with fun and affection. From rambunctious playtime to relaxing walks, I cater to each dog's individual personality and needs. With experience handling various breeds and temperaments, I ensure your dog enjoys their time to the fullest. Your furry friend's happiness and well-being are my top priorities, so you can rest easy knowing they're in good hands.",
-    "Hi there, I'm Sara! As a pet sitter who adores both cats and dogs, I offer a warm and welcoming place for your furry companions. Understanding the unique quirks of both cats and dogs, I create a balanced environment where each pet feels at home. Whether it's group play for sociable dogs or quiet cuddle time for your introspective cat, I tailor my care to suit their needs. With my attentive and loving approach, you can trust me to provide the best care for your beloved pets.",
-  ];
-
-  const catDogs = [
-    {
-      cats: true,
-      dogs: true,
-    },
-    {
-      cats: false,
-      dogs: true,
-    },
-    {
-      cats: true,
-      dogs: false,
-    },
-  ];
-
-  // BOILER PLATE ENDS HERE
 
   return (
     <section>
@@ -60,25 +42,30 @@ export default async function Page() {
         Find sitters near you
       </h1>
       <div className="flex flex-col gap-5">
-        {sitters?.map((sitter, index) => {
+        {sitters?.map((sitter) => {
           if (sitter._id) {
             return (
-              <Link key={sitter._id.toString()} href={`/owner/sitters/${sitter._id}`}>
+              <Link
+                key={sitter._id.toString()}
+                href={`/owner/sitters/${sitter._id}`}
+              >
                 <Card>
                   <CardHeader>
                     <div className="flex justify-between">
                       <div className="flex flex-col gap-2">
-                        <Avatar>
-                          <AvatarImage src={pfpUrl} />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        {sitter.pfpUrl && (
+                          <Avatar>
+                            <AvatarImage src={sitter.pfpUrl} />
+                            <AvatarFallback>CN</AvatarFallback>
+                          </Avatar>
+                        )}
                         <CardTitle>{sitter.firstname}</CardTitle>
                       </div>
                       <div className="flex gap-3">
-                        {catDogs[index]?.dogs ? (
+                        {sitter.sitsDogs ? (
                           <FaDog className="text-brand-bg-400" size="2em" />
                         ) : null}
-                        {catDogs[index]?.cats ? (
+                        {sitter.sitsCats ? (
                           <FaCat className="text-brand-fg-400" size="2em" />
                         ) : null}
                       </div>
@@ -86,9 +73,11 @@ export default async function Page() {
                   </CardHeader>
                   <CardContent>
                     <div>
-                      {descriptions[index]
+                      {sitter.sitterDescription
                         ?.slice(0, 90)
-                        .concat('...')
+                        .concat(
+                          sitter.sitterDescription.length > 90 ? '...' : ''
+                        )
                         .split('\n')
                         .map((desc, index) => {
                           return (
@@ -103,10 +92,23 @@ export default async function Page() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <div className="flex w-full justify-start items-end gap-4">
-                      <FaLocationDot size="2em" className="text-brand-fg-700" />
-                      <p className="text-center">{userLoc ? getDistance(userLoc, sitter.contact?.loc?.coordinates) : ''} km from you</p>
-                    </div>
+                    {userWithLocation && (
+                      <div className="flex w-full justify-start items-end gap-4">
+                        <FaLocationDot
+                          size="2em"
+                          className="text-brand-fg-700"
+                        />
+                        <p className="text-center">
+                          {userLoc
+                            ? getDistance(
+                                userLoc,
+                                sitter.contact?.loc?.coordinates
+                              )
+                            : ''}{' '}
+                          km from you
+                        </p>
+                      </div>
+                    )}
                   </CardFooter>
                 </Card>
               </Link>
