@@ -6,7 +6,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { env } from "process";
 import { redirect } from "next/navigation";
 
-async function getLatLong(addressString: string): Promise<number[]> {
+async function getLatLong (addressString: string): Promise<number[]> {
   const api = process.env.GEOCODE_KEY;
   const res = await fetch(
     `https://geocode.maps.co/search?q=${addressString}&api_key=${api}`
@@ -22,8 +22,7 @@ async function getLatLong(addressString: string): Promise<number[]> {
   return [result[0].lon, result[0].lat];
 }
 
-export default async function editUser(imageUrl: string, formData: FormData) {
-  console.log("imageUrl", imageUrl);
+export default async function editUser (imageUrl: string, formData: FormData) {
   try {
     const pfpUrl = imageUrl;
     const phone = formData.get("mobileNumber")?.toString();
