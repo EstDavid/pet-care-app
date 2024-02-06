@@ -17,10 +17,14 @@ import { notFound } from 'next/navigation';
 import createConversationWithSitter from '@/lib/actions/conversation';
 import { Button } from '@/components/ui/button';
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params
+}: {
+  params: { sitterId: string };
+}) {
   const { userId } = auth();
 
-  const { id } = params;
+  const { sitterId: id } = params;
 
   if (!userId) {
     return null;
