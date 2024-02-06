@@ -1,12 +1,12 @@
 import dbConnect from '../dbConnect';
-import User, {User as IUser} from '../models/User';
-import Pet, {Pet as IPet} from '../models/Pet';
+import User, { User as IUser } from '../models/User';
+import Pet, { Pet as IPet } from '../models/Pet';
 
 const test = function (a: number, b: number): number {
   return a + b;
 };
 
-export async function getPetById(id: string) {
+export async function getPetById (id: string) {
   await dbConnect();
   // let _id = new mongoose.Types.ObjectId(id)
   try {
@@ -24,13 +24,13 @@ export async function getPetById(id: string) {
   }
 }
 
-export async function addPet(
+export async function addPet (
   ownerClerk: string,
   newPet: IPet
 ): Promise<IPet | undefined> {
   await dbConnect();
   try {
-    const owner = await User.findOne({clerkID: ownerClerk});
+    const owner = await User.findOne({ clerkID: ownerClerk });
     if (owner === undefined || owner === null) {
       throw new Error('cannot find owner for that pet');
     }
@@ -49,16 +49,34 @@ export async function addPet(
   }
 }
 
-export async function setPetSitter(
+export async function updatePet (
+  petId: string,
+  petInfo: IPet
+): Promise<IPet | undefined> {
+  await dbConnect();
+  try {
+    const updatedPet = await Pet.findByIdAndUpdate(petId, petInfo, { new: true });
+
+    if (!updatedPet) {
+      throw new Error('Pet to update could not be found');
+    }
+
+    return updatedPet;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function setPetSitter (
   pet: IPet,
   sitter: IUser
 ): Promise<IPet | undefined> {
   await dbConnect();
   try {
-    const petToUpdate = await Pet.findOne({_id: pet._id});
+    const petToUpdate = await Pet.findOne({ _id: pet._id });
     if (!petToUpdate) throw new Error('pet not found');
 
-    const sitterToUpdate = await User.findOne({_id: sitter._id});
+    const sitterToUpdate = await User.findOne({ _id: sitter._id });
     if (!sitterToUpdate) throw new Error('sitter not found');
 
     if (petToUpdate.sitter) throw new Error('pet already has a sitter');
@@ -75,16 +93,16 @@ export async function setPetSitter(
   }
 }
 
-export async function removePetSitter(
+export async function removePetSitter (
   pet: IPet,
   sitter: IUser
 ): Promise<IPet | undefined> {
   await dbConnect();
   try {
-    const petToUpdate = await Pet.findOne({_id: pet._id});
+    const petToUpdate = await Pet.findOne({ _id: pet._id });
     if (!petToUpdate) throw new Error('pet not found');
 
-    const sitterToUpdate = await User.findOne({_id: sitter._id});
+    const sitterToUpdate = await User.findOne({ _id: sitter._id });
     if (!sitterToUpdate) throw new Error('sitter not found');
 
     if (!sitterToUpdate.petsSitting)

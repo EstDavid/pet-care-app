@@ -1,12 +1,32 @@
 'use server';
-import Pet from '@/lib/db/models/Pet';
-import {addPet} from '@/lib/db/controller/Pet';
-import {revalidatePath} from 'next/cache';
-import {redirect} from 'next/navigation';
-import {currentUser} from '@clerk/nextjs';
-import {getUserByClerkId} from '../db/controller/User';
+import { addPet, updatePet } from '@/lib/db/controller/Pet';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { currentUser } from '@clerk/nextjs';
+import { getUserByClerkId } from '@/lib/db/controller/User';
+import Pet, { Pet as IPet } from '@/lib/db/models/Pet';
+import { User } from '@clerk/nextjs/server';
 
-export async function createPet(imageUrl: string, formData: FormData) {
+const createOrUpdatePetInDatabase = async (clerkUser: User, petInfo: IPet, petId: string | undefined) => {
+  try {
+    let savedPet: IPet | undefined;
+
+    if (petId) {
+      savedPet = await updatePet(petId, petInfo);
+    } else {
+      const newPet = new Pet(petInfo);
+      savedPet = await addPet(clerkUser.id, newPet);
+    }
+
+    if (!savedPet) throw new Error('Pet could not be updated or created in database');
+
+    return savedPet;
+  } catch (error) {
+    console.log('Error editing data', error);
+  }
+};
+
+export async function createOrUpdatePet (imageUrl: string, petId: string | undefined, formData: FormData) {
   const data = Object.fromEntries(formData.entries());
 
   const {
@@ -35,7 +55,7 @@ export async function createPet(imageUrl: string, formData: FormData) {
 
   const owner = await getUserByClerkId(clerkUser.id);
 
-  let newPet = new Pet({
+  let petInfo: IPet = {
     owner: owner?._id,
     species: species?.toString(),
     name: name?.toString(),
@@ -56,15 +76,12 @@ export async function createPet(imageUrl: string, formData: FormData) {
       phone: vetPhone?.toString(),
       street: vetAddress?.toString(),
     },
-  });
+  };
 
-  try {
-    const savedPet = await addPet(clerkUser.id, newPet);
-    if (!savedPet) throw new Error('double oops');
-  } catch (error) {
-    console.log('Error editing data', error);
-    throw new Error('Failed to edit data.');
+  const savedPet = await createOrUpdatePetInDatabase(clerkUser, petInfo, petId);
+
+  if (savedPet) {
+    revalidatePath('/pet/edit');
+    redirect(`/pet/profile/${savedPet._id}`);
   }
-  revalidatePath('/pet/edit');
-  redirect(`/pet/profile/${newPet.id}`);
 }
