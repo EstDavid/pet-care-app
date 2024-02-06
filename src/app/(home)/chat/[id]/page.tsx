@@ -5,6 +5,8 @@ import { getConversationById } from '@/lib/db/controller/Conversation';
 import { notFound } from 'next/navigation';
 import MessageForm from '@/components/message-form';
 import ChatMessages from '@/components/chat-messages';
+import Subheader from '@/components/navigation/subheader';
+import Link from 'next/link';
 
 export default async function Chat({ params }: { params: { id: string } }) {
   const { userId }: { userId: string | null } = auth();
@@ -61,11 +63,7 @@ export default async function Chat({ params }: { params: { id: string } }) {
 
   return (
     <div className="h-full">
-      <div className="w-full h-[60px] absolute left-0 top-[120px] bg-brand-bg-100 flex items-center pl-10">
-        <h2 className="text-2xl font-bold text-brand-bg-500">
-          {receiver?.firstname}
-        </h2>
-      </div>
+      <Subheader title={receiver?.firstname} />
       <div className="flex flex-col justify-between h-full">
         <ChatMessages
           messages={messagesObject}

@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import {buttonVariants} from '../ui/button';
 import {GoHomeFill} from 'react-icons/go';
-import {CiSettings} from 'react-icons/ci';
 import {currentUser} from '@clerk/nextjs';
 import {checkUserRole} from '@/lib/db/controller/User';
 import {FaDog} from 'react-icons/fa';
@@ -24,7 +23,7 @@ export default async function Footer() {
       },
       {
         name: 'Stays',
-        href: 'stays',
+        href: 'owner/stays',
         icon: <FaDog size="2em" />,
       },
       {
@@ -47,7 +46,7 @@ export default async function Footer() {
       },
       {
         name: 'Stays',
-        href: 'stays',
+        href: 'sitter/stays',
         icon: <FaDog size="2em" />,
       },
       {
