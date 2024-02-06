@@ -35,11 +35,11 @@ export async function addStay(
   }
 }
 
-export async function confirmStay(stay: IStay): Promise<IStay | undefined> {
+export async function confirmStay(_id: Types.ObjectId): Promise<IStay | undefined> {
   await dbConnect();
   try {
     const result = await Stay.findOneAndUpdate(
-      { _id: stay._id },
+      { _id },
       { confirmed: true }
     );
     if (result) return result;
@@ -67,7 +67,7 @@ export async function getStaysForPet(
 /**pass it a clerk ID, get a list of stays */
 export async function getStaysByClerkUser(
   clerkId: string
-): Promise<IStay[] | undefined> {
+) {
   await dbConnect();
 
   try {
