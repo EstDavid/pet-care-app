@@ -2,6 +2,7 @@ import dbConnect from "../dbConnect";
 import User, { User as IUser } from "../models/User";
 import Pet, { Pet as IPet } from "../models/Pet";
 import Stay, { Stay as IStay } from "../models/Stay";
+import { Types } from "mongoose";
 
 export async function addStay(
   owner: IUser,
@@ -34,11 +35,11 @@ export async function addStay(
   }
 }
 
-export async function confirmStay(stay: IStay): Promise<IStay | undefined> {
+export async function confirmStay(_id: Types.ObjectId): Promise<IStay | undefined> {
   await dbConnect();
   try {
     const result = await Stay.findOneAndUpdate(
-      { _id: stay._id },
+      { _id },
       { confirmed: true }
     );
     if (result) return result;
@@ -56,6 +57,27 @@ export async function getStaysForPet(
 
   try {
     const stays = await Stay.find({ pet: petId });
+    return stays || []; // Return an empty array if there are no stays
+  } catch (e) {
+    console.error(e);
+    return []; // Return an empty array in case of any error
+  }
+}
+
+/**pass it a clerk ID, get a list of stays */
+export async function getStaysByClerkUser(
+  clerkId: string
+) {
+  await dbConnect();
+
+  try {
+    const user = await User.findOne({clerkID:clerkId});
+
+    const stays = await Stay.find({ sitter: user._id })
+    .populate<{pet:IPet[]}>({path: 'pet', model: Pet})
+    .populate<{owner:IUser}>({path: 'owner', model: User});
+
+
     return stays || []; // Return an empty array if there are no stays
   } catch (e) {
     console.error(e);

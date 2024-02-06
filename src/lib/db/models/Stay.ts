@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import { Model, Schema, Types } from 'mongoose';
+import { User } from './User';
+import { Pet } from './Pet';
 
 export interface Stay {
   _id: Types.ObjectId;
@@ -11,6 +13,19 @@ export interface Stay {
   pet: Types.ObjectId[];
   owner: Types.ObjectId;
 }
+
+export interface FullStay {
+  _id: Types.ObjectId;
+  id: string;
+  from: Date;
+  to: Date;
+  sitter: Types.ObjectId;
+  confirmed: Boolean;
+  pet: Pet[];
+  owner: User;
+}
+
+
 
 const staySchema = new mongoose.Schema<Stay>(
   {
