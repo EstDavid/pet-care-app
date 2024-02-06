@@ -1,5 +1,10 @@
 import type { Config } from 'tailwindcss';
 
+const headerHeight = 140;
+const subheaderHeight = 60;
+const footerHeight = 120;
+const headerPhotoSize = 60;
+
 const config = {
   darkMode: ['class'],
   content: [
@@ -17,7 +22,6 @@ const config = {
         '2xl': '1400px',
       },
     },
-
     extend: {
       keyframes: {
         'accordion-down': {
@@ -29,13 +33,22 @@ const config = {
           to: { height: '0' },
         },
       },
+      spacing: {
+        'header-height': `${headerHeight}px`,
+        'subheader-height': `${subheaderHeight}px`
+      },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       height: {
-        'header-nav': '120px',
-        'footer-nav': '120px',
+        'header-nav': `${headerHeight}px`,
+        'footer-nav': `${footerHeight}px`,
+        'subheader': `${subheaderHeight}px`,
+        'header-photo': `${headerPhotoSize}px`
+      },
+      width: {
+        'header-photo': `${headerPhotoSize}px`
       },
       padding: {
         'x-pad-footer': '20px',
