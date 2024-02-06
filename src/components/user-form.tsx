@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import UploadWidget from "@/components/upload-widget";
 import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import editUser from "@/lib/actions/user-actions";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
@@ -13,8 +14,10 @@ import { useUser } from "@clerk/nextjs";
 import { User } from "@/lib/db/models/User";
 
 // rename user received from the server component to dbUser because Clerk's useUser hook uses user
+// rename user received from the server component to dbUser because Clerk's useUser hook uses user
 export default function UserForm({ user: dbUser }: { user: User }) {
   const [imageUrl, setImageUrl] = useState("");
+  const [newImgUploaded, setNewImgUploaded] = useState(false);
   const [newImgUploaded, setNewImgUploaded] = useState(false);
   const { isLoaded, isSignedIn, user } = useUser();
   if (!isLoaded || !isSignedIn) {
@@ -22,11 +25,17 @@ export default function UserForm({ user: dbUser }: { user: User }) {
   }
 
   // upload widget callback
+  // upload widget callback
   const imgUploaded = (result: string) => {
     setImageUrl(result);
     setNewImgUploaded(true);
+    setNewImgUploaded(true);
   };
 
+  // use url from the DB or the newly uploaded one
+  const imgSrc = newImgUploaded ? imageUrl : dbUser.pfpUrl || imageUrl;
+  // edit user with the actual url
+  const editUserWithImg = editUser.bind(null, imgSrc);
   // use url from the DB or the newly uploaded one
   const imgSrc = newImgUploaded ? imageUrl : dbUser.pfpUrl || imageUrl;
   // edit user with the actual url
@@ -35,13 +44,21 @@ export default function UserForm({ user: dbUser }: { user: User }) {
   return (
     <div className="flex flex-col items-center gap-4 relative">
       <div className="relative w-[120px] h-[120px]">
-        {imgSrc ? (
+        {imageUrl ? (
           <Image
-            src={imgSrc}
+            src={imageUrl}
             alt="User Picture"
+            // Bug fix starts here (by: Alaa)
+            // Bug description: The image was displaying in the whole window
+            // Bug fix: I uncommented the width and height properties and commented the fill property
+            // width={120}
+            // height={120}
+            // fill={true}
+            // Bug fix ends here
             fill={true}
             sizes="120px"
             priority={true}
+            // className="rounded-md w-[120px] h-[120px] bg-white"
             style={{
               objectFit: "cover",
             }}
