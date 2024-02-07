@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
+  PopoverTrigger
 } from '@/components/ui/popover';
 import { Button } from './ui/button';
 import { CalendarIcon } from '@radix-ui/react-icons';
@@ -15,7 +15,7 @@ import {
   DrawerClose,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
+  DrawerTitle
 } from '@/components/ui/drawer';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
@@ -25,7 +25,7 @@ import { Pet } from '@/lib/db/models/Pet';
 export default function RequestDrawer({
   pets,
   owner,
-  sitter,
+  sitter
 }: {
   pets: Pet[];
   owner: string;
@@ -47,8 +47,8 @@ export default function RequestDrawer({
 
   let infoComplete = date?.to !== undefined && selectedPets.includes(true);
 
-  const from = date?.from?.toLocaleDateString() as string;
-  const to = date?.to?.toLocaleDateString() as string;
+  const from = date?.from;
+  const to = date?.to;
 
   // Pass additional arguments to server action
   const actionFunction = requestStay.bind(null, owner, sitter, from, to);
@@ -94,7 +94,7 @@ export default function RequestDrawer({
                 id="date"
                 variant={'outline'}
                 className={cn(
-                  'w-[300px] justify-start text-left font-normal mt-2',
+                  'w-full justify-center text-center font-normal mt-2',
                   !date && 'text-muted-foreground'
                 )}
               >

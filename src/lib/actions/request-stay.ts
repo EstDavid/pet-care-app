@@ -1,11 +1,11 @@
 'use server';
 import { addStay } from '../db/controller/Stay';
 
-export default async function requestStay(
+export default async function requestStay (
   owner: string,
   sitter: string,
-  from: string,
-  to: string,
+  from: Date,
+  to: Date,
   formData: FormData
 ) {
   const petArray = [];
@@ -13,8 +13,15 @@ export default async function requestStay(
     petArray.push(petId[0]);
   }
 
+  console.log(formData);
+
+
   try {
-    const newStay = await addStay(owner, sitter, petArray, from, to);
+    console.log({ from }, { to });
+    // console.log(new Date(from), new Date(to));
+
+
+    const newStay = await addStay(owner, sitter, petArray, new Date(from), new Date(to));
     console.log(newStay);
   } catch (error) {
     console.log(error);

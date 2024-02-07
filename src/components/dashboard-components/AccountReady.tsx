@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
-import AddPet from "./AddPet";
-import { string } from "zod";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import AddPet from './AddPet';
+import { string } from 'zod';
 
 interface AccountReadyProps {
   percentage: number;
@@ -15,7 +15,7 @@ interface AccountReadyProps {
 const AccountReady = ({
   percentage = 33,
   profileComplete = false,
-  accountReady = false,
+  accountReady = false
 }) => {
   return (
     <div className="flex flex-col text-center gap-y-4">
@@ -54,8 +54,8 @@ a 15.9155 15.9155 0 0 1 0 31.831
 a 15.9155 15.9155 0 0 1 0 -31.831"
                     fill="none"
                     style={{
-                      transition: "stroke-dashoffset 2s ease-out",
-                      strokeDashoffset: `calc(113.097 - (113.097 * ${percentage} / 113.097))`,
+                      transition: 'stroke-dashoffset 2s ease-out',
+                      strokeDashoffset: `calc(113.097 - (113.097 * ${percentage} / 113.097))`
                     }}
                   />
                   <text
@@ -83,9 +83,9 @@ a 15.9155 15.9155 0 0 1 0 -31.831"
               <CardTitle>Complete Your Profile</CardTitle>
             </CardHeader>
             <CardContent>
-              <Link href="/user-profile/edit">
+              {/* <Link href="/user-profile/edit">
                 <Button>Manage Profile</Button>
-              </Link>
+              </Link> */}
             </CardContent>
           </Card>
         </div>

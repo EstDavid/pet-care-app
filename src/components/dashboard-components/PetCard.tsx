@@ -1,17 +1,17 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Image from "next/image";
-import dogDummyImg from "@/../public/dogDummy.png";
-import catDummyImg from "@/../public/catDummy.png";
-import Link from "next/link";
+  CardTitle
+} from '@/components/ui/card';
+import Image from 'next/image';
+import dogDummyImg from '@/../public/dogDummy.png';
+import catDummyImg from '@/../public/catDummy.png';
+import Link from 'next/link';
 
 interface PetCardProps {
   petId: string;
@@ -26,20 +26,20 @@ function PetCard({
   petName,
   petImage,
   petIsHome,
-  petType,
+  petType
 }: PetCardProps) {
   const getPetImageUrl = () => {
     if (petImage) {
       return petImage;
     }
-    return petType === "dog" ? dogDummyImg : catDummyImg;
+    return petType === 'dog' ? dogDummyImg : catDummyImg;
   };
 
   return (
     <div>
       <Card
         className={`flex flex-row justify-center items-center overflow-hidden border-solid	border-2 ${
-          petIsHome ? "border-green-500" : "border-yellow-500"
+          petIsHome ? 'border-green-500' : 'border-yellow-500'
         }`}
       >
         <Image
@@ -53,9 +53,9 @@ function PetCard({
           <CardContent className="flex flex-row justify-between self-center mt-4">
             <CardTitle>{petName}</CardTitle>
             <CardTitle
-              className={`${petIsHome ? "text-green-500" : "text-yellow-500"}`}
+              className={`${petIsHome ? 'text-green-500' : 'text-yellow-500'}`}
             >
-              {petIsHome ? "🟢 Home" : "🟡 Away"}
+              {petIsHome ? '🟢 Home' : '🟡 Away'}
             </CardTitle>
           </CardContent>
           <CardContent className="flex flex-col justify-center items-center gap-2 h-24 mt-4">

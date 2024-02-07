@@ -1,15 +1,18 @@
-"use server";
-import { UserButton, auth } from "@clerk/nextjs";
-import AccountReady from "@/components/dashboard-components/AccountReady";
-import AddPet from "@/components/dashboard-components/AddPet";
-import PetCard from "@/components/dashboard-components/PetCard";
-import { getPetsOwnedByUser, getUserByClerkId } from "@/lib/db/controller/User";
-import { Pet } from "@/lib/db/models/Pet";
-import { getStaysForPet, isPetInStay } from "@/lib/db/controller/Stay";
-import Image from "next/image";
-import dogDummyImg from "@/../public/dogDummy.png";
-import catDummyImg from "@/../public/catDummy.png";
-import Notifications from "@/components/dashboard-components/Notifications";
+'use server';
+import { UserButton, auth } from '@clerk/nextjs';
+import AccountReady from '@/components/dashboard-components/AccountReady';
+import AddPet from '@/components/dashboard-components/AddPet';
+import PetCard from '@/components/dashboard-components/PetCard';
+import { getPetsOwnedByUser, getUserByClerkId } from '@/lib/db/controller/User';
+import { Pet } from '@/lib/db/models/Pet';
+import { getStaysByUser, getStaysForPet } from '@/lib/db/controller/Stay';
+import Image from 'next/image';
+import dogDummyImg from '@/../public/dogDummy.png';
+import catDummyImg from '@/../public/catDummy.png';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import Notification from '@/components/dashboard-components/Notification';
+import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
@@ -18,26 +21,31 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   const user = await getUserByClerkId(userId);
+
+  if (!user || !user._id) {
+    return notFound();
+  }
+
   const profileStatus =
-    user?.role &&
-    user?.firstname &&
-    user?.surname &&
-    user?.contact?.phone &&
-    user?.contact?.street &&
-    user?.contact?.city &&
-    user?.contact?.postcode &&
-    user?.contact?.country;
+    user.role &&
+    user.firstname &&
+    user.surname &&
+    user.contact?.phone &&
+    user.contact?.street &&
+    user.contact?.city &&
+    user.contact?.postcode &&
+    user.contact?.country;
   const pets = (await getPetsOwnedByUser(userId)) || [];
   const petAdded = pets.length >= 1 ? true : false;
 
-  ("Please complete your profile");
+  ('Please complete your profile');
 
-  let notification = "You have no new notifications";
+  let notification = 'You have no new notifications';
   let newNotification = true;
   let notificationContent =
-    "Notifications should appear here when you have new ones";
+    'Notifications should appear here when you have new ones';
   if (newNotification) {
-    notification = "You have a new message from a sitter";
+    notification = 'You have a new message from a sitter';
     notificationContent =
       //❕Suggestion: We cab set the count of characters to display
       "Sitter: John Doe\nMessage: Hi, I'm interested in ...";
@@ -64,11 +72,17 @@ export default async function Page({ params }: { params: { id: string } }) {
     profileStatus && petAdded ? 100 : profileStatus || petAdded ? 66 : 33;
 
   function handleNoPetImage(petType: string) {
-    return petType === "dog" ? dogDummyImg : catDummyImg;
+    return petType === 'dog' ? dogDummyImg : catDummyImg;
   }
+
+  const stays = await getStaysByUser(user._id);
+
+  console.log(stays);
 
   return (
     <div className="flex flex-col gap-y-4 text-center">
+      <Notification title="Latest messages" />
+      <Notification title="Upcoming and ongoing stays" />
       {!readyToUse ? (
         <AccountReady
           percentage={percentage}
@@ -76,27 +90,30 @@ export default async function Page({ params }: { params: { id: string } }) {
         />
       ) : (
         <div className="flex flex-col gap-y-4">
-          <Notifications
+          {/* <Notifications
             notification={notification}
             newNotification={newNotification}
             notificationContent={notificationContent}
-          />
+          /> */}
         </div>
       )}
+
       {pets.map(async (pet) => (
         <PetCard
-          key={pet._id?.toString() ?? ""}
-          petId={pet._id?.toString() ?? ""}
-          petName={pet.name ?? ""}
+          key={pet._id?.toString() ?? ''}
+          petId={pet._id?.toString() ?? ''}
+          petName={pet.name ?? ''}
           petImage={
             (pet.pfpUrl?.toString() ||
-              (await handleNoPetImage(pet.species?.toString() ?? ""))) as string
+              (await handleNoPetImage(pet.species?.toString() ?? ''))) as string
           }
-          petIsHome={await isInStay(pet._id?.toString() ?? "")}
-          petType={pet.species?.toString() ?? ""}
+          petIsHome={await isInStay(pet._id?.toString() ?? '')}
+          petType={pet.species?.toString() ?? ''}
         />
       ))}
-      <AddPet petAdded={petAdded} />
+      <Link href="/pet/edit">
+        <Button className="w-full">Add another Pet</Button>
+      </Link>
     </div>
   );
 }
