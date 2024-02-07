@@ -14,7 +14,7 @@ import {
 } from '@/lib/db/controller/User';
 import {currentUser} from '@clerk/nextjs';
 import {User} from '@clerk/nextjs/server';
-import {User as IUser} from '../../../../lib/db/models/User';
+import {User as IUser} from '@/lib/db/models/User';
 import Link from 'next/link';
 import {FaDog, FaCat} from 'react-icons/fa';
 import {FaLocationDot} from 'react-icons/fa6';
@@ -32,13 +32,13 @@ export default async function Page() {
   const userWithLocation =
     user && user.contact && user.contact.loc && user.contact.loc.coordinates;
 
-  if (userWithLocation) {
+  if (user?.contact?.loc?.coordinates) {
     sitters = (await getNearestSitters(
-      user?.contact?.loc?.coordinates
+      user.contact.loc.coordinates
     )) as IUser[];
   }
-  // const nearSitters = await getNearestSitters(user.contact.loc?.coordinates)
   const userLoc = user.contact?.loc?.coordinates;
+  // const nearSitters = await getNearestSitters(user.contact.loc?.coordinates)
   // const sitterLoc = nearSitters[0].contact?.loc?.coordinates
 
   return (
@@ -120,7 +120,7 @@ export default async function Page() {
                               {userLoc
                                 ? getDistance(
                                     userLoc,
-                                    sitter.contact?.loc?.coordinates
+                                    sitter?.contact?.loc?.coordinates ?? [0, 0]
                                   )
                                 : ''}{' '}
                               km from you
@@ -139,10 +139,3 @@ export default async function Page() {
     </section>
   );
 }
-
-// TODO Search sitter by filters and sort
-// TODO add catSitter and dogSitter booleans
-// TODO add available boolean to sitters
-// TODO add pfpUrl to mockdata
-// TODO add sitter decription
-// TODO db add favorite sitters
