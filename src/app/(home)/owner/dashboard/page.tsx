@@ -3,13 +3,16 @@ import { UserButton, auth } from '@clerk/nextjs';
 import AccountReady from '@/components/dashboard-components/AccountReady';
 import AddPet from '@/components/dashboard-components/AddPet';
 import PetCard from '@/components/dashboard-components/PetCard';
-import { getPetsOwnedByUser, getUserByClerkId } from '@/lib/db/controller/User'; // Assuming these functions are defined in your backend to fetch data
+import { getPetsOwnedByUser, getUserByClerkId } from '@/lib/db/controller/User';
 import { Pet } from '@/lib/db/models/Pet';
-import { getStaysForPet, isPetInStay } from '@/lib/db/controller/Stay';
+import { getStaysByUser, getStaysForPet } from '@/lib/db/controller/Stay';
 import Image from 'next/image';
 import dogDummyImg from '@/../public/dogDummy.png';
 import catDummyImg from '@/../public/catDummy.png';
-import Notifications from '@/components/dashboard-components/Notifications';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import Notification from '@/components/dashboard-components/Notification';
+import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
@@ -18,38 +21,22 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   const user = await getUserByClerkId(userId);
+
+  if (!user || !user._id) {
+    return notFound();
+  }
+
   const profileStatus =
-    user?.role &&
-    user?.firstname &&
-    user?.surname &&
-    user?.contact?.phone &&
-    user?.contact?.street &&
-    user?.contact?.city &&
-    user?.contact?.postcode &&
-    user?.contact?.country;
-  // const notifications = await getNotifications(user?._id);
+    user.role &&
+    user.firstname &&
+    user.surname &&
+    user.contact?.phone &&
+    user.contact?.street &&
+    user.contact?.city &&
+    user.contact?.postcode &&
+    user.contact?.country;
   const pets = (await getPetsOwnedByUser(userId)) || [];
   const petAdded = pets.length >= 1 ? true : false;
-  // const petAdded = true;
-  // let profileStatusMessage =
-  // if (!profileStatus) {
-  //   if(!user?.contact?.phone) {
-  //     return "Please add your phone number";
-  //     }
-  //   if(!user?.contact?.street) {
-  //     return "Please add your street";
-  //     }
-  //   if(!user?.contact?.city) {
-  //     return "Please add your city";
-  //     }
-  //   if(!user?.contact?.postcode) {
-  //     return "Please add your postcode";
-  //     }
-  //   if(!user?.contact?.country) {
-  //     return "Please add your country";
-  //     }
-  //   return "Please complete your profile";
-  // }
 
   ('Please complete your profile');
 
@@ -60,7 +47,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (newNotification) {
     notification = 'You have a new message from a sitter';
     notificationContent =
-      "Sitter: John Doe\nMessage: Hi, I'm interested in ..."; // Set the count of characters to display
+      //❕Suggestion: We cab set the count of characters to display
+      "Sitter: John Doe\nMessage: Hi, I'm interested in ...";
   }
 
   let readyToUse = profileStatus && petAdded;
@@ -80,22 +68,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     return true;
   }
 
-  // const currentDateTime = new Date();
-  // for (const pet of pets) {
-  //   const stays = (await isPetInStay(pet._id.toString())) || []; // Convert ObjectId to string and ensure stays is always an array
-  //   pet.isHome = true; // Assume pet is home
-  //   for (const stay of stays) {
-  //     if (
-  //       new Date(stay.from) <= currentDateTime &&
-  //       new Date(stay.to) >= currentDateTime
-  //     ) {
-  //       pet.isHome = false; // Pet is not at home if within a stay period
-  //       break;
-  //     }
-  //   }
-  // }
-
-  // Process the data as needed for the frontend, for example, calculate percentage for AccountReady
   const percentage =
     profileStatus && petAdded ? 100 : profileStatus || petAdded ? 66 : 33;
 
@@ -103,79 +75,45 @@ export default async function Page({ params }: { params: { id: string } }) {
     return petType === 'dog' ? dogDummyImg : catDummyImg;
   }
 
+  const stays = await getStaysByUser(user._id);
+
+  console.log(stays);
+
   return (
-    <div className="flex flex-col text-center">
+    <div className="flex flex-col gap-y-4 text-center">
+      <Notification title="Latest messages" />
+      <Notification title="Upcoming and ongoing stays" />
       {!readyToUse ? (
         <AccountReady
           percentage={percentage}
-          profileComplete={profileStatus}
-          petAdded={petAdded}
-          userRole={user?.role}
+          profileComplete={!!profileStatus}
         />
       ) : (
         <div className="flex flex-col gap-y-4">
-          <Notifications
+          {/* <Notifications
             notification={notification}
             newNotification={newNotification}
             notificationContent={notificationContent}
-          />
-          {pets.map((pet) => (
-            <PetCard
-              key={pet._id.toString()}
-              petId={pet._id.toString()}
-              petName={pet.name}
-              petImage={pet.pfpUrl || handleNoPetImage(pet.species)}
-              petIsHome={isInStay(pet._id.toString())}
-              petType={pet.species}
-            />
-          ))}
-          <AddPet petAdded={petAdded} />
+          /> */}
         </div>
       )}
+
+      {pets.map(async (pet) => (
+        <PetCard
+          key={pet._id?.toString() ?? ''}
+          petId={pet._id?.toString() ?? ''}
+          petName={pet.name ?? ''}
+          petImage={
+            (pet.pfpUrl?.toString() ||
+              (await handleNoPetImage(pet.species?.toString() ?? ''))) as string
+          }
+          petIsHome={await isInStay(pet._id?.toString() ?? '')}
+          petType={pet.species?.toString() ?? ''}
+        />
+      ))}
+      <Link href="/pet/edit">
+        <Button className="w-full">Add another Pet</Button>
+      </Link>
     </div>
   );
 }
-
-// <div className="flex flex-col items-center">
-// <Avatar
-//   name={owner.name}
-//   image={owner.profileImage}
-//   size="xl"
-//   fallback={<AvatarFallback />}
-// />
-// <h2>{owner.name}</h2>
-// <p>
-//   <FaLocationDot /> {owner.location}
-// </p>
-// <p>
-//   <FaRegEnvelope /> {owner.email}
-// </p>
-// </div>
-// <div className="flex flex-col items-center">
-// <AccountReady
-//   accountReady={accountReady}
-//   percentage={percentage}
-//   newNotification={newNotification}
-// />
-// <AddPet />
-// <Notifications />
-// </div>
-// <div className="flex flex-col items-center">
-// <h2>Your Pets</h2>
-// <div className="flex flex-row">
-//   {petsList.map((pet) => (
-//     <PetCard
-//       key={pet._id}
-//       petName={pet.name}
-//       petIsHome={pet.isHome}
-//       petImage={pet.image}
-//     />
-//   ))}
-// </div>
-// </div>
-// <div className="flex flex-col items-center">
-// <h2>Chat with Sitters</h2>
-// <Link href="/owner/dashboard/chat">
-//   <Button>Start Chat</Button>
-// </Link>
-// </div>

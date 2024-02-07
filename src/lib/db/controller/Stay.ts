@@ -2,14 +2,14 @@ import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
 import Pet, { Pet as IPet } from '../models/Pet';
 import Stay, { Stay as IStay } from '../models/Stay';
-import { Types } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 
-export async function addStay(
+export async function addStay (
   owner: string,
   sitter: string,
   petArray: string[],
-  from: string,
-  to: string
+  from: Date,
+  to: Date
 ): Promise<IStay | undefined> {
   await dbConnect();
 
@@ -29,7 +29,7 @@ export async function addStay(
   }
 }
 
-export async function confirmStay(
+export async function confirmStay (
   _id: Types.ObjectId
 ): Promise<IStay | undefined> {
   await dbConnect();
@@ -43,7 +43,7 @@ export async function confirmStay(
 }
 
 // Added by Alaa Starts here
-export async function getStaysForPet(
+export async function getStaysForPet (
   petId: string
 ): Promise<IStay[] | undefined> {
   await dbConnect();
@@ -57,16 +57,43 @@ export async function getStaysForPet(
   }
 }
 
+// If no date is passed, it return all the stays. Otherwise it only return future or ongoing stays
+export async function getStaysByUser (userId: Types.ObjectId, currentDate?: Date) {
+  await dbConnect();
+
+
+  const additionalQuery = currentDate ? { to: { $lte: currentDate } } : null;
+
+  try {
+    const stays = await Stay.find({
+      $or: [
+        { owner: userId },
+        { sitter: userId }
+      ],
+      additionalQuery
+    })
+      .populate({ path: 'owner', model: User })
+      .populate({ path: 'sitter', model: User })
+      .populate({ path: 'pet', model: Pet });
+
+    return stays || []; // Return an empty array if there are no stays
+  } catch (e) {
+    console.error(e);
+    return []; // Return an empty array in case of any error
+  }
+}
+
+
 /**pass it a clerk ID, get a list of stays */
-export async function getStaysByClerkUser(clerkId: string) {
+export async function getStaysByClerkUser (clerkId: string) {
   await dbConnect();
 
   try {
     const user = await User.findOne({ clerkID: clerkId });
 
     const stays = await Stay.find({ sitter: user._id })
-      .populate<{ pet: IPet[] }>({ path: 'pet', model: Pet })
-      .populate<{ owner: IUser }>({ path: 'owner', model: User });
+      .populate<{ pet: IPet[]; }>({ path: 'pet', model: Pet })
+      .populate<{ owner: IUser; }>({ path: 'owner', model: User });
 
     return stays || []; // Return an empty array if there are no stays
   } catch (e) {
@@ -76,7 +103,7 @@ export async function getStaysByClerkUser(clerkId: string) {
 }
 
 // Confirm Stay is Eneded
-export async function confirmStayIsEnded(stayId: string): Promise<boolean> {
+export async function confirmStayIsEnded (stayId: string): Promise<boolean> {
   await dbConnect();
 
   try {
@@ -91,7 +118,7 @@ export async function confirmStayIsEnded(stayId: string): Promise<boolean> {
 }
 
 // Check if isPetInStay by checking is stay is there and if stay not ended
-export async function isPetInStay(petId: string): Promise<boolean> {
+export async function isPetInStay (petId: string): Promise<boolean> {
   await dbConnect();
 
   try {
