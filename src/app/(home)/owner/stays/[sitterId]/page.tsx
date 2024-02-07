@@ -1,5 +1,5 @@
-import {currentUser} from '@clerk/nextjs';
-import {getUserByClerkId, getUserById} from '@/lib/db/controller/User';
+import { currentUser } from '@clerk/nextjs';
+import { getUserByClerkId, getUserById } from '@/lib/db/controller/User';
 import {
   Card,
   CardContent,
@@ -9,19 +9,26 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 // import {Separator} from '@radix-ui/react-separator';
-import {FaRegEnvelope} from 'react-icons/fa6';
+import { FaRegEnvelope } from 'react-icons/fa6';
 import Link from 'next/link';
-import {getConversationByPair} from '@/lib/db/controller/Conversation';
-import {notFound} from 'next/navigation';
+import { getConversationByPair } from '@/lib/db/controller/Conversation';
+import { notFound } from 'next/navigation';
 import createConversationWithSitter from '@/lib/actions/conversation';
-import {Button} from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import {IoCalendar} from 'react-icons/io5';
+import { IoCalendar } from 'react-icons/io5';
 import dummyUser from 'public/userDummyImage.png';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import RequestDrawer from '@/components/request-drawer';
+import { getPetsOwnedByUser } from '@/lib/db/controller/User';
 
-export default async function Page({params}: {params: {sitterId: string}}) {
+export default async function Page({
+  params,
+}: {
+  params: { sitterId: string };
+}) {
   // get sitter by id
-  const {sitterId} = params;
+  const { sitterId } = params;
   const sitter = await getUserById(sitterId);
 
   // get owner by clerk id
@@ -46,22 +53,35 @@ export default async function Page({params}: {params: {sitterId: string}}) {
 
   // gather sitter info
   const imgSrc = sitter.pfpUrl ? sitter.pfpUrl : dummyUser;
-  const sitterInfo: {title: string; value: string}[] = [
-    {title: 'Description:', value: sitter.sitterDescription ?? ''},
-    {title: 'Maximum number of pets this sitter can look after:', value: sitter.maxPets ?? ''},
-    {title: 'Qualifications:', value: sitter.qualifications ?? ''},
-    {title: 'First aid experience:', value: sitter.firstAid ?? ''},
-    {title: 'Insurance details:', value: sitter.insuranceDetails ?? ''},
-    {title: 'Do they look after dogs? 🐶:', value: sitter.sitsDogs ? 'Yes' : 'No'},
-    {title: 'Do they look after cats? 😸:', value: sitter.sitsCats ? 'Yes' : 'No'},
+  const sitterInfo: { title: string; value: string }[] = [
+    { title: 'Description:', value: sitter.sitterDescription ?? '' },
+    {
+      title: 'Maximum number of pets this sitter can look after:',
+      value: sitter.maxPets ?? '',
+    },
+    { title: 'Qualifications:', value: sitter.qualifications ?? '' },
+    { title: 'First aid experience:', value: sitter.firstAid ?? '' },
+    { title: 'Insurance details:', value: sitter.insuranceDetails ?? '' },
+    {
+      title: 'Do they look after dogs? 🐶:',
+      value: sitter.sitsDogs ? 'Yes' : 'No',
+    },
+    {
+      title: 'Do they look after cats? 😸:',
+      value: sitter.sitsCats ? 'Yes' : 'No',
+    },
   ];
-  const contactInfo: {title: string; value: string}[] = [
-    {title: 'Phone number:', value: sitter.contact?.phone ?? ''},
-    {title: 'Street:', value: sitter.contact?.street ?? ''},
-    {title: 'City:', value: sitter.contact?.city ?? ''},
-    {title: 'Postcode:', value: sitter.contact?.postcode ?? ''},
-    {title: 'Country:', value: sitter.contact?.country ?? ''},
+  const contactInfo: { title: string; value: string }[] = [
+    { title: 'Phone number:', value: sitter.contact?.phone ?? '' },
+    { title: 'Street:', value: sitter.contact?.street ?? '' },
+    { title: 'City:', value: sitter.contact?.city ?? '' },
+    { title: 'Postcode:', value: sitter.contact?.postcode ?? '' },
+    { title: 'Country:', value: sitter.contact?.country ?? '' },
   ];
+
+  const pets = (await getPetsOwnedByUser(clerkUser.id)) || [];
+
+  const petsObject = JSON.parse(JSON.stringify(pets));
 
   if (sitter) {
     return (
@@ -111,10 +131,21 @@ export default async function Page({params}: {params: {sitterId: string}}) {
                 </Button>
               </form>
             )}
-            <Button type="submit">
-              <p className="mr-3">Book a stay with {sitter.firstname}</p>
-              <IoCalendar size="1.5em" />
-            </Button>
+            <Drawer>
+              <DrawerTrigger>
+                <Button type="submit" className="w-full">
+                  <p className="mr-3">Book a stay with {sitter.firstname}</p>
+                  <IoCalendar size="1.5em" />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="bg-brand-bg flex flex-col gap-2">
+                <RequestDrawer
+                  pets={petsObject}
+                  owner={owner._id.toString()}
+                  sitter={sitterId}
+                />
+              </DrawerContent>
+            </Drawer>
             <Button variant="outline" type="button">
               <Link href="/owner/stays">Go back</Link>
             </Button>
