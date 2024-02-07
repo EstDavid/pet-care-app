@@ -74,20 +74,9 @@ a 15.9155 15.9155 0 0 1 0 -31.831"
           <div>
             <p className="font-bold">Current Account Status</p>
           </div>
-        </div>
-      )}
-      {!profileComplete && (
-        <div>
-          <Card>
-            <CardHeader>
-              <CardTitle>Complete Your Profile</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {/* <Link href="/user-profile/edit">
-                <Button>Manage Profile</Button>
-              </Link> */}
-            </CardContent>
-          </Card>
+          <Link href="/user-profile/edit">
+            <Button className="mt-5">Manage Profile</Button>
+          </Link>
         </div>
       )}
     </div>

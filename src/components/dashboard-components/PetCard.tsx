@@ -42,14 +42,17 @@ function PetCard({
           petIsHome ? 'border-green-500' : 'border-yellow-500'
         }`}
       >
-        <Image
-          src={getPetImageUrl()}
-          alt="Pet"
-          width={200}
-          height={200}
-          className="w-2/5 h-48 object-cover"
-        />
-        <CardContent className="w-3/5 ">
+        <div className="w-full flex justify-center items-center">
+          <Image
+            src={getPetImageUrl()}
+            alt="Pet"
+            width={0}
+            height={0}
+            sizes="200px"
+            className="w-[100px] h-[100px] object-cover rounded-full"
+          />
+        </div>
+        <CardContent className="w-3/5 p-2">
           <CardContent className="flex flex-row justify-between self-center mt-4">
             <CardTitle>{petName}</CardTitle>
             <CardTitle
@@ -58,21 +61,20 @@ function PetCard({
               {petIsHome ? '🟢 Home' : '🟡 Away'}
             </CardTitle>
           </CardContent>
-          <CardContent className="flex flex-col justify-center items-center gap-2 h-24 mt-4">
+          <CardContent className="flex flex-col justify-center items-center gap-2 h-24 mt-4 p-0">
             {petIsHome ? (
               <>
-                <Button className="w-52">Find sitter for {petName}</Button>
+                <Button className="w-full">Find sitter for {petName}</Button>
                 <Link href={`/pet/profile/${petId}`} passHref>
-                  <Button className="w-52">Preview {petName} Info</Button>
+                  <Button className="w-full">Preview {petName} Info</Button>
                 </Link>
               </>
             ) : (
               <>
-                <Button className="w-52">Check {petName}`s updates</Button>
-                <Button className="w-52">Contact {petName}`s sitter</Button>
+                <Button className="w-full">Check {petName}`s updates</Button>
+                <Button className="w-full">Contact {petName}`s sitter</Button>
               </>
             )}
-            <Button className="w-52">Stays</Button>
           </CardContent>
         </CardContent>
       </Card>
