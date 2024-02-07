@@ -34,10 +34,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                 </Button>
               </CardDescription>
             ) : (
-              <p className="font-regular">
-                Notifications will appear here
-                {/* <span className="font-normal">complete</span> */}
-              </p>
+              <p className="font-regular">Notifications will appear here</p>
             )}
           </CardDescription>
         </CardHeader>

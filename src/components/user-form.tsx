@@ -13,7 +13,6 @@ import { useUser } from "@clerk/nextjs";
 import { User } from "@/lib/db/models/User";
 
 // rename user received from the server component to dbUser because Clerk's useUser hook uses user
-// rename user received from the server component to dbUser because Clerk's useUser hook uses user
 export default function UserForm({ user: dbUser }: { user: User }) {
   const [imageUrl, setImageUrl] = useState("");
   const [newImgUploaded, setNewImgUploaded] = useState(false);
@@ -22,7 +21,6 @@ export default function UserForm({ user: dbUser }: { user: User }) {
     return null;
   }
 
-  // upload widget callback
   // upload widget callback
   const imgUploaded = (result: string) => {
     setImageUrl(result);
@@ -39,19 +37,11 @@ export default function UserForm({ user: dbUser }: { user: User }) {
       <div className="relative w-[120px] h-[120px]">
         {imgSrc ? (
           <Image
-            src={imgSrc}
-            alt="User profile picture"
-            // Bug fix starts here (by: Alaa)
-            // Bug description: The image was displaying in the whole window
-            // Bug fix: I uncommented the width and height properties and commented the fill property
-            // width={120}
-            // height={120}
-            // fill={true}
-            // Bug fix ends here
+            src={imageUrl}
+            alt="User Picture"
             fill={true}
             sizes="120px"
             priority={true}
-            // className="rounded-md w-[120px] h-[120px] bg-white"
             style={{
               objectFit: "cover",
             }}
