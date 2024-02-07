@@ -1,16 +1,16 @@
-"use server";
-import { UserButton, auth } from "@clerk/nextjs";
-import AccountReady from "@/components/dashboard-components/AccountReady";
-import AddPet from "@/components/dashboard-components/AddPet";
-import PetCard from "@/components/dashboard-components/PetCard";
-import { getPetsOwnedByUser, getUserByClerkId } from "@/lib/db/controller/User";
-import { Pet } from "@/lib/db/models/Pet";
-import { getStaysForPet, isPetInStay } from "@/lib/db/controller/Stay";
-import Image from "next/image";
-import dogDummyImg from "@/../public/dogDummy.png";
-import catDummyImg from "@/../public/catDummy.png";
-import Notifications from "@/components/dashboard-components/Notifications";
-import Recommendation from "@/components/dashboard-components/Recommendation";
+'use server';
+import { UserButton, auth } from '@clerk/nextjs';
+import AccountReady from '@/components/dashboard-components/AccountReady';
+import AddPet from '@/components/dashboard-components/AddPet';
+import PetCard from '@/components/dashboard-components/PetCard';
+import { getPetsOwnedByUser, getUserByClerkId } from '@/lib/db/controller/User';
+import { Pet } from '@/lib/db/models/Pet';
+import { getStaysForPet, isPetInStay } from '@/lib/db/controller/Stay';
+import Image from 'next/image';
+import dogDummyImg from '@/../public/dogDummy.png';
+import catDummyImg from '@/../public/catDummy.png';
+import Recommendation from '@/components/dashboard-components/Recommendation';
+import Notifications from '@/components/dashboard-components/Notifications';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
@@ -47,19 +47,19 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   let readyToUse = personalInformation && petSittingSettings;
 
-  let notification = "You have no new notifications";
+  let notification = 'You have no new notifications';
   let newNotification = true;
   let notificationContent =
-    "Notifications should appear here when you have new ones";
+    'Notifications should appear here when you have new ones';
   if (newNotification) {
-    notification = "You have a new message from a sitter";
+    notification = 'You have a new message from a sitter';
     notificationContent =
       "Sitter: John Doe\nMessage: Hi, I'm interested in ...";
   }
   // recommendation is when the sitter didn't add self description then the recommendation message will be shown as profile description will better the chances of getting hired for pet sitting
-  let recommendationTitle = "Recommendation!";
+  let recommendationTitle = 'Recommendation!';
   let recommendationMessage =
-    "Enhance your pet sitting profile by adding a description\nit boosts your hiring prospects!";
+    'Enhance your pet sitting profile by adding a description\nit boosts your hiring prospects!';
 
   async function isInStay(petId: string) {
     const currentDateTime = new Date();
@@ -76,11 +76,12 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   function handleNoPetImage(petType: string) {
-    return petType === "dog" ? dogDummyImg : catDummyImg;
+    return petType === 'dog' ? dogDummyImg : catDummyImg;
   }
 
   return (
-    <div className="flex flex-col text-center">
+    <div className="flex flex-col gap-y-4 text-center">
+      <Notifications user={user} />
       {!readyToUse ? (
         <AccountReady
           percentage={percentage}
@@ -89,11 +90,6 @@ export default async function Page({ params }: { params: { id: string } }) {
         />
       ) : (
         <div className="flex flex-col gap-y-4">
-          <Notifications
-            notification={notification}
-            newNotification={newNotification}
-            notificationContent={notificationContent}
-          />
           {!user?.sitterDescription && (
             <Recommendation
               notification={recommendationTitle}
