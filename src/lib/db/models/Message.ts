@@ -32,7 +32,8 @@ const messageSchema = new Schema<IMessage>(
     },
     messageRead: {
       type: Boolean,
-      required: true
+      required: true,
+      default: false
     },
     taggedPets: [
       {
