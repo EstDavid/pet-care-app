@@ -1,23 +1,22 @@
 'use server';
-// import { revalidatePath } from 'next/cache';
+import { addStay } from '../db/controller/Stay';
 
 export default async function requestStay(
+  owner: string,
+  sitter: string,
   from: string,
   to: string,
   formData: FormData
 ) {
-  console.log(new Date(from));
-  console.log(new Date(to));
-  console.log(formData);
+  const petArray = [];
+  for (let petId of formData.entries()) {
+    petArray.push(petId[0]);
+  }
+
   try {
-    //   const newMessage = new Message({
-    //     textContent: formData.get('message') as string,
-    //     sender: senderId,
-    //     messageRead: false
-    //   });
-    //   await postMessageToConversation(conversationId, newMessage);
+    const newStay = await addStay(owner, sitter, petArray, from, to);
+    console.log(newStay);
   } catch (error) {
     console.log(error);
   }
-  // revalidatePath(`/chat/${conversationId}`);
 }
