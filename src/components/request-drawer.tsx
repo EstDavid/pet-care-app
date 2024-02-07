@@ -21,6 +21,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import requestStay from '@/lib/actions/request-stay';
 import { Pet } from '@/lib/db/models/Pet';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function RequestDrawer({
   pets,
@@ -36,6 +37,7 @@ export default function RequestDrawer({
     Array(pets.length).fill(false)
   );
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const { toast } = useToast();
 
   function handlePetSelection(index: number) {
     setSelectedPets((prev) => {
@@ -53,9 +55,13 @@ export default function RequestDrawer({
   // Pass additional arguments to server action
   const actionFunction = requestStay.bind(null, owner, sitter, from, to);
 
-  // Call the server action and close the drawer
+  // Call the server action, display toast and close the drawer
   const newActionFunction = (formData: FormData) => {
     actionFunction(formData);
+    toast({
+      title: 'Request sent.',
+      duration: 2000,
+    });
     if (closeButtonRef.current) {
       closeButtonRef.current.click();
     }
@@ -88,6 +94,7 @@ export default function RequestDrawer({
               </div>
             ))}
           </div>
+          {/* Date Popover */}
           <Popover>
             <PopoverTrigger asChild>
               <Button
