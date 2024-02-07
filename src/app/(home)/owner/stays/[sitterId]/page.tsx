@@ -1,6 +1,5 @@
 import {currentUser} from '@clerk/nextjs';
 import {getUserByClerkId, getUserById} from '@/lib/db/controller/User';
-import {Avatar, AvatarImage, AvatarFallback} from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
@@ -10,7 +9,6 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 // import {Separator} from '@radix-ui/react-separator';
-import {FaCat, FaDog} from 'react-icons/fa';
 import {FaRegEnvelope} from 'react-icons/fa6';
 import Link from 'next/link';
 import {getConversationByPair} from '@/lib/db/controller/Conversation';
@@ -22,35 +20,52 @@ import {IoCalendar} from 'react-icons/io5';
 import dummyUser from 'public/userDummyImage.png';
 
 export default async function Page({params}: {params: {sitterId: string}}) {
+  // get sitter by id
   const {sitterId} = params;
   const sitter = await getUserById(sitterId);
 
+  // get owner by clerk id
   const clerkUser = await currentUser();
-  if (!clerkUser) {
-    return null;
-  }
+  if (!clerkUser) return null;
   const owner = await getUserByClerkId(clerkUser.id);
 
   if (!owner?._id || !sitter?._id) {
     notFound();
   }
 
-  const imgSrc = sitter.pfpUrl ? sitter.pfpUrl : dummyUser;
-
+  // create or continue a conversation
   const conversation = await getConversationByPair(
     owner._id.toString(),
     sitter._id.toString()
   );
-
   const createConversation = createConversationWithSitter.bind(
     null,
     owner._id.toString(),
     sitter._id.toString()
   );
 
+  // gather sitter info
+  const imgSrc = sitter.pfpUrl ? sitter.pfpUrl : dummyUser;
+  const sitterInfo: {title: string; value: string}[] = [
+    {title: 'Description:', value: sitter.sitterDescription ?? ''},
+    {title: 'Maximum sitted pets:', value: sitter.maxPets ?? ''},
+    {title: 'Qualifications:', value: sitter.qualifications ?? ''},
+    {title: 'First aid experience:', value: sitter.firstAid ?? ''},
+    {title: 'Insurance details:', value: sitter.insuranceDetails ?? ''},
+    {title: 'Sitting dogs 🐶:', value: sitter.sitsDogs ? 'Yes' : 'No'},
+    {title: 'Sitting cats 😸:', value: sitter.sitsCats ? 'Yes' : 'No'},
+  ];
+  const contactInfo: {title: string; value: string}[] = [
+    {title: 'Phone number:', value: sitter.contact?.phone ?? ''},
+    {title: 'Street:', value: sitter.contact?.street ?? ''},
+    {title: 'City:', value: sitter.contact?.city ?? ''},
+    {title: 'Postcode:', value: sitter.contact?.postcode ?? ''},
+    {title: 'Country:', value: sitter.contact?.country ?? ''},
+  ];
+
   if (sitter) {
     return (
-      <div>
+      <div className="flex flex-col items-center gap-4 relative">
         {' '}
         <Card className="w-[350px]">
           {' '}
@@ -70,56 +85,18 @@ export default async function Page({params}: {params: {sitterId: string}}) {
           </CardHeader>
           <CardContent className="grid w-full items-center gap-4">
             <h3 className="font-semibold">Sitter Information</h3>
-            <CardDescription>
-              <span className="font-semibold">Description:</span>{' '}
-              {sitter.sitterDescription}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Maximum sitted pets:</span>{' '}
-              {sitter.maxPets}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Qualifications:</span>{' '}
-              {sitter.qualifications}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">First aid experience:</span>{' '}
-              {sitter.firstAid}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Insurance details:</span>{' '}
-              {sitter.insuranceDetails}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Sitting dogs 🐶:</span>{' '}
-              {sitter.sitsDogs ? 'Yes' : 'No'}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Sitting cats 😸:</span>{' '}
-              {sitter.sitsCats ? 'Yes' : 'No'}
-            </CardDescription>
+            {sitterInfo.map((info, index) => (
+              <CardDescription key={index}>
+                <span className="font-semibold">{info.title}</span> {info.value}
+              </CardDescription>
+            ))}
             <div className="shrink-0 dark:bg-slate-800 h-[1px] w-full bg-brand-bg"></div>
             <h3 className="font-semibold">Contact Information</h3>
-            <CardDescription>
-              <span className="font-semibold">Phone number:</span>{' '}
-              {sitter.contact?.phone}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Street:</span>{' '}
-              {sitter.contact?.street}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">City:</span>{' '}
-              {sitter.contact?.city}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Postcode:</span>{' '}
-              {sitter.contact?.postcode}
-            </CardDescription>
-            <CardDescription>
-              <span className="font-semibold">Country:</span>{' '}
-              {sitter.contact?.country}
-            </CardDescription>
+            {contactInfo.map((info, index) => (
+              <CardDescription key={index}>
+                <span className="font-semibold">{info.title}</span> {info.value}
+              </CardDescription>
+            ))}
             {conversation ? (
               <Button type="submit">
                 <p className="mr-3">Chat with {sitter.firstname}</p>
@@ -128,7 +105,7 @@ export default async function Page({params}: {params: {sitterId: string}}) {
               </Button>
             ) : (
               <form action={createConversation}>
-                <Button type="submit">
+                <Button type="submit" className="w-[300px]">
                   <p className="mr-3">Chat with {sitter.firstname}</p>
                   <FaRegEnvelope size="1.5em" />
                 </Button>
