@@ -121,8 +121,8 @@ export default function RequestDrawer({
           Submit
         </Button>
         <DrawerClose>
-          <Button variant="outline" className="w-full">
-            Cancel
+          <Button type="button" variant="outline" className="w-full">
+            Close
           </Button>
         </DrawerClose>
       </DrawerFooter>
