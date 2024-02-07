@@ -11,10 +11,10 @@ export default function CustomSignoutButton() {
 
   return (
     <SignOutButton signOutCallback={() => handleSignout()}>
-      <div className=" 0 border-brand-cta-950 border-2 w-full h-full flex justify-end px-3 py-2 rounded-md cursor-pointer">
-        <div className="h-full w-full flex justify-end items-center gap-3 text-brand-cta-950">
-          <p className="text-xl">Signout</p>
-          <PiSignOut size="2em" />
+      <div className="border-brand-cta-950 border w-full h-full flex justify-end px-2 rounded-md cursor-pointer">
+        <div className="h-full w-full flex justify-end items-center gap-2 text-brand-cta-950">
+          <p className="text-sm">Signout</p>
+          <PiSignOut size="1.1em" />
         </div>
       </div>
     </SignOutButton>
