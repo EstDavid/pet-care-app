@@ -1,57 +1,50 @@
-import { auth } from '@clerk/nextjs';
-import { getUserByClerkId, getUserById } from '@/lib/db/controller/User';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import {currentUser} from '@clerk/nextjs';
+import {getUserByClerkId, getUserById} from '@/lib/db/controller/User';
+import {Avatar, AvatarImage, AvatarFallback} from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
+  CardDescription,
 } from '@/components/ui/card';
-import { FaCat, FaDog } from 'react-icons/fa';
-import { FaLocationDot } from 'react-icons/fa6';
-import { FaRegEnvelope } from 'react-icons/fa6';
+// import {Separator} from '@radix-ui/react-separator';
+import {FaCat, FaDog} from 'react-icons/fa';
+import {FaRegEnvelope} from 'react-icons/fa6';
 import Link from 'next/link';
-import { getConversationByPair } from '@/lib/db/controller/Conversation';
-import { notFound } from 'next/navigation';
+import {getConversationByPair} from '@/lib/db/controller/Conversation';
+import {notFound} from 'next/navigation';
 import createConversationWithSitter from '@/lib/actions/conversation';
-import { Button } from '@/components/ui/button';
+import {Button} from '@/components/ui/button';
+import Image from 'next/image';
+import {IoCalendar} from 'react-icons/io5';
+import dummyUser from 'public/userDummyImage.png';
 
-export default async function Page({
-  params
-}: {
-  params: { sitterId: string };
-}) {
-  const { userId } = auth();
+export default async function Page({params}: {params: {sitterId: string}}) {
+  const {sitterId} = params;
+  const sitter = await getUserById(sitterId);
 
-  const { sitterId: id } = params;
-
-  if (!userId) {
+  const clerkUser = await currentUser();
+  if (!clerkUser) {
     return null;
   }
+  const owner = await getUserByClerkId(clerkUser.id);
 
-  const user = await getUserByClerkId(userId);
-  const sitter = await getUserById(id);
-
-  const pfpUrl = 'https://avatars.githubusercontent.com/u/114820366?v=4';
-  const descriptions = [
-    "Hi, I'm Emily, your go-to cat sitter! In my cozy home, every cat is treated like a member of the family. I specialize in providing a tranquil and stimulating environment tailored specifically for cats. Whether your kitty loves chasing lasers or snuggling on laps, I ensure they receive all the love and attention they need. I offer daily play sessions, grooming, and personalized care for any special needs. Let me give your feline friend the purr-fect home away from home!",
-    "Hello! I'm Paul, and dogs are my passion. At my doggy daycare, your beloved pooch will find a second home filled with fun and affection. From rambunctious playtime to relaxing walks, I cater to each dog's individual personality and needs. With experience handling various breeds and temperaments, I ensure your dog enjoys their time to the fullest. Your furry friend's happiness and well-being are my top priorities, so you can rest easy knowing they're in good hands.",
-    "Hi there, I'm Sara! As a pet sitter who adores both cats and dogs, I offer a warm and welcoming place for your furry companions. Understanding the unique quirks of both cats and dogs, I create a balanced environment where each pet feels at home. Whether it's group play for sociable dogs or quiet cuddle time for your introspective cat, I tailor my care to suit their needs. With my attentive and loving approach, you can trust me to provide the best care for your beloved pets."
-  ];
-
-  if (!user?._id || !sitter?._id) {
+  if (!owner?._id || !sitter?._id) {
     notFound();
   }
 
+  const imgSrc = sitter.pfpUrl ? sitter.pfpUrl : dummyUser;
+
   const conversation = await getConversationByPair(
-    user._id.toString(),
+    owner._id.toString(),
     sitter._id.toString()
   );
 
   const createConversation = createConversationWithSitter.bind(
     null,
-    user._id.toString(),
+    owner._id.toString(),
     sitter._id.toString()
   );
 
@@ -59,59 +52,96 @@ export default async function Page({
     return (
       <div>
         {' '}
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between">
-              <div className="flex flex-col gap-2">
-                <Avatar>
-                  <AvatarImage src={pfpUrl} />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <CardTitle>{sitter.firstname}</CardTitle>
-              </div>
-              <div className="flex gap-3">
-                {sitter.sitsDogs ? (
-                  <FaDog className="text-brand-bg-400" size="2em" />
-                ) : null}
-                {sitter.sitsCats ? (
-                  <FaCat className="text-brand-fg-400" size="2em" />
-                ) : null}
-              </div>
+        <Card className="w-[350px]">
+          {' '}
+          <CardHeader className="flex flex-row items-center justify-around">
+            <CardTitle className="text-xl">{sitter.firstname}</CardTitle>
+            <div className="relative w-[120px] h-[120px]">
+              <Image
+                src={imgSrc}
+                alt={`profile picture of ${sitter.firstname}`}
+                fill={true}
+                sizes="120px"
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
             </div>
           </CardHeader>
-          <CardContent>
-            <div>
-              {descriptions[0].split('\n').map((desc, index) => {
-                return (
-                  <p key={index} className="text-sm text-brand-bg-500 italic">
-                    {desc}
-                  </p>
-                );
-              })}
-            </div>
-          </CardContent>
-          <CardFooter>
-            <div className="flex w-full justify-start items-end gap-4">
-              <FaLocationDot size="2em" className="text-brand-fg-700" />
-              <p className="text-center">5 km from you</p>
-            </div>
+          <CardContent className="grid w-full items-center gap-4">
+            <h3 className="font-semibold">Sitter Information</h3>
+            <CardDescription>
+              <span className="font-semibold">Description:</span>{' '}
+              {sitter.sitterDescription}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Maximum sitted pets:</span>{' '}
+              {sitter.maxPets}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Qualifications:</span>{' '}
+              {sitter.qualifications}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">First aid experience:</span>{' '}
+              {sitter.firstAid}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Insurance details:</span>{' '}
+              {sitter.insuranceDetails}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Sitting dogs 🐶:</span>{' '}
+              {sitter.sitsDogs ? 'Yes' : 'No'}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Sitting cats 😸:</span>{' '}
+              {sitter.sitsCats ? 'Yes' : 'No'}
+            </CardDescription>
+            <div className="shrink-0 dark:bg-slate-800 h-[1px] w-full bg-brand-bg"></div>
+            <h3 className="font-semibold">Contact Information</h3>
+            <CardDescription>
+              <span className="font-semibold">Phone number:</span>{' '}
+              {sitter.contact?.phone}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Street:</span>{' '}
+              {sitter.contact?.street}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">City:</span>{' '}
+              {sitter.contact?.city}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Postcode:</span>{' '}
+              {sitter.contact?.postcode}
+            </CardDescription>
+            <CardDescription>
+              <span className="font-semibold">Country:</span>{' '}
+              {sitter.contact?.country}
+            </CardDescription>
             {conversation ? (
-              <Link
-                href={`/chat/${conversation._id}`}
-                className="flex items-center"
-              >
-                <span>Get latest messages with {sitter.firstname}</span>
-                <FaRegEnvelope size="3em" />
-              </Link>
+              <Button type="submit">
+                <p className="mr-3">Chat with {sitter.firstname}</p>
+                <FaRegEnvelope size="1.5em" />
+                <Link href={`/chat/${conversation._id}`}></Link>
+              </Button>
             ) : (
               <form action={createConversation}>
                 <Button type="submit">
-                  <p>Contact {sitter.firstname}</p>
-                  <FaRegEnvelope size="3em" />
+                  <p className="mr-3">Chat with {sitter.firstname}</p>
+                  <FaRegEnvelope size="1.5em" />
                 </Button>
               </form>
             )}
-          </CardFooter>
+            <Button type="submit">
+              <p className="mr-3">Book a stay with {sitter.firstname}</p>
+              <IoCalendar size="1.5em" />
+            </Button>
+            <Button variant="outline" type="button">
+              <Link href="/owner/stays">Go back</Link>
+            </Button>
+          </CardContent>
         </Card>
       </div>
     );

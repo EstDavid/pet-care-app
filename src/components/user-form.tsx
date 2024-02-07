@@ -37,10 +37,10 @@ export default function UserForm({ user: dbUser }: { user: User }) {
   return (
     <div className="flex flex-col items-center gap-4 relative">
       <div className="relative w-[120px] h-[120px]">
-        {imageUrl ? (
+        {imgSrc ? (
           <Image
-            src={imageUrl}
-            alt="User Picture"
+            src={imgSrc}
+            alt="User profile picture"
             // Bug fix starts here (by: Alaa)
             // Bug description: The image was displaying in the whole window
             // Bug fix: I uncommented the width and height properties and commented the fill property
