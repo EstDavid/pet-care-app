@@ -17,8 +17,8 @@ export default async function Header() {
   dbImageUrl ? (imageUrl = dbImageUrl) : (imageUrl = clerkImageUrl);
 
   return (
-    <div className="w-screen h-header-nav bg-brand-bg flex">
-      <div className="flex w-full gap-5 justify-between items-center px-4 py-2 container shadow-lg">
+    <div className="w-screen h-header-nav bg-grad-down-brand-bg flex rounded-b-lg shadow-md">
+      <div className="flex w-full gap-5 justify-between items-center px-4 py-2 container">
         <div className="flex-1 justify-start items-center">
           <Image
             alt="user photo"
@@ -29,7 +29,7 @@ export default async function Header() {
             className="w-header-photo h-header-photo object-cover rounded-full"
           ></Image>
         </div>
-        <h1 className="text-brand-fg font-semibold flex-1 text-xl text-center">
+        <h1 className="text-brand-fg font-semibold flex-1 text-xl text-center self-end pb-3">
           Hi {clerkName}!
         </h1>
         <div className="relative h-full flex-1 flex justify-end">

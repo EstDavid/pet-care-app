@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type {Config} from 'tailwindcss';
 
 const headerHeight = 100;
 const subheaderHeight = 60;
@@ -25,17 +25,17 @@ const config = {
     extend: {
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: {height: '0'},
+          to: {height: 'var(--radix-accordion-content-height)'},
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {height: 'var(--radix-accordion-content-height)'},
+          to: {height: '0'},
         },
       },
       spacing: {
         'header-height': `${headerHeight}px`,
-        'subheader-height': `${subheaderHeight}px`
+        'subheader-height': `${subheaderHeight}px`,
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -44,18 +44,18 @@ const config = {
       height: {
         'header-nav': `${headerHeight}px`,
         'footer-nav': `${footerHeight}px`,
-        'subheader': `${subheaderHeight}px`,
-        'header-photo': `${headerPhotoSize}px`
+        subheader: `${subheaderHeight}px`,
+        'header-photo': `${headerPhotoSize}px`,
       },
       width: {
-        'header-photo': `${headerPhotoSize}px`
+        'header-photo': `${headerPhotoSize}px`,
       },
       padding: {
         'x-pad-footer': '20px',
       },
       colors: {
         'brand-bg': {
-          'DEFAULT': 'hsl(175, 33%, 45%)',
+          DEFAULT: 'hsl(175, 33%, 45%)',
           '50': 'hsl(168, 29%, 97%)',
           '100': 'hsl(171, 35%, 89%)',
           '200': 'hsl(169, 35%, 78%)',
@@ -69,7 +69,7 @@ const config = {
           '950': 'hsl(184, 33%, 10%)',
         },
         'brand-fg': {
-          'DEFAULT': 'hsl(30, 100%, 97%)',
+          DEFAULT: 'hsl(30, 100%, 97%)',
           '50': 'hsl(30, 100%, 97%)',
           '100': 'hsl(31, 100%, 91%)',
           '200': 'hsl(29, 98%, 83%)',
@@ -83,7 +83,7 @@ const config = {
           '950': 'hsl(10, 81%, 15%)',
         },
         'brand-cta': {
-          'DEFAULT': 'hsl(204, 44%, 12%)',
+          DEFAULT: 'hsl(204, 44%, 12%)',
           '50': 'hsl(191, 58%, 96%)',
           '100': 'hsl(193, 55%, 90%)',
           '200': 'hsl(193, 53%, 82%)',
@@ -95,8 +95,14 @@ const config = {
           '800': 'hsl(202, 39%, 27%)',
           '900': 'hsl(204, 36%, 24%)',
           '950': 'hsl(204, 44%, 12%)',
-        }
-      }
+        },
+      },
+      backgroundImage: {
+        'grad-brand-bg':
+          'linear-gradient(0deg, hsl(173, 32%, 64%), hsl(177, 34%, 32%))',
+        'grad-down-brand-bg':
+          'linear-gradient(180deg, hsl(173, 32%, 64%), hsl(177, 34%, 32%))',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
