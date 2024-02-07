@@ -1,5 +1,4 @@
-'use client';
-import { useState } from 'react';
+// import { useState } from 'react';
 import {
   Drawer,
   DrawerClose,
@@ -11,57 +10,58 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, format } from 'date-fns';
-import { DateRange } from 'react-day-picker';
-import { cn } from '@/lib/utils';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+// import { Calendar } from '@/components/ui/calendar';
+// import { CalendarIcon } from '@radix-ui/react-icons';
+// import { addDays, format } from 'date-fns';
+// import { DateRange } from 'react-day-picker';
+// import { cn } from '@/lib/utils';
+// import {
+//   Popover,
+//   PopoverContent,
+//   PopoverTrigger,
+// } from '@/components/ui/popover';
 import { Checkbox } from '@/components/ui/checkbox';
-import Pet from '@/lib/db/models/Pet';
-import requestStay from '@/lib/actions/request-stay';
-import { Input } from '@/components/ui/input';
+// import requestStay from '@/lib/actions/request-stay';
+// import { Input } from '@/components/ui/input';
+import RequestCalendar from '@/components/request-calendar';
+import { auth } from '@clerk/nextjs';
+import { getPetsOwnedByUser } from '@/lib/db/controller/User';
 
-export default function RequestStay({
+export default async function RequestStay({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = useState<DateRange | undefined>();
+  // const [date, setDate] = useState<DateRange | undefined>();
   // for setting up initial date range
   // {
   // from: new Date(2022, 0, 20),
   // to: addDays(new Date(2022, 0, 20), 20),
   // }
+  const { userId } = auth();
+  if (!userId) {
+    return null;
+  }
 
   // Pets need to be fetched in parent component
-  // const pets = (await getPetsOwnedByUser(userId)) || [];
-  const pets: any = [
-    { _id: '1', name: 'Gyoza' },
-    { _id: '2', name: 'Pluto' },
-    { _id: '3', name: 'Mars' },
-  ];
-  const from = date?.from;
+  const pets = (await getPetsOwnedByUser(userId)) || [];
 
   // const test = requestStay.bind(
   //   null,
-  //   from,
-  //   to: date.to,
+  //   date?.from?.toLocaleDateString(),
+  //   date?.to?.toLocaleDateString()
   // );
 
   // Date is a object
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-    console.log(typeof date?.from?.toLocaleDateString());
-  }
+  // function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+  //   event.preventDefault();
+  //   console.log(typeof date?.from?.toLocaleDateString());
+  // }
 
   return (
     <Drawer>
       <DrawerTrigger>Sitter1</DrawerTrigger>
 
       <DrawerContent className="bg-brand-bg flex flex-col gap-2">
+        {/* <form action={test}> */}
         <form>
           <DrawerHeader>
             <DrawerTitle className="mb-4">Request a stay</DrawerTitle>
@@ -70,7 +70,11 @@ export default function RequestStay({
               <div className="flex gap-4">
                 {pets?.map((pet: any) => (
                   <div className="flex gap-1" key={pet._id}>
-                    <Checkbox id={pet._id} name={pet._id} />
+                    <Checkbox
+                      id={pet._id}
+                      name={pet._id}
+                      className="bg-white"
+                    />
                     <label
                       htmlFor={pet._id}
                       className="text-sm font-medium text-brand-bg-950"
@@ -80,8 +84,9 @@ export default function RequestStay({
                   </div>
                 ))}
               </div>
+              <RequestCalendar />
               {/* Date Picker */}
-              <Popover>
+              {/* <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     id="date"
@@ -116,12 +121,12 @@ export default function RequestStay({
                     numberOfMonths={2}
                   />
                 </PopoverContent>
-              </Popover>
+              </Popover> */}
             </DrawerDescription>
           </DrawerHeader>
           {/* Buttons */}
           <DrawerFooter>
-            <Button onClick={handleClick}>Submit</Button>
+            <Button type="submit">Submit</Button>
             <DrawerClose>
               <Button variant="outline" className="w-full">
                 Cancel

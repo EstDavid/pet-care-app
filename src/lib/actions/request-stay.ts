@@ -3,10 +3,12 @@
 
 export default async function requestStay(
   // conversationId: string,
-  from: Date,
-  to: Date,
+  from: string,
+  to: string,
   formData: FormData
 ) {
+  console.log(from);
+  console.log(to);
   console.log(formData);
   // try {
   //   const newMessage = new Message({
