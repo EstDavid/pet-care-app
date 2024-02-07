@@ -142,7 +142,7 @@ export async function getUnreadMessages (userId: Object) {
 
     return conversations.filter(conversation => {
       return conversation.messages.length > 0;
-    }).length;
+    });
   } catch (error) {
     console.error(error);
   }

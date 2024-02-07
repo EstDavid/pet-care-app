@@ -1,23 +1,20 @@
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
-export default async function Notification({ title }: { title: string }) {
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+export default async function Notification({
+  title,
+  children
+}: Readonly<{
+  title: string;
+  children: React.ReactNode;
+}>) {
   return (
     <div>
       <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
+        <CardHeader className="p-3">
+          <CardTitle className="text-lg text-left border-b-2 border-b-brand-bg-100">
+            {title}
+          </CardTitle>
         </CardHeader>
-        <CardContent className="w-3/5 ">
-          <CardContent className="flex flex-row justify-between self-center mt-4"></CardContent>
-          <CardContent></CardContent>
-        </CardContent>
+        <div className="px-3 py-2">{children}</div>
       </Card>
     </div>
   );

@@ -1,7 +1,7 @@
 import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
 import Pet, { Pet as IPet } from '../models/Pet';
-import Stay, { Stay as IStay } from '../models/Stay';
+import Stay, { FullStay, Stay as IStay } from '../models/Stay';
 import { ObjectId, Types } from 'mongoose';
 
 export async function addStay (
@@ -58,23 +58,27 @@ export async function getStaysForPet (
 }
 
 // If no date is passed, it return all the stays. Otherwise it only return future or ongoing stays
-export async function getStaysByUser (userId: Types.ObjectId, currentDate?: Date) {
+export async function getStaysByUser (userId: Types.ObjectId, currentDate?: Date): Promise<FullStay[]> {
   await dbConnect();
 
-
-  const additionalQuery = currentDate ? { to: { $lte: currentDate } } : null;
-
   try {
-    const stays = await Stay.find({
+    const staysQuery = Stay.find({
       $or: [
         { owner: userId },
         { sitter: userId }
       ],
-      additionalQuery
-    })
+    });
+
+    if (currentDate) {
+      staysQuery.find({ to: { $gte: currentDate } });
+    }
+
+    staysQuery
       .populate({ path: 'owner', model: User })
       .populate({ path: 'sitter', model: User })
       .populate({ path: 'pet', model: Pet });
+
+    const stays: FullStay[] = await staysQuery.exec() as unknown as FullStay[];
 
     return stays || []; // Return an empty array if there are no stays
   } catch (e) {

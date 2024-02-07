@@ -1,18 +1,17 @@
 'use server';
-import { UserButton, auth } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs';
 import AccountReady from '@/components/dashboard-components/AccountReady';
-import AddPet from '@/components/dashboard-components/AddPet';
 import PetCard from '@/components/dashboard-components/PetCard';
 import { getPetsOwnedByUser, getUserByClerkId } from '@/lib/db/controller/User';
-import { Pet } from '@/lib/db/models/Pet';
 import { getStaysByUser, getStaysForPet } from '@/lib/db/controller/Stay';
-import Image from 'next/image';
 import dogDummyImg from '@/../public/dogDummy.png';
 import catDummyImg from '@/../public/catDummy.png';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Notification from '@/components/dashboard-components/Notification';
 import { notFound } from 'next/navigation';
+import { FullStay } from '@/lib/db/models/Stay';
+import { getUnreadMessages } from '@/lib/db/controller/Conversation';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
@@ -38,19 +37,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   const pets = (await getPetsOwnedByUser(userId)) || [];
   const petAdded = pets.length >= 1 ? true : false;
 
-  ('Please complete your profile');
-
-  let notification = 'You have no new notifications';
-  let newNotification = true;
-  let notificationContent =
-    'Notifications should appear here when you have new ones';
-  if (newNotification) {
-    notification = 'You have a new message from a sitter';
-    notificationContent =
-      //❕Suggestion: We cab set the count of characters to display
-      "Sitter: John Doe\nMessage: Hi, I'm interested in ...";
-  }
-
   let readyToUse = profileStatus && petAdded;
 
   // create a function that will Check if the pet is in a stay by calling the isPetInStay and passing the petId
@@ -75,29 +61,91 @@ export default async function Page({ params }: { params: { id: string } }) {
     return petType === 'dog' ? dogDummyImg : catDummyImg;
   }
 
-  const stays = await getStaysByUser(user._id);
+  // Getting the relevant info on ongoing and upcoming stays
+  const today = new Date();
 
-  console.log(stays);
+  const stays: FullStay[] = await getStaysByUser(user._id, today);
+
+  const closestUpcomingStay = stays
+    .filter((stay) => stay.from >= today)
+    .reduce((a, b) => (a.from < b.from ? a : b));
+
+  const onGoingStays = stays.filter((stay) => stay.from < today);
+
+  // Getting the number of unread messages and conversations
+  const unreadConversations = await getUnreadMessages(user._id);
+
+  const unreadMessages =
+    unreadConversations && unreadConversations.length > 0
+      ? unreadConversations.flatMap((conversation) =>
+          conversation.messages.filter(
+            (message) => !message.sender?._id.equals(user._id)
+          )
+        )
+      : [];
 
   return (
     <div className="flex flex-col gap-y-4 text-center">
-      <Notification title="Latest messages" />
-      <Notification title="Upcoming and ongoing stays" />
+      <Notification title="Latest messages">
+        {unreadConversations &&
+          unreadConversations.length &&
+          unreadMessages &&
+          unreadMessages.length > 0 && (
+            <h3 className="text-lg">
+              You have <strong>{unreadMessages.length}</strong> messages from{' '}
+              <strong>{unreadConversations?.length}</strong> conversations
+            </h3>
+          )}
+      </Notification>
+      {stays.length > 0 && (
+        <Notification title="Stays">
+          <div className="flex flex-col gap-2 mb-2">
+            {onGoingStays.length > 0 &&
+              onGoingStays.map((stay, index) => {
+                if (stay.to) {
+                  return (
+                    <div
+                      key={index}
+                      className="bg-brand-fg-100 p-1 rounded-full text-brand-fg-900"
+                    >
+                      <h3>{`Ongoing stay until ${new Date(
+                        stay.to
+                      ).toDateString()}`}</h3>
+                      <h3>{`Pet${stay.pet.length > 1 ? 's' : ''}: ${stay.pet
+                        .map((pet) => pet.name)
+                        .join(' ')}`}</h3>
+                    </div>
+                  );
+                }
+              })}
+            {closestUpcomingStay && (
+              <div className="bg-brand-bg-100 p-1 rounded-full text-brand-bg-900">
+                <h3>{`Upcoming stay: ${new Date(
+                  closestUpcomingStay.from
+                ).toDateString()}`}</h3>
+                <h3>{`Pet${
+                  closestUpcomingStay.pet.length > 1 ? 's' : ''
+                }: ${closestUpcomingStay.pet
+                  .map((pet) => pet.name)
+                  .join(', ')}`}</h3>
+              </div>
+            )}
+          </div>
+        </Notification>
+      )}
       {!readyToUse ? (
         <AccountReady
           percentage={percentage}
           profileComplete={!!profileStatus}
         />
       ) : (
-        <div className="flex flex-col gap-y-4">
-          {/* <Notifications
-            notification={notification}
-            newNotification={newNotification}
-            notificationContent={notificationContent}
-          /> */}
-        </div>
+        <div className="flex flex-col gap-y-4"></div>
       )}
-
+      {pets.length > 0 && (
+        <h3 className="text-left text-xl text-brand-bg-300 border-b-2 border-b-brand-bg-300">
+          Your Pets
+        </h3>
+      )}
       {pets.map(async (pet) => (
         <PetCard
           key={pet._id?.toString() ?? ''}

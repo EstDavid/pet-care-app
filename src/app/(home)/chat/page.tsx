@@ -31,7 +31,8 @@ export default async function Page() {
               : conversation.user1;
 
           const unreadMessages = conversation.messages.filter(
-            (message) => !message.messageRead
+            (message) =>
+              !message.messageRead && !message.sender?.equals(user._id)
           ).length;
 
           return (
