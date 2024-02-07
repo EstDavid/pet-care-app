@@ -80,9 +80,9 @@ export default function StayCard({ stay }: { stay: FullStay }) {
                                 sizes="200px"
                                 className="w-[50px] h-[50px] rounded-full object-cover"
                               />
-                              <p className="text-lg">{onePet.name}</p>
                             </div>
                           )}
+                          <p className="text-lg">{onePet.name}</p>
                         </div>
                         <div className="flex flex-col items-center gap-2">
                           {onePet.species === 'dog' ? (
