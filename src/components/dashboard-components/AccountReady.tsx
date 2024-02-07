@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Link from 'next/link';
-import AddPet from './AddPet';
-import { string } from 'zod';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
+import AddPet from "./AddPet";
+import { string } from "zod";
 
 interface AccountReadyProps {
   percentage: number;
@@ -15,9 +15,7 @@ interface AccountReadyProps {
 const AccountReady = ({
   percentage = 33,
   profileComplete = false,
-  petAdded = false,
   accountReady = false,
-  userRole = ''
 }) => {
   return (
     <div className="flex flex-col text-center gap-y-4">
@@ -49,15 +47,15 @@ a 15.9155 15.9155 0 0 1 0 -31.831"
                     className="circle"
                     stroke="#4C9993"
                     strokeWidth="4"
-                    strokeDasharray="113.097, 113.097" // Approx circumference = 2 * Math.PI * 18
-                    strokeDashoffset="113.097" // Initially full length
+                    strokeDasharray="113.097, 113.097"
+                    strokeDashoffset="113.097"
                     d="M18 2.0845
 a 15.9155 15.9155 0 0 1 0 31.831
 a 15.9155 15.9155 0 0 1 0 -31.831"
                     fill="none"
                     style={{
-                      transition: 'stroke-dashoffset 2s ease-out',
-                      strokeDashoffset: `calc(113.097 - (113.097 * ${percentage} / 113.097))` // Animate to percentage of the circumference
+                      transition: "stroke-dashoffset 2s ease-out",
+                      strokeDashoffset: `calc(113.097 - (113.097 * ${percentage} / 113.097))`,
                     }}
                   />
                   <text
@@ -74,10 +72,7 @@ a 15.9155 15.9155 0 0 1 0 -31.831"
             </div>
           </h1>
           <div>
-            <p className="font-bold">
-              Current Account Status
-              {/* <span className="font-normal">complete</span> */}
-            </p>
+            <p className="font-bold">Current Account Status</p>
           </div>
         </div>
       )}
@@ -95,7 +90,6 @@ a 15.9155 15.9155 0 0 1 0 -31.831"
           </Card>
         </div>
       )}
-      {!petAdded && userRole === 'owner' && <AddPet petAdded={petAdded} />}
     </div>
   );
 };
