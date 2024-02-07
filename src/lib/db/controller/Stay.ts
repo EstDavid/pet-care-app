@@ -8,8 +8,8 @@ export async function addStay (
   owner: string,
   sitter: string,
   petArray: string[],
-  from: string,
-  to: string
+  from: Date,
+  to: Date
 ): Promise<IStay | undefined> {
   await dbConnect();
 
