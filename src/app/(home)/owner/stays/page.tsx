@@ -5,7 +5,6 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from '@/components/ui/card';
 import {
   getNearestSitters,
@@ -20,9 +19,6 @@ import {FaDog, FaCat} from 'react-icons/fa';
 import {FaLocationDot} from 'react-icons/fa6';
 import {getDistance} from './getDistance';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import {Button} from '@/components/ui/button';
-import {Label} from '@/components/ui/label';
-import {Input} from '@/components/ui/input';
 
 export default async function Page() {
   const clerkUser = (await currentUser()) as User;
@@ -43,23 +39,25 @@ export default async function Page() {
 
   return (
     <section>
-      <Tabs defaultValue="view-stays" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="view-stays" className="w-[350px] mx-auto">
+        <TabsList className="grid w-full grid-cols-2 mb-3">
           <TabsTrigger value="view-stays">View my stays</TabsTrigger>
           <TabsTrigger value="book-stay">Book a new stay</TabsTrigger>
         </TabsList>
         <TabsContent value="view-stays">
-          <Card>
-            <CardHeader>
-              <CardTitle>Stays</CardTitle>
-            </CardHeader>
-          </Card>
+          <div className="flex flex-col gap-5">
+            <Card>
+              <CardHeader>
+                <CardTitle>Stays</CardTitle>
+              </CardHeader>
+            </Card>
+          </div>
         </TabsContent>
         <TabsContent value="book-stay">
+          <h1 className="text-lg font-semibold text-brand-bg-900 text-center mb-2">
+            Find a perfect sitter for your pet
+          </h1>
           <div className="flex flex-col gap-5">
-            <h1 className="text-xl font-bold mb-3 text-brand-bg-900">
-              Find sitters near you
-            </h1>
             {sitters?.map((sitter) => {
               if (sitter._id) {
                 return (
