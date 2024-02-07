@@ -1,31 +1,25 @@
-import dbConnect from "../dbConnect";
-import User, { User as IUser } from "../models/User";
-import Pet, { Pet as IPet } from "../models/Pet";
-import Stay, { Stay as IStay } from "../models/Stay";
-import { Types } from "mongoose";
+import dbConnect from '../dbConnect';
+import User, { User as IUser } from '../models/User';
+import Pet, { Pet as IPet } from '../models/Pet';
+import Stay, { Stay as IStay } from '../models/Stay';
+import { Types } from 'mongoose';
 
 export async function addStay(
-  owner: IUser,
-  sitter: IUser,
-  petArray: IPet[],
-  dates: Date[]
+  owner: string,
+  sitter: string,
+  petArray: string[],
+  from: string,
+  to: string
 ): Promise<IStay | undefined> {
   await dbConnect();
 
   try {
-    let from = dates[0];
-    let to = dates[1];
-    const petIds = petArray.map((pet) => pet._id);
-
-    if (!owner._id || !sitter._id)
-      throw new Error("owner or sitter missing an _id");
-
-    const newStay: IStay = {
+    const newStay = {
       from,
       to,
-      owner: owner._id,
-      sitter: sitter._id,
-      pet: petIds,
+      owner,
+      sitter,
+      pet: petArray,
       confirmed: false,
     };
     const result = Stay.create(newStay);
@@ -35,15 +29,14 @@ export async function addStay(
   }
 }
 
-export async function confirmStay(_id: Types.ObjectId): Promise<IStay | undefined> {
+export async function confirmStay(
+  _id: Types.ObjectId
+): Promise<IStay | undefined> {
   await dbConnect();
   try {
-    const result = await Stay.findOneAndUpdate(
-      { _id },
-      { confirmed: true }
-    );
+    const result = await Stay.findOneAndUpdate({ _id }, { confirmed: true });
     if (result) return result;
-    else throw new Error("error, stay confirm failed");
+    else throw new Error('error, stay confirm failed');
   } catch (e) {
     console.log(e);
   }
@@ -65,18 +58,15 @@ export async function getStaysForPet(
 }
 
 /**pass it a clerk ID, get a list of stays */
-export async function getStaysByClerkUser(
-  clerkId: string
-) {
+export async function getStaysByClerkUser(clerkId: string) {
   await dbConnect();
 
   try {
-    const user = await User.findOne({clerkID:clerkId});
+    const user = await User.findOne({ clerkID: clerkId });
 
     const stays = await Stay.find({ sitter: user._id })
-    .populate<{pet:IPet[]}>({path: 'pet', model: Pet})
-    .populate<{owner:IUser}>({path: 'owner', model: User});
-
+      .populate<{ pet: IPet[] }>({ path: 'pet', model: Pet })
+      .populate<{ owner: IUser }>({ path: 'owner', model: User });
 
     return stays || []; // Return an empty array if there are no stays
   } catch (e) {
