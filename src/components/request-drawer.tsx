@@ -22,24 +22,52 @@ import { Checkbox } from '@/components/ui/checkbox';
 import requestStay from '@/lib/actions/request-stay';
 import { Pet } from '@/lib/db/models/Pet';
 
-export default function RequestDrawer({ pets }: { pets: Pet[] }) {
+export default function RequestDrawer({
+  pets,
+  owner,
+  sitter,
+}: {
+  pets: Pet[];
+  owner: string;
+  sitter: string;
+}) {
   const [date, setDate] = useState<DateRange | undefined>();
+  const [selectedPets, setSelectedPets] = useState<boolean[]>(
+    Array(pets.length).fill(false)
+  );
+
+  function handlePetSelection(index: number) {
+    setSelectedPets((prev) => {
+      const newSelected = [...prev];
+      newSelected[index] = !newSelected[index];
+      return newSelected;
+    });
+  }
+
+  console.log(selectedPets);
+  let infoComplete = date?.to !== undefined && selectedPets.includes(true);
 
   const from = date?.from?.toLocaleDateString() as string;
   const to = date?.to?.toLocaleDateString() as string;
 
-  const submitForm = requestStay.bind(null, from, to);
+  const submitForm = requestStay.bind(null, owner, sitter, from, to);
 
   return (
     <form action={submitForm}>
       <DrawerHeader>
         <DrawerTitle className="mb-4">Request a stay</DrawerTitle>
-        <DrawerDescription className="flex flex-col items-center w-full gap-2">
+        <div className="flex flex-col items-center w-full gap-2">
           {/* Render Pet checkboxes */}
           <div className="flex gap-4">
-            {pets?.map((pet: any) => (
+            {pets?.map((pet: any, index: number) => (
               <div className="flex gap-1" key={pet._id}>
-                <Checkbox id={pet._id} name={pet._id} className="bg-white" />
+                <Checkbox
+                  id={pet._id}
+                  name={pet._id}
+                  className="bg-white"
+                  checked={selectedPets[index]}
+                  onClick={() => handlePetSelection(index)}
+                />
                 <label
                   htmlFor={pet._id}
                   className="text-sm font-medium text-brand-bg-950"
@@ -85,11 +113,11 @@ export default function RequestDrawer({ pets }: { pets: Pet[] }) {
               />
             </PopoverContent>
           </Popover>
-        </DrawerDescription>
+        </div>
       </DrawerHeader>
       {/* Buttons */}
       <DrawerFooter>
-        <Button type="submit" disabled={!date?.to}>
+        <Button type="submit" disabled={!infoComplete}>
           Submit
         </Button>
         <DrawerClose>
