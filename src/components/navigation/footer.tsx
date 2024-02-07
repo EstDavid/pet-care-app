@@ -63,8 +63,8 @@ export default async function Footer() {
   }
 
   return (
-    <nav className="w-full h-footer-nav bg-brand-bg">
-      <ul className="flex h-full justify-between items-center px-x-pad-footer container">
+    <nav className="w-full h-footer-nav bg-grad-down-brand-bg shadow-md">
+      <ul className="flex h-full justify-between items-center px-x-pad-footer container shadow-md">
         {navLinks.map((navLink, index) => {
           return (
             <Link
