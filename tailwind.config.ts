@@ -1,8 +1,8 @@
 import type { Config } from 'tailwindcss';
 
-const headerHeight = 140;
+const headerHeight = 100;
 const subheaderHeight = 60;
-const footerHeight = 120;
+const footerHeight = 80;
 const headerPhotoSize = 60;
 
 const config = {
