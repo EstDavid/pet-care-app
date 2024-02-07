@@ -1,8 +1,6 @@
 'use client';
 
-import {CldUploadButton, CldUploadWidgetResults} from 'next-cloudinary';
 import {CldUploadWidget} from 'next-cloudinary';
-import {useState} from 'react';
 import {Button} from '@/components/ui/button';
 
 export type UploadResult = {

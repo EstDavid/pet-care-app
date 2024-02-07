@@ -5,18 +5,18 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@radix-ui/react-separator';
-import { User } from '@/lib/db/models/User';
+import {Button} from '@/components/ui/button';
+import {User} from '@/lib/db/models/User';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useUser } from '@clerk/nextjs';
+import {useUser} from '@clerk/nextjs';
+import {Separator} from '@/components/ui/separator';
 
 // rename user received from the server component to dbUser because Clerk's useUser hook uses user
-export default function UserProfile({ user: dbUser }: { user: User }) {
-  const { isLoaded, isSignedIn, user } = useUser();
+export default function UserProfile({user: dbUser}: {user: User}) {
+  const {isLoaded, isSignedIn, user} = useUser();
 
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -25,7 +25,7 @@ export default function UserProfile({ user: dbUser }: { user: User }) {
   return (
     <div className="flex flex-col items-center gap-4">
       <Card className="w-[350px]">
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-row items-center justify-around">
           <CardTitle className="text-xl">{user.firstName}</CardTitle>
           <div>
             {dbUser.pfpUrl && (

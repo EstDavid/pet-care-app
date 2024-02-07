@@ -7,8 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Separator} from '@radix-ui/react-separator';
+import { Button } from '@/components/ui/button';
+import {Separator} from '@/components/ui/separator';
 import {Pet} from '@/lib/db/models/Pet';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,6 +20,7 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
     <div className="flex flex-col items-center gap-4">
       <Card className="w-[350px]">
         <CardHeader className="flex flex-row items-center justify-around">
+            <CardTitle className="text-2xl">{pet.name}</CardTitle>
           <div className="relative w-[120px] h-[120px]">
             {pet.pfpUrl && (
               <Image
@@ -33,7 +34,6 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
               />
             )}
           </div>
-          <CardTitle className="text-2xl">{pet.name}</CardTitle>
         </CardHeader>
         <CardContent className="grid w-full items-center gap-4">
           <Separator className="bg-brand-bg" />
