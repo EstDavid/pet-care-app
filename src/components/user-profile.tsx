@@ -82,15 +82,15 @@ export default function UserProfile({user: dbUser}: {user: User}) {
                 {dbUser.sitterDescription}
               </CardDescription>
               <CardDescription>
-                <span className="font-semibold">Sitting dogs 🐶:</span>{' '}
+                <span className="font-semibold">Do you look after dogs 🐶:</span>{' '}
                 {dbUser.sitsDogs ? 'Yes' : 'No'}
               </CardDescription>
               <CardDescription>
-                <span className="font-semibold">Sitting cats 😸:</span>{' '}
+                <span className="font-semibold">Do you look after cats 😸:</span>{' '}
                 {dbUser.sitsCats ? 'Yes' : 'No'}
               </CardDescription>
               <CardDescription>
-                <span className="font-semibold">Maximum sitted pets:</span>{' '}
+                <span className="font-semibold">Maximum number of pets you can look after:</span>{' '}
                 {dbUser.maxPets}
               </CardDescription>
               <CardDescription>

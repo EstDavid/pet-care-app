@@ -48,12 +48,12 @@ export default async function Page({params}: {params: {sitterId: string}}) {
   const imgSrc = sitter.pfpUrl ? sitter.pfpUrl : dummyUser;
   const sitterInfo: {title: string; value: string}[] = [
     {title: 'Description:', value: sitter.sitterDescription ?? ''},
-    {title: 'Maximum sitted pets:', value: sitter.maxPets ?? ''},
+    {title: 'Maximum number of pets this sitter can look after:', value: sitter.maxPets ?? ''},
     {title: 'Qualifications:', value: sitter.qualifications ?? ''},
     {title: 'First aid experience:', value: sitter.firstAid ?? ''},
     {title: 'Insurance details:', value: sitter.insuranceDetails ?? ''},
-    {title: 'Sitting dogs 🐶:', value: sitter.sitsDogs ? 'Yes' : 'No'},
-    {title: 'Sitting cats 😸:', value: sitter.sitsCats ? 'Yes' : 'No'},
+    {title: 'Do they look after dogs? 🐶:', value: sitter.sitsDogs ? 'Yes' : 'No'},
+    {title: 'Do they look after cats? 😸:', value: sitter.sitsCats ? 'Yes' : 'No'},
   ];
   const contactInfo: {title: string; value: string}[] = [
     {title: 'Phone number:', value: sitter.contact?.phone ?? ''},

@@ -35,7 +35,7 @@ const Notifications: React.FC<NotificationsProps> = ({
               </CardDescription>
             ) : (
               <p className="font-regular">
-                Notifications should appear here when you have new ones
+                Notifications will appear here
                 {/* <span className="font-normal">complete</span> */}
               </p>
             )}

@@ -66,7 +66,7 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
             {pet.vaccinations}
           </CardDescription>
           <CardDescription>
-            <span className="font-semibold">Sprayed/neutred:</span>{' '}
+            <span className="font-semibold">Spayed/neutred:</span>{' '}
             {pet.sprayed ? 'Yes' : 'No'}
           </CardDescription>
           <CardDescription>

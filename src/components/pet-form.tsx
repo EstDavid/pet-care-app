@@ -141,7 +141,7 @@ export default function PetForm({ pet }: { pet: Pet | {} }) {
                     htmlFor="sprayed"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    Sprayed/ neutered
+                    Spayed / neutered
                   </label>
                 </div>
               </div>
