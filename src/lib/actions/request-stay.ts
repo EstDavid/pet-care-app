@@ -13,16 +13,8 @@ export default async function requestStay (
     petArray.push(petId[0]);
   }
 
-  console.log(formData);
-
-
   try {
-    console.log({ from }, { to });
-    // console.log(new Date(from), new Date(to));
-
-
-    const newStay = await addStay(owner, sitter, petArray, new Date(from), new Date(to));
-    console.log(newStay);
+    await addStay(owner, sitter, petArray, new Date(from), new Date(to));
   } catch (error) {
     console.log(error);
   }
