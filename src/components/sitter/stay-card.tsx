@@ -1,18 +1,8 @@
 'use client';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
   DialogClose
 } from '@/components/ui/dialog';
@@ -21,20 +11,12 @@ import { Button } from '@/components/ui/button';
 import { FullStay } from '@/lib/db/models/Stay';
 import { useState } from 'react';
 import confirmStayAction from '@/lib/actions/stay-actions';
-import { Pet as IPet } from '@/lib/db/models/Pet';
-import { getStaysByClerkUser } from '@/lib/db/controller/Stay';
-import { Types } from 'mongoose';
-import Image from 'next/image';
-import { PiDogFill, PiCatFill } from 'react-icons/pi';
-import { FaDog, FaCat } from 'react-icons/fa';
 
-export default function StayCard({
-  stay,
-  role
-}: {
-  stay: FullStay;
-  role: string;
-}) {
+import Image from 'next/image';
+import { FaDog, FaCat } from 'react-icons/fa';
+import Subheader from '../navigation/subheader';
+
+export default function StayCard({ stay }: { stay: FullStay }) {
   const [confirmed, setConfirmed] = useState(stay.confirmed);
 
   async function handleConfirm() {
@@ -44,8 +26,9 @@ export default function StayCard({
 
   return (
     <>
+      <Subheader title="Stays Overview" />
       <Dialog>
-        <Card>
+        <Card className="mt-subheader-height">
           <div className="flex w-full flex-col p-2 gap-1">
             <div className="flex justify-between p-2">
               <div className="flex flex-col justify-between items-start w-full gap-1">
@@ -73,7 +56,7 @@ export default function StayCard({
                 return (
                   <div
                     key={onePet.name}
-                    className="flex w-full gap-3 border justify-between items-center content-start px-8 py-2 rounded-full bg-brand-bg-50"
+                    className="flex w-full gap-3 border justify-between items-center content-start px-5 py-2 rounded-full bg-brand-bg-50"
                   >
                     <DialogTrigger
                       key={onePet._id?.toString()}
