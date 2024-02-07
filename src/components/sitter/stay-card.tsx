@@ -47,15 +47,15 @@ export default function StayCard({ stay, role }: { stay: FullStay, role: string 
               width={0} height={0} sizes='200px' className='w-[50px] h-[50px] rounded-full m-1'
             />
             <p>{`${stay.owner.firstname} / ${stay.owner.contact?.city}`}</p>
-            <p>From :{new Date(stay.from).toLocaleDateString('de-AT')}</p>
-            <p>To :{new Date(stay.to).toLocaleDateString('de-AT')}</p>
+            <p>From: {new Date(stay.from).toLocaleDateString('de-AT')}</p>
+            <p>To: {new Date(stay.to).toLocaleDateString('de-AT')}</p>
           </div>
 
           <div className='flex flex-col gap-1'>
             {stay.pet.map((onePet) => {
-              return (<div key={onePet.name}>
+              return (<div key={onePet.name} className='flex flex-row gap-3 m-2 border justify-evenly items-start content-start'>
                 <DialogTrigger key={onePet._id?.toString()}>
-                  <div key={onePet.name} className='flex flex-row gap-3 m-2 content-center justify-evenly border'>
+                  <div key={onePet.name} className='flex flex-row gap-3 m-2'>
                     <div>
                       {onePet.pfpUrl && // pet profile pic or icon
                         <Image src={onePet.pfpUrl || 'https://res.cloudinary.com/cw-app/image/upload/v1707210944/pet-app/bttjaerjdctmwp1b2abr.jpg'}
@@ -65,10 +65,9 @@ export default function StayCard({ stay, role }: { stay: FullStay, role: string 
                       }
                       {!onePet.pfpUrl && onePet.species == 'dog' ? <PiDogFill /> : <PiCatFill />}
                     </div>
-                    <p className='p-1 rounded-sm bg-brand-bg-200'>{onePet.name}</p>
-                    <p className='p-1 rounded-sm bg-brand-bg-200 text-nowrap'>Age: {onePet.age}</p>
-                    <p className='p-1 rounded-sm bg-brand-bg-200'>{onePet.sex[0].toUpperCase() + onePet.sex.substring(1)}</p>
-                    <p className='p-1 rounded-sm bg-brand-bg-600'>{onePet.sprayed ? 'SPAYED' : 'INTACT'}</p>
+                    <p className='p-1 rounded bg-brand-bg-200'>{onePet.name}</p>
+                    <p className='p-1 rounded bg-brand-bg-200'>{onePet.breed}</p>
+
                   </div>
                 </DialogTrigger>
                 <DialogContent>
