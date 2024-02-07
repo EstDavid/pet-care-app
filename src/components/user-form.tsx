@@ -128,7 +128,7 @@ export default function UserForm({ user: dbUser }: { user: User }) {
                       htmlFor="sitsDogs"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
-                      Accept sitting dogs 🐶
+                      Can you look after dogs? 🐶
                     </label>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -141,12 +141,12 @@ export default function UserForm({ user: dbUser }: { user: User }) {
                       htmlFor="sitsCats"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
-                      Accept sitting cats 😸
+                      Can you look after cats? 😸
                     </label>
                   </div>
                   <Input
                     name="maxPets"
-                    placeholder="Maximum pets you can look after"
+                    placeholder="Maximum number of pets you can look after"
                     type="number"
                     defaultValue={dbUser.maxPets || ""}
                   />

@@ -19,7 +19,7 @@ const AddPet = ({ petAdded }: AddPetProps) => (
       {petAdded ? (
         <CardTitle>Have another Pet?</CardTitle>
       ) : (
-        <CardTitle>You haven’t added any Pet yet</CardTitle>
+        <CardTitle>You haven’t added any pets yet</CardTitle>
       )}
     </CardHeader>
     <CardContent>

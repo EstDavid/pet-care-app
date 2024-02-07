@@ -68,8 +68,8 @@ function PetCard({
               </>
             ) : (
               <>
-                <Button className="w-52">Check {petName} updates</Button>
-                <Button className="w-52">Contact {petName} Sitter</Button>
+                <Button className="w-52">Check {petName}`s updates</Button>
+                <Button className="w-52">Contact {petName}`s sitter</Button>
               </>
             )}
             <Button className="w-52">Stays</Button>
