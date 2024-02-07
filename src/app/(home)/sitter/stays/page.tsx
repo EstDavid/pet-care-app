@@ -14,14 +14,13 @@ export default async function Page() {
   let stays = await getStaysByClerkUser(clerkUser.id);
   stays = JSON.parse(JSON.stringify(stays))
 
-
   return (
     <>
-    <div className='flex gap-5 flex-col'>
-      {stays?.map((stay, index) => {
-       return( <StayCard stay={stay} role={user.role || 'sitter'} key={stay._id.toString()}/>)
-      })}
-    </div>
+      <div className='flex gap-5 flex-col'>
+        {stays?.map((stay, index) => {
+          return (<StayCard stay={stay} role={user.role || 'sitter'} key={stay._id.toString()} />)
+        })}
+      </div>
     </>
   );
 }

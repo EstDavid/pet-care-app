@@ -8,16 +8,15 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose
+} from "@/components/ui/dialog"
+import PetProfile from '../pet-profile';
 import { Button } from '@/components/ui/button';
 import { FullStay } from '@/lib/db/models/Stay'
 import { useState } from 'react';
@@ -39,7 +38,7 @@ export default function StayCard({ stay, role }: { stay: FullStay, role: string 
   }
 
   return (
-    <><Drawer>
+    <><Dialog>
       <Card>
         <div className='flex w-full flex-col'>
           <div className='flex w-full'>
@@ -55,7 +54,7 @@ export default function StayCard({ stay, role }: { stay: FullStay, role: string 
           <div className='flex flex-col gap-1'>
             {stay.pet.map((onePet) => {
               return (<div key={onePet.name}>
-                <DrawerTrigger key={onePet._id?.toString()}>
+                <DialogTrigger key={onePet._id?.toString()}>
                   <div key={onePet.name} className='flex flex-row gap-3 m-2 content-center justify-evenly border'>
                     <div>
                       {onePet.pfpUrl && // pet profile pic or icon
@@ -71,47 +70,17 @@ export default function StayCard({ stay, role }: { stay: FullStay, role: string 
                     <p className='p-1 rounded-sm bg-brand-bg-200'>{onePet.sex[0].toUpperCase() + onePet.sex.substring(1)}</p>
                     <p className='p-1 rounded-sm bg-brand-bg-600'>{onePet.sprayed ? 'SPAYED' : 'INTACT'}</p>
                   </div>
-                </DrawerTrigger>
-                <DrawerContent>
+                </DialogTrigger>
+                <DialogContent>
                   <div className="mx-auto w-full max-w-sm">
-                    <DrawerHeader>
-                      <DrawerTitle>{onePet.name}</DrawerTitle>
-                      <DrawerDescription>{onePet.age} year old {onePet.sex} {onePet.breed}</DrawerDescription>
-                    </DrawerHeader>
-                    <div className='flex flex-col content-evenly'>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Behaviour notes:</p> <p>{onePet.notes || 'None'}</p>
-                      </div>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Allergies:</p> <p>{onePet.allergies || 'None'}</p>
-                      </div>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Medication:</p> <p>{onePet.medication || 'None'}</p>
-                      </div>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Vaccinations:</p> <p>{onePet.vaccinations || 'None'}</p>
-                      </div>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Vaccinations:</p> <p>{onePet.vaccinations || 'None'}</p>
-                      </div>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Emergency instructions:</p> <p>{onePet.emergencyInstructions || 'None'}</p>
-                      </div>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Insurance details:</p> <p>{onePet.insurance || 'None'}</p>
-                      </div>
-                      <div className='flex flex-row items-center gap-2 content-evenly'>
-                        <p>Microchip number:</p> <p>{onePet.microchip || 'None'}</p>
-                      </div>
-
-                    </div>
-                    <DrawerFooter>
-                      <DrawerClose asChild>
-                        <Button variant="outline">Done</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
+                    <PetProfile pet={onePet} role={'sitter'} />
                   </div>
-                </DrawerContent>
+                  <DialogClose>
+                    <Button type="button" variant="secondary">
+                      Close
+                    </Button>
+                  </DialogClose>
+                </DialogContent>
               </div>
               )
             })}
@@ -126,6 +95,6 @@ export default function StayCard({ stay, role }: { stay: FullStay, role: string 
         </div>
       </Card>
 
-    </Drawer>
+    </Dialog>
     </>);
 }

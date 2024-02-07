@@ -14,12 +14,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
-  console.log('pet profile', pet);
-  console.log('id', pet._id);
   return (
     <div className="flex flex-col items-center gap-4">
       <Card className="w-[350px]">
-        <CardHeader className="flex flex-row items-center justify-around">
+        {role == 'owner' && <CardHeader className="flex flex-row items-center justify-around">
             <CardTitle className="text-2xl">{pet.name}</CardTitle>
           <div className="relative w-[120px] h-[120px]">
             {pet.pfpUrl && (
@@ -34,7 +32,7 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
               />
             )}
           </div>
-        </CardHeader>
+        </CardHeader>}
         <CardContent className="grid w-full items-center gap-4">
           <Separator className="bg-brand-bg" />
           <h3 className="font-semibold">Basic Information</h3>
@@ -96,7 +94,7 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
             <span className="font-semibold">Microchip Number:</span>{' '}
             {pet.microchip}
           </CardDescription>
-          {role === 'owner' ? (
+          {role === 'owner' && (
             <>
               <Button variant="default" type="button">
                 <Link href={`/pet/edit/${pet._id}`}>Edit pet</Link>
@@ -105,11 +103,7 @@ export default function PetProfile({pet, role}: {pet: Pet; role: string}) {
                 <Link href="/owner/dashboard">Go back</Link>
               </Button>
             </>
-          ) : (
-            <Button variant="outline" type="button">
-              <Link href="/sitter/dashboard">Go back</Link>
-            </Button>
-          )}
+          ) }
         </CardContent>
       </Card>
     </div>
