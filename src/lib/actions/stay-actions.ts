@@ -3,6 +3,7 @@ import {addStay, confirmStay, postUpdateToStay} from '../db/controller/Stay';
 import {Stay} from '../db/models/Stay';
 import {Types} from 'mongoose';
 import Update from '../db/models/Update';
+import {revalidatePath} from 'next/cache';
 
 export async function requestStay(
   owner: string,
@@ -36,12 +37,11 @@ export async function confirmStayAction(_id: Types.ObjectId) {
 
 export async function postUpdate(
   stayId: string,
-  // mediaUrl: string,
-  // mediaType: string
+  mediaUrl: string[],
   formData: FormData
 ) {
   try {
-    const mediaUrl = formData.get('mediaUrl') as string;
+    // const mediaUrl = formData.get('mediaUrl') as string;
     const comment = formData.get('comment') as string;
 
     const newUpdate = new Update({
@@ -49,12 +49,9 @@ export async function postUpdate(
       comment,
     });
 
-    // const stayId = '65c3ede4251a364a8896ba36';
-
     const postedUpdate = await postUpdateToStay(stayId, newUpdate);
-    console.log('posted update', postedUpdate);
   } catch (error) {
     console.log(error);
   }
-  // revalidatePath(`/stays/updates`);
+  revalidatePath(`/stays/${stayId}/updates`);
 }

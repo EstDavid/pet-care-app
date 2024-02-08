@@ -13,7 +13,7 @@ export interface Stay {
   confirmed: Boolean;
   pet: Types.ObjectId[];
   owner: Types.ObjectId;
-  updates: Update[];
+  updates: Types.ObjectId[];
 }
 
 export interface FullStay {

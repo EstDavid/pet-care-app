@@ -41,7 +41,7 @@ export default function UploadWidget({onUploadedSuccess}: Props) {
             variant="default"
             onClick={handleOnClick}
           >
-            Upload an Image
+            Upload media
           </Button>
         );
       }}
