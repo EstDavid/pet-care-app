@@ -56,7 +56,7 @@ export default function RequestDrawer({
   const actionFunction = requestStay.bind(null, owner, sitter, from, to);
 
   // Call the server action, display toast and close the drawer
-  const newActionFunction = (formData: FormData) => {
+  const actionWithToast = (formData: FormData) => {
     actionFunction(formData);
     toast({
       title: 'Request sent.',
@@ -68,7 +68,7 @@ export default function RequestDrawer({
   };
 
   return (
-    <form action={newActionFunction}>
+    <form action={actionWithToast}>
       <DrawerHeader>
         <DrawerTitle className="mb-1">Request a stay</DrawerTitle>
         <Separator />

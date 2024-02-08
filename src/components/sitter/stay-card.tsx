@@ -16,6 +16,7 @@ import Image from 'next/image';
 import { FaDog, FaCat } from 'react-icons/fa';
 import StayConfirmed from '../dashboard-components/StayConfirmed';
 import Link from 'next/link';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function StayCard({
   stay,
@@ -27,10 +28,15 @@ export default function StayCard({
   children?: React.ReactNode;
 }) {
   const [confirmed, setConfirmed] = useState(stay.confirmed);
+  const { toast } = useToast();
 
   async function handleConfirm() {
     await confirmStayAction(stay._id);
     setConfirmed(!confirmed);
+    toast({
+      title: 'Request confirmed.',
+      duration: 2000,
+    });
   }
 
   const stayContact = role === 'owner' ? stay.sitter : stay.owner;

@@ -11,11 +11,13 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { User } from "@/lib/db/models/User";
+import { useToast } from "@/components/ui/use-toast";
 
 // rename user received from the server component to dbUser because Clerk's useUser hook uses user
 export default function UserForm({ user: dbUser }: { user: User }) {
   const [imageUrl, setImageUrl] = useState("");
   const [newImgUploaded, setNewImgUploaded] = useState(false);
+  const { toast } = useToast();
   const { isLoaded, isSignedIn, user } = useUser();
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -31,6 +33,14 @@ export default function UserForm({ user: dbUser }: { user: User }) {
   const imgSrc = newImgUploaded ? imageUrl : dbUser.pfpUrl || imageUrl;
   // edit user with the actual url
   const editUserWithImg = editUser.bind(null, imgSrc);
+
+  const actionWithToast = (formData: FormData) => {
+    editUserWithImg(formData);
+    toast({
+      title: 'Profile updated.',
+      duration: 2000,
+    });
+  };
 
   return (
     <div className="flex flex-col items-center gap-4 relative">
@@ -59,7 +69,7 @@ export default function UserForm({ user: dbUser }: { user: User }) {
           <CardTitle>Account Information</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={editUserWithImg}>
+          <form action={actionWithToast}>
             <div className="grid w-full items-center gap-4">
               <Input value={user.firstName || ""} disabled />
               <Input value={user.lastName || ""} disabled />
