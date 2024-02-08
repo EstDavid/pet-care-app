@@ -56,8 +56,6 @@ Then all you have to do is count the day until you're reunited with your fluffy 
 {scene: https://www.pexels.com/video/a-woman-petting-her-cat-on-the-bed-6865078/}
 
 
-
-
 # TECH STACK
 
 CADO is a full-stack in NextJS and Typescript, all the way through. Staying aware the client / server boundary can be a little daunting, but the ability to write React components that directly interact with our controllers makes up for it. Similarly, Typescript can be a lot of work sometimes but it makes up for it by providing safety and reliability.
@@ -80,5 +78,10 @@ Grandmother discovers AMAZING trick to handle merge conflicts!
 
 Updating your mongoose schema with new fields: 10 common issues
 
-Come to the woods with me to collect TYPESCRIPT MUSHROOMS
+TYPESCRIPT MUSHROOMS: Come to the woods with me!
 
+I made ShadCN into a SERVER COMPONENT
+
+where is my MONGODB_URI?????
+
+What to do when he reject() your PROMISE
