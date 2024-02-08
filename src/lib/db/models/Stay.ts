@@ -21,7 +21,7 @@ export interface FullStay {
   id: string;
   from: Date;
   to: Date;
-  sitter: Types.ObjectId;
+  sitter: User;
   confirmed: Boolean;
   pet: Pet[];
   owner: User;
