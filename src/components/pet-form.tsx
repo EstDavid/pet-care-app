@@ -19,11 +19,12 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { createOrUpdatePet } from '@/lib/actions/pet-actions';
 import { Pet } from '@/lib/db/models/Pet';
-import { ObjectId } from 'mongoose';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function PetForm({ pet }: { pet: Pet | {} }) {
   const [imageUrl, setImageUrl] = useState('');
   const [newImgUploaded, setNewImgUploaded] = useState(false);
+  const { toast } = useToast();
 
   // upload widget callback
   const imgUploaded = (result: string) => {
@@ -39,6 +40,14 @@ export default function PetForm({ pet }: { pet: Pet | {} }) {
     imgSrc,
     (pet as Pet)?._id?.toString()
   );
+
+  const actionWithToast = (formData: FormData) => {
+    createPetWithImg(formData);
+    toast({
+      title: 'Pet added.',
+      duration: 2000,
+    });
+  };
 
   return (
     <div className="flex flex-col items-center gap-4 relative">
@@ -68,7 +77,7 @@ export default function PetForm({ pet }: { pet: Pet | {} }) {
           <CardTitle>Basic Information</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={createPetWithImg}>
+          <form action={actionWithToast}>
             <div className="grid w-full items-center gap-4">
               <div className="space-y-2">
                 <Select
