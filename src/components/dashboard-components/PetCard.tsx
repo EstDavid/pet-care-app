@@ -12,12 +12,13 @@ import Image from 'next/image';
 import dogDummyImg from '@/../public/dogDummy.png';
 import catDummyImg from '@/../public/catDummy.png';
 import Link from 'next/link';
+import { FullStay } from '@/lib/db/models/Stay';
 
 interface PetCardProps {
   petId: string;
   petName: string;
   petImage: string;
-  petIsHome: boolean;
+  currentStay?: FullStay;
   petType: string;
 }
 
@@ -25,7 +26,7 @@ function PetCard({
   petId,
   petName,
   petImage,
-  petIsHome,
+  currentStay,
   petType
 }: PetCardProps) {
   const getPetImageUrl = () => {
@@ -34,6 +35,8 @@ function PetCard({
     }
     return petType === 'dog' ? dogDummyImg : catDummyImg;
   };
+
+  const petIsHome = currentStay === undefined;
 
   return (
     <div>
@@ -64,15 +67,33 @@ function PetCard({
           <CardContent className="flex flex-col justify-center items-center gap-2 h-24 mt-4 p-0">
             {petIsHome ? (
               <>
-                <Button className="w-full">Find sitter for {petName}</Button>
-                <Link href={`/pet/profile/${petId}`} passHref>
-                  <Button className="w-full">Preview {petName} Info</Button>
+                <Link href="/owner/stays" className="w-full">
+                  <Button className="w-full">Find sitter for {petName}</Button>
+                </Link>
+                <Link
+                  href={`/pet/profile/${petId}`}
+                  passHref
+                  className="w-full"
+                >
+                  <Button className="w-full" variant="outline">
+                    Preview {petName} Info
+                  </Button>
                 </Link>
               </>
             ) : (
               <>
-                <Button className="w-full">Check {petName}`s updates</Button>
-                <Button className="w-full">Contact {petName}`s sitter</Button>
+                <Link href={`/stays/${currentStay._id}`} className="w-full">
+                  <Button className="w-full">{`Check ${petName}'s updates`}</Button>
+                </Link>
+                <Link
+                  href={`/owner/stays/${currentStay.owner._id}`}
+                  className="w-full"
+                >
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                  >{`Contact ${petName}'s sitter`}</Button>
+                </Link>
               </>
             )}
           </CardContent>

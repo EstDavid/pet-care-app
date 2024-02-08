@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { notFound } from 'next/navigation';
 import Notifications from '@/components/dashboard-components/Notifications';
+import { FullStay } from '@/lib/db/models/Stay';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
@@ -38,18 +39,16 @@ export default async function Page({ params }: { params: { id: string } }) {
   let readyToUse = profileStatus && petAdded;
 
   // create a function that will Check if the pet is in a stay by calling the isPetInStay and passing the petId
-  async function isInStay(petId: string) {
+  async function currentStay(petId: string) {
     const currentDateTime = new Date();
     const stays = (await getStaysForPet(petId)) || [];
-    for (const stay of stays) {
-      if (
+
+    return stays.find((stay) => {
+      return (
         new Date(stay.from) <= currentDateTime &&
         new Date(stay.to) >= currentDateTime
-      ) {
-        return false;
-      }
-    }
-    return true;
+      );
+    }) as unknown as FullStay;
   }
 
   const percentage =
@@ -73,19 +72,25 @@ export default async function Page({ params }: { params: { id: string } }) {
           Your Pets
         </h3>
       )}
-      {pets.map(async (pet) => (
-        <PetCard
-          key={pet._id?.toString() ?? ''}
-          petId={pet._id?.toString() ?? ''}
-          petName={pet.name ?? ''}
-          petImage={
-            (pet.pfpUrl?.toString() ||
-              (await handleNoPetImage(pet.species?.toString() ?? ''))) as string
-          }
-          petIsHome={await isInStay(pet._id?.toString() ?? '')}
-          petType={pet.species?.toString() ?? ''}
-        />
-      ))}
+      {pets.map(async (pet) => {
+        if (pet && pet._id) {
+          return (
+            <PetCard
+              key={pet._id?.toString() ?? ''}
+              petId={pet._id?.toString() ?? ''}
+              petName={pet.name ?? ''}
+              petImage={
+                (pet.pfpUrl?.toString() ||
+                  (await handleNoPetImage(
+                    pet.species?.toString() ?? ''
+                  ))) as string
+              }
+              currentStay={await currentStay(pet._id.toString())}
+              petType={pet.species?.toString() ?? ''}
+            />
+          );
+        }
+      })}
       <Link href="/pet/edit">
         <Button className="w-full">
           {pets.length > 0 ? 'Add another Pet' : 'Add your first Pet'}

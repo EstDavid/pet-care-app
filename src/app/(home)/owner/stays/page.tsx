@@ -19,7 +19,7 @@ import { FaDog, FaCat } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 import { getDistance } from './getDistance';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getStaysByClerkUser, getStaysByUser } from '@/lib/db/controller/Stay';
+import { getStaysByUser } from '@/lib/db/controller/Stay';
 import StayCard from '@/components/sitter/stay-card';
 import { FullStay } from '@/lib/db/models/Stay';
 import { notFound } from 'next/navigation';
@@ -38,15 +38,6 @@ export default async function Page() {
 
   let stays: FullStay[] = await getStaysByUser(user._id, today);
 
-  const closestUpcomingStay =
-    stays.length > 0
-      ? stays
-          .filter((stay) => stay.from >= today)
-          .reduce((a, b) => (a.from < b.from ? a : b))
-      : null;
-
-  const onGoingStays = stays.filter((stay) => stay.from < today);
-
   stays = JSON.parse(JSON.stringify(stays));
   const userWithLocation =
     user && user.contact && user.contact.loc && user.contact.loc.coordinates;
@@ -57,8 +48,6 @@ export default async function Page() {
     )) as IUser[];
   }
   const userLoc = user.contact?.loc?.coordinates;
-  // const nearSitters = await getNearestSitters(user.contact.loc?.coordinates)
-  // const sitterLoc = nearSitters[0].contact?.loc?.coordinates
 
   return (
     <section>
