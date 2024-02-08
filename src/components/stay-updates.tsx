@@ -1,23 +1,14 @@
 'use client';
-import {Separator} from '@/components/ui/separator';
-import {useState} from 'react';
-import {postUpdate} from '@/lib/actions/stay-actions';
-import {Textarea} from '@/components/ui/textarea';
-import {Button} from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useState } from 'react';
+import { postUpdate } from '@/lib/actions/stay-actions';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 import UploadWidget from '@/components/upload-widget';
-import Image from 'next/image';
-import {Update} from '@/lib/db/models/Update';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
-import {useToast} from '@/components/ui/use-toast';
+
+import { Update } from '@/lib/db/models/Update';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function StayUpdates({
   stayId,
@@ -32,7 +23,7 @@ export default function StayUpdates({
   const imgUploaded = (result: string) => {
     setImageUrl((prevState) => [...prevState, result]);
   };
-  const {toast} = useToast();
+  const { toast } = useToast();
   const [textarea, setTextarea] = useState('');
 
   const postUpdateWithId = postUpdate.bind(null, stayId, imageUrl);
@@ -86,7 +77,7 @@ export default function StayUpdates({
         </Card>
       )}
       <h1 className="text-2xl text-brand-bg mt-4">Stay Updates</h1>
-      <div className="flex flex-col items-center overflow-y-auto">
+      <div className="flex flex-col items-center overflow-y-auto w-full">
         {updates &&
           updates.map((update: Update, index) => (
             <div key={index} className="w-full flex justify-center">
