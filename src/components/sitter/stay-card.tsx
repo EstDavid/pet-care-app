@@ -15,13 +15,16 @@ import { confirmStayAction } from '@/lib/actions/stay-actions';
 import Image from 'next/image';
 import { FaDog, FaCat } from 'react-icons/fa';
 import StayConfirmed from '../dashboard-components/StayConfirmed';
+import Link from 'next/link';
 
 export default function StayCard({
   stay,
-  role
+  role,
+  children
 }: {
   stay: FullStay;
   role: 'owner' | 'sitter';
+  children?: React.ReactNode;
 }) {
   const [confirmed, setConfirmed] = useState(stay.confirmed);
 
@@ -30,8 +33,10 @@ export default function StayCard({
     setConfirmed(!confirmed);
   }
 
+  const stayContact = role === 'owner' ? stay.sitter : stay.owner;
+
   return (
-    <>
+    <Link href={`/stays/${stay._id}`}>
       <Dialog>
         <Card>
           <div className="flex w-full flex-col p-2 gap-1">
@@ -39,16 +44,16 @@ export default function StayCard({
               <div className="flex flex-col justify-between items-start w-full gap-1">
                 <Image
                   src={
-                    stay.owner.pfpUrl ||
+                    stayContact.pfpUrl ||
                     'https://res.cloudinary.com/cw-app/image/upload/v1707210944/pet-app/bttjaerjdctmwp1b2abr.jpg'
                   }
-                  alt={stay.owner.firstname || 'photo of owner'}
+                  alt={stayContact.firstname || 'photo of owner'}
                   width={0}
                   height={0}
                   sizes="200px"
                   className="w-[50px] h-[50px] rounded-full object-cover"
                 />
-                <p>{`${stay.owner.firstname} / ${stay.owner.contact?.city}`}</p>
+                <p>{`${stayContact.firstname} / ${stayContact.contact?.city}`}</p>
               </div>
               <div className="flex flex-col justify-between items-end w-full gap-1">
                 <p>From: {new Date(stay.from).toLocaleDateString('de-AT')}</p>
@@ -113,6 +118,7 @@ export default function StayCard({
                 );
               })}
             </div>
+            {children}
 
             <div className="gap-2 flex flex-col m-2">
               <Button variant="outline">{`CONTACT ${
@@ -140,6 +146,6 @@ export default function StayCard({
           </div>
         </Card>
       </Dialog>
-    </>
+    </Link>
   );
 }
