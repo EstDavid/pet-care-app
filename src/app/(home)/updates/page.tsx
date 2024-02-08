@@ -1,6 +1,6 @@
 'use client';
-import {Button} from '@/components/ui/button';
-import {Textarea} from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Dialog,
   DialogContent,
@@ -8,12 +8,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from '@/components/ui/dialog';
-import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
-import {postUpdate} from '@/lib/actions/stay-actions';
-import {useState} from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { postUpdate } from '@/lib/actions/stay-actions';
+import { useState } from 'react';
 import UploadWidget from '@/components/upload-widget';
 import Image from 'next/image';
 
@@ -33,8 +33,8 @@ export default function Page() {
           <DialogHeader>
             <DialogTitle>Share an update with the owner</DialogTitle>
             <DialogDescription>
-              Add an image/ video and a comment and click save when you're
-              done.
+              {`Add an image/ video and a comment and click save when you're
+              done.`}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -49,7 +49,7 @@ export default function Page() {
                       sizes="120px"
                       priority={true}
                       style={{
-                        objectFit: 'cover',
+                        objectFit: 'cover'
                       }}
                     ></Image>
                   ) : (
