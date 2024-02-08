@@ -120,26 +120,35 @@ export default function StayCard({
             </div>
             {children}
 
-            <div className="gap-2 flex flex-col m-2">
-              <Button variant="outline">{`CONTACT ${
-                role === 'owner' ? 'SITTER' : 'OWNER'
-              }`}</Button>
+            <div>
               {role === 'owner' ? (
-                <div className="w-full">
-                  <StayConfirmed confirmed={confirmed} />
+                <div className="gap-2 flex flex-col m-2">
+                  <Link className="w-full" href={`/stays/${stay.owner._id}`}>
+                    <Button variant="outline">CONTACT SITTER</Button>
+                  </Link>
+                  <div className="w-full">
+                    <StayConfirmed confirmed={confirmed} />
+                  </div>
                 </div>
               ) : (
-                <div className="w-full">
-                  {!confirmed && (
-                    <Button className="w-full" onClick={handleConfirm}>
-                      CONFIRM
+                <div className="gap-2 flex flex-col m-2">
+                  <Link className="w-full" href={`/chat`}>
+                    <Button variant="outline" className="w-full">
+                      CONTACT OWNER
                     </Button>
-                  )}
-                  {confirmed && (
-                    <Button className="w-full" disabled>
-                      CONFIRMED!
-                    </Button>
-                  )}
+                  </Link>
+                  <div className="w-full">
+                    {!confirmed && (
+                      <Button className="w-full" onClick={handleConfirm}>
+                        CONFIRM
+                      </Button>
+                    )}
+                    {confirmed && (
+                      <Button className="w-full" disabled>
+                        CONFIRMED!
+                      </Button>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
