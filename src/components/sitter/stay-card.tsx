@@ -36,7 +36,7 @@ export default function StayCard({
   const stayContact = role === 'owner' ? stay.sitter : stay.owner;
 
   return (
-    <Link href={`/stays/${stay._id}`}>
+    <div>
       <Dialog>
         <Card>
           <div className="flex w-full flex-col p-2 gap-1">
@@ -157,6 +157,6 @@ export default function StayCard({
           </div>
         </Card>
       </Dialog>
-    </Link>
+    </div>
   );
 }

@@ -23,6 +23,7 @@ import { getStaysByUser } from '@/lib/db/controller/Stay';
 import StayCard from '@/components/sitter/stay-card';
 import { FullStay } from '@/lib/db/models/Stay';
 import { notFound } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 export default async function Page() {
   const clerkUser = (await currentUser()) as User;
@@ -64,7 +65,11 @@ export default async function Page() {
                   stay={stay}
                   role={user.role || 'sitter'}
                   key={stay._id.toString()}
-                />
+                >
+                  <Link href={`/stays/${stay._id}`} className="w-full">
+                    <Button className="w-full">View Stay</Button>
+                  </Link>
+                </StayCard>
               );
             })}
           </div>

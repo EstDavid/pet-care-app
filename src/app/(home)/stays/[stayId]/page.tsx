@@ -33,14 +33,14 @@ const TimeLine = ({
       <div className="flex flex-col">
         <div style={{ height: `${positionPhoto}%` }}></div>
         <Link href={`/updates/${stayId}`}>
-          <Button variant="outline" className="flex flex-col h-auto p-3 gap-2">
-            <p className="text-lg text-brand-cta-900">{`${
+          <Button className="flex flex-col h-auto p-3 gap-2 shadow-xl">
+            <p className="text-lg text-brand-cta-50">{`${
               role === 'owner' ? 'View updates' : 'Send updates'
             }`}</p>
             {petSpecies === 'dog' ? (
-              <FaDog size="3em" className="text-brand-fg-400" />
+              <FaDog size="3em" className="text-brand-fg-300" />
             ) : (
-              <FaCat size="3em" className="text-brand-bg-500" />
+              <FaCat size="3em" className="text-brand-bg-300" />
             )}
           </Button>
         </Link>
