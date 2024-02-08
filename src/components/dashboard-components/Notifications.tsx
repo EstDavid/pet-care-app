@@ -19,13 +19,13 @@ export default async function Notifications({ user }: { user: IUser }) {
   const stays: FullStay[] = await getStaysByUser(user._id, today);
 
   const closestUpcomingStay =
-    stays.length > 0
+    stays.length > 0 && stays.some((stay) => stay.from >= today)
       ? stays
           .filter((stay) => stay.from >= today)
           .reduce((a, b) => (a.from < b.from ? a : b))
       : null;
 
-  const onGoingStays = stays.filter((stay) => stay.from < today);
+  const onGoingStays: FullStay[] = stays.filter((stay) => stay.from < today);
 
   // Getting the number of unread messages and conversations
   const unreadConversations = await getUnreadMessages(user._id);
