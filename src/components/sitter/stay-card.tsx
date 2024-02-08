@@ -14,9 +14,15 @@ import { confirmStayAction } from '@/lib/actions/stay-actions';
 
 import Image from 'next/image';
 import { FaDog, FaCat } from 'react-icons/fa';
-import Subheader from '../navigation/subheader';
+import StayConfirmed from '../dashboard-components/StayConfirmed';
 
-export default function StayCard({ stay }: { stay: FullStay }) {
+export default function StayCard({
+  stay,
+  role
+}: {
+  stay: FullStay;
+  role: 'owner' | 'sitter';
+}) {
   const [confirmed, setConfirmed] = useState(stay.confirmed);
 
   async function handleConfirm() {
@@ -26,9 +32,8 @@ export default function StayCard({ stay }: { stay: FullStay }) {
 
   return (
     <>
-      <Subheader title="Stays Overview" />
       <Dialog>
-        <Card className="mt-subheader-height">
+        <Card>
           <div className="flex w-full flex-col p-2 gap-1">
             <div className="flex justify-between p-2">
               <div className="flex flex-col justify-between items-start w-full gap-1">
@@ -110,9 +115,27 @@ export default function StayCard({ stay }: { stay: FullStay }) {
             </div>
 
             <div className="gap-2 flex flex-col m-2">
-              <Button variant="outline">CONTACT OWNER</Button>
-              {!confirmed && <Button onClick={handleConfirm}>CONFIRM</Button>}
-              {confirmed && <Button disabled>CONFIRMED!</Button>}
+              <Button variant="outline">{`CONTACT ${
+                role === 'owner' ? 'SITTER' : 'OWNER'
+              }`}</Button>
+              {role === 'owner' ? (
+                <div className="w-full">
+                  <StayConfirmed confirmed={confirmed} />
+                </div>
+              ) : (
+                <div className="w-full">
+                  {!confirmed && (
+                    <Button className="w-full" onClick={handleConfirm}>
+                      CONFIRM
+                    </Button>
+                  )}
+                  {confirmed && (
+                    <Button className="w-full" disabled>
+                      CONFIRMED!
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </Card>

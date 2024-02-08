@@ -5,22 +5,7 @@ import { getStaysByUser } from '@/lib/db/controller/Stay';
 import { getUnreadMessages } from '@/lib/db/controller/Conversation';
 import { User as IUser } from '@/lib/db/models/User';
 import { notFound } from 'next/navigation';
-
-const StayConfirmed = ({ confirmed }: { confirmed: Boolean }) => {
-  if (confirmed) {
-    return (
-      <p className="bg-brand-bg-300 text-brand-bg-50 px-2 rounded-full">
-        CONFIRMED
-      </p>
-    );
-  }
-
-  return (
-    <p className="bg-brand-fg-300 text-brand-fg-900 px-2 rounded-full">
-      PENDING
-    </p>
-  );
-};
+import StayConfirmed from './StayConfirmed';
 
 export default async function Notifications({ user }: { user: IUser }) {
   if (!user || !user._id) {

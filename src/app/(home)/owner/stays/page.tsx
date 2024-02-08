@@ -1,30 +1,53 @@
-import {Avatar, AvatarImage, AvatarFallback} from '@/components/ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card';
 import {
   getNearestSitters,
   getSitters,
-  getUserByClerkId,
+  getUserByClerkId
 } from '@/lib/db/controller/User';
-import {currentUser} from '@clerk/nextjs';
-import {User} from '@clerk/nextjs/server';
-import {User as IUser} from '@/lib/db/models/User';
+import { currentUser } from '@clerk/nextjs';
+import { User } from '@clerk/nextjs/server';
+import { User as IUser } from '@/lib/db/models/User';
 import Link from 'next/link';
-import {FaDog, FaCat} from 'react-icons/fa';
-import {FaLocationDot} from 'react-icons/fa6';
-import {getDistance} from './getDistance';
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import { FaDog, FaCat } from 'react-icons/fa';
+import { FaLocationDot } from 'react-icons/fa6';
+import { getDistance } from './getDistance';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getStaysByClerkUser, getStaysByUser } from '@/lib/db/controller/Stay';
+import StayCard from '@/components/sitter/stay-card';
+import { FullStay } from '@/lib/db/models/Stay';
+import { notFound } from 'next/navigation';
 
 export default async function Page() {
   const clerkUser = (await currentUser()) as User;
   const user = (await getUserByClerkId(clerkUser.id)) as IUser;
   let sitters = await getSitters();
 
+  if (!user || !user._id) {
+    return notFound();
+  }
+
+  // Getting the relevant info on ongoing and upcoming stays
+  const today = new Date();
+
+  let stays: FullStay[] = await getStaysByUser(user._id, today);
+
+  const closestUpcomingStay =
+    stays.length > 0
+      ? stays
+          .filter((stay) => stay.from >= today)
+          .reduce((a, b) => (a.from < b.from ? a : b))
+      : null;
+
+  const onGoingStays = stays.filter((stay) => stay.from < today);
+
+  stays = JSON.parse(JSON.stringify(stays));
   const userWithLocation =
     user && user.contact && user.contact.loc && user.contact.loc.coordinates;
 
@@ -46,11 +69,15 @@ export default async function Page() {
         </TabsList>
         <TabsContent value="view-stays">
           <div className="flex flex-col gap-5">
-            <Card>
-              <CardHeader>
-                <CardTitle>Stays</CardTitle>
-              </CardHeader>
-            </Card>
+            {stays?.map((stay, index) => {
+              return (
+                <StayCard
+                  stay={stay}
+                  role={user.role || 'sitter'}
+                  key={stay._id.toString()}
+                />
+              );
+            })}
           </div>
         </TabsContent>
         <TabsContent value="book-stay">
