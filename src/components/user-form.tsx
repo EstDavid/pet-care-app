@@ -37,7 +37,7 @@ export default function UserForm({ user: dbUser }: { user: User }) {
       <div className="relative w-[120px] h-[120px]">
         {imgSrc ? (
           <Image
-            src={imageUrl}
+            src={imgSrc}
             alt="User Picture"
             fill={true}
             sizes="120px"

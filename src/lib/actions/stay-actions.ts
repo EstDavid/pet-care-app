@@ -35,21 +35,21 @@ export async function confirmStayAction(_id: Types.ObjectId) {
 }
 
 export async function postUpdate(
-  // stayId: string,
+  stayId: string,
   // mediaUrl: string,
   // mediaType: string
   formData: FormData
 ) {
   try {
+    const mediaUrl = formData.get('mediaUrl') as string;
     const comment = formData.get('comment') as string;
 
     const newUpdate = new Update({
-      // mediaUrl,
-      // mediaType,
+      mediaUrl,
       comment,
     });
 
-    const stayId = '65c3ede4251a364a8896ba36';
+    // const stayId = '65c3ede4251a364a8896ba36';
 
     const postedUpdate = await postUpdateToStay(stayId, newUpdate);
     console.log('posted update', postedUpdate);
