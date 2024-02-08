@@ -36,7 +36,7 @@ export default function StayCard({
   const stayContact = role === 'owner' ? stay.sitter : stay.owner;
 
   return (
-    <Link href={`/stays/${stay._id}`}>
+    <div>
       <Dialog>
         <Card>
           <div className="flex w-full flex-col p-2 gap-1">
@@ -124,7 +124,9 @@ export default function StayCard({
               {role === 'owner' ? (
                 <div className="gap-2 flex flex-col m-2">
                   <Link className="w-full" href={`/stays/${stay.owner._id}`}>
-                    <Button variant="outline">CONTACT SITTER</Button>
+                    <Button variant="outline" className="w-full">
+                      CONTACT SITTER
+                    </Button>
                   </Link>
                   <div className="w-full">
                     <StayConfirmed confirmed={confirmed} />
@@ -155,6 +157,6 @@ export default function StayCard({
           </div>
         </Card>
       </Dialog>
-    </Link>
+    </div>
   );
 }
