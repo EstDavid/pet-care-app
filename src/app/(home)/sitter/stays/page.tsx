@@ -5,8 +5,7 @@ import { getStaysByClerkUser } from '@/lib/db/controller/Stay';
 import StayCard from '@/components/sitter/stay-card';
 import { getUserByClerkId } from '@/lib/db/controller/User';
 import Link from 'next/link';
-import { Button } from 'react-day-picker';
-// import {getStay}
+import { Button } from '@/components/ui/button';
 
 export default async function Page() {
   const clerkUser = (await currentUser()) as User;

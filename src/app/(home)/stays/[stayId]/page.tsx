@@ -32,7 +32,7 @@ const TimeLine = ({
     <div className="w-full h-[40vh] flex justify-center gap-3">
       <div className="flex flex-col">
         <div style={{ height: `${positionPhoto}%` }}></div>
-        <Link href={`/updates/${stayId}`}>
+        <Link href={`/stays/${stayId}/updates`}>
           <Button className="flex flex-col h-auto p-3 gap-2 shadow-xl">
             <p className="text-lg text-brand-cta-50">{`${
               role === 'owner' ? 'View updates' : 'Send updates'
