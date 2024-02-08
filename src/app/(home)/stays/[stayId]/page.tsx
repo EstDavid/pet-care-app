@@ -1,17 +1,23 @@
 import StayCard from '@/components/sitter/stay-card';
+import { Button } from '@/components/ui/button';
 import { getStayById } from '@/lib/db/controller/Stay';
 import { getUserByClerkId } from '@/lib/db/controller/User';
 import { currentUser } from '@clerk/nextjs';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { FaCat, FaDog } from 'react-icons/fa';
 
 const TimeLine = ({
+  stayId,
   from,
   to,
+  role,
   petSpecies
 }: {
+  stayId: string;
   from: Date;
   to: Date;
+  role: 'owner' | 'sitter';
   petSpecies: 'dog' | 'cat';
 }) => {
   const today = new Date();
@@ -21,16 +27,23 @@ const TimeLine = ({
     100;
 
   const percentage = Math.floor(percentageElapsed);
-  const positionPhoto = percentage - 8;
+  const positionPhoto = percentage - 15;
   return (
     <div className="w-full h-[40vh] flex justify-center gap-3">
       <div className="flex flex-col">
         <div style={{ height: `${positionPhoto}%` }}></div>
-        {petSpecies === 'dog' ? (
-          <FaDog size="3em" className="text-brand-fg-400" />
-        ) : (
-          <FaCat size="3em" className="text-brand-bg-500" />
-        )}
+        <Link href={`/updates/${stayId}`}>
+          <Button variant="outline" className="flex flex-col h-auto p-3 gap-2">
+            <p className="text-lg text-brand-cta-900">{`${
+              role === 'owner' ? 'View updates' : 'Send updates'
+            }`}</p>
+            {petSpecies === 'dog' ? (
+              <FaDog size="3em" className="text-brand-fg-400" />
+            ) : (
+              <FaCat size="3em" className="text-brand-bg-500" />
+            )}
+          </Button>
+        </Link>
       </div>
       <div className="flex flex-col">
         <div
@@ -76,13 +89,19 @@ export default async function Page({ params }: { params: { stayId: string } }) {
 
   stay = JSON.parse(JSON.stringify(stay));
 
+  if (!stay) {
+    return notFound();
+  }
+
   return (
     <div className="w-full">
       <StayCard stay={stay} role={user.role || 'sitter'}>
         {ongoingStay && (
           <TimeLine
+            stayId={stay._id.toString()}
             from={new Date(stay.from)}
             to={new Date(stay.to)}
+            role={user.role}
             petSpecies={stay.pet[0].species}
           />
         )}

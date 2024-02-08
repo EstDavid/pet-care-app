@@ -124,7 +124,9 @@ export default function StayCard({
               {role === 'owner' ? (
                 <div className="gap-2 flex flex-col m-2">
                   <Link className="w-full" href={`/stays/${stay.owner._id}`}>
-                    <Button variant="outline">CONTACT SITTER</Button>
+                    <Button variant="outline" className="w-full">
+                      CONTACT SITTER
+                    </Button>
                   </Link>
                   <div className="w-full">
                     <StayConfirmed confirmed={confirmed} />
