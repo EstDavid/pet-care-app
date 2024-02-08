@@ -10,7 +10,7 @@ import PetProfile from '../pet-profile';
 import { Button } from '@/components/ui/button';
 import { FullStay } from '@/lib/db/models/Stay';
 import { useState } from 'react';
-import confirmStayAction from '@/lib/actions/stay-actions';
+import { confirmStayAction } from '@/lib/actions/stay-actions';
 
 import Image from 'next/image';
 import { FaDog, FaCat } from 'react-icons/fa';
