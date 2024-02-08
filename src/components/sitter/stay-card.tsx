@@ -35,7 +35,7 @@ export default function StayCard({
     setConfirmed(!confirmed);
     toast({
       title: 'Request confirmed.',
-      duration: 2000,
+      duration: 2000
     });
   }
 
@@ -124,11 +124,11 @@ export default function StayCard({
                 );
               })}
             </div>
-            {children}
 
             <div>
               {role === 'owner' ? (
                 <div className="gap-2 flex flex-col m-2">
+                  {children}
                   <Link className="w-full" href={`/stays/${stay.owner._id}`}>
                     <Button variant="outline" className="w-full">
                       CONTACT SITTER
@@ -140,6 +140,7 @@ export default function StayCard({
                 </div>
               ) : (
                 <div className="gap-2 flex flex-col m-2">
+                  {children}
                   <Link className="w-full" href={`/chat`}>
                     <Button variant="outline" className="w-full">
                       CONTACT OWNER
