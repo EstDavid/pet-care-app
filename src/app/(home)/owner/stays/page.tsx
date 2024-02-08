@@ -43,6 +43,10 @@ export default async function Page() {
   const userWithLocation =
     user && user.contact && user.contact.loc && user.contact.loc.coordinates;
 
+  if (!user || !user._id) {
+    return notFound();
+  }
+
   if (user?.contact?.loc?.coordinates) {
     sitters = (await getNearestSitters(
       user.contact.loc.coordinates
@@ -59,18 +63,21 @@ export default async function Page() {
         </TabsList>
         <TabsContent value="view-stays">
           <div className="flex flex-col gap-5">
-            {stays?.map((stay, index) => {
-              return (
-                <StayCard
-                  stay={stay}
-                  role={user.role || 'sitter'}
-                  key={stay._id.toString()}
-                >
-                  <Link href={`/stays/${stay._id}`} className="w-full">
-                    <Button className="w-full">View Stay</Button>
-                  </Link>
-                </StayCard>
-              );
+            {stays?.map((stay) => {
+              if (user._id && user.role) {
+                return (
+                  <StayCard
+                    stay={stay}
+                    userId={user._id?.toString()}
+                    role={user.role || 'sitter'}
+                    key={stay._id.toString()}
+                  >
+                    <Link href={`/stays/${stay._id}`} className="w-full">
+                      <Button className="w-full">View Stay</Button>
+                    </Link>
+                  </StayCard>
+                );
+              }
             })}
           </div>
         </TabsContent>

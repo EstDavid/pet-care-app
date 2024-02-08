@@ -1,6 +1,6 @@
 import dbConnect from '../dbConnect';
 import Message, { IMessage } from '../models/Message';
-import mongoose, { UpdateWriteOpResult } from 'mongoose';
+import mongoose, { Types, UpdateWriteOpResult } from 'mongoose';
 import Conversation, { IConversation } from '../models/Conversation';
 import { Schema } from 'zod';
 import User from '../models/User';
@@ -23,24 +23,22 @@ export async function getConversationById (id: string): Promise<IConversation | 
   }
 }
 
-export async function getConversationByPair (id1: string, id2: string): Promise<IConversation | undefined | null> {
+export async function getConversationByPair (id1: Types.ObjectId, id2: Types.ObjectId): Promise<IConversation | undefined | null> {
   await dbConnect();
 
   try {
-    let _id1 = new mongoose.Types.ObjectId(id1);
-    let _id2 = new mongoose.Types.ObjectId(id2);
     let conversation = await Conversation.findOne({
       $or: [
         {
           $and: [
-            { user1: _id1 },
-            { user2: _id2 }
+            { user1: id1 },
+            { user2: id2 }
           ]
         },
         {
           $and: [
-            { user1: _id2 },
-            { user2: _id1 }
+            { user1: id2 },
+            { user2: id1 }
           ]
         },
       ]
@@ -53,13 +51,11 @@ export async function getConversationByPair (id1: string, id2: string): Promise<
   }
 }
 
-export async function createConversation (id1: string, id2: string): Promise<IConversation | undefined> {
+export async function createConversation (id1: Types.ObjectId, id2: Types.ObjectId): Promise<IConversation | undefined> {
   try {
-    let _id1 = new mongoose.Types.ObjectId(id1);
-    let _id2 = new mongoose.Types.ObjectId(id2);
     const conversation = await Conversation.create({
-      user1: _id1,
-      user2: _id2
+      user1: id1,
+      user2: id2
     });
 
     return conversation;
