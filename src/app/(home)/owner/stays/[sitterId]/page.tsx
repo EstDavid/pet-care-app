@@ -1,29 +1,26 @@
 import { currentUser } from '@clerk/nextjs';
+import Image from 'next/image';
 import { getUserByClerkId, getUserById } from '@/lib/db/controller/User';
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
+  CardDescription
 } from '@/components/ui/card';
-// import {Separator} from '@radix-ui/react-separator';
-import { FaRegEnvelope } from 'react-icons/fa6';
 import Link from 'next/link';
-import { getConversationByPair } from '@/lib/db/controller/Conversation';
 import { notFound } from 'next/navigation';
-import createConversationWithSitter from '@/lib/actions/conversation';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { FaRegEnvelope } from 'react-icons/fa6';
 import { IoCalendar } from 'react-icons/io5';
 import dummyUser from 'public/userDummyImage.png';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { Button } from '@/components/ui/button';
 import RequestDrawer from '@/components/request-drawer';
 import { getPetsOwnedByUser } from '@/lib/db/controller/User';
+import contactUser from '@/lib/actions/conversation';
 
 export default async function Page({
-  params,
+  params
 }: {
   params: { sitterId: string };
 }) {
@@ -40,12 +37,7 @@ export default async function Page({
     notFound();
   }
 
-  // create or continue a conversation
-  const conversation = await getConversationByPair(
-    owner._id.toString(),
-    sitter._id.toString()
-  );
-  const createConversation = createConversationWithSitter.bind(
+  const createConversation = contactUser.bind(
     null,
     owner._id.toString(),
     sitter._id.toString()
@@ -57,26 +49,26 @@ export default async function Page({
     { title: 'Description:', value: sitter.sitterDescription ?? '' },
     {
       title: 'Maximum number of pets this sitter can look after:',
-      value: sitter.maxPets ?? '',
+      value: sitter.maxPets ?? ''
     },
     { title: 'Qualifications:', value: sitter.qualifications ?? '' },
     { title: 'First aid experience:', value: sitter.firstAid ?? '' },
     { title: 'Insurance details:', value: sitter.insuranceDetails ?? '' },
     {
       title: 'Do they look after dogs? 🐶:',
-      value: sitter.sitsDogs ? 'Yes' : 'No',
+      value: sitter.sitsDogs ? 'Yes' : 'No'
     },
     {
       title: 'Do they look after cats? 😸:',
-      value: sitter.sitsCats ? 'Yes' : 'No',
-    },
+      value: sitter.sitsCats ? 'Yes' : 'No'
+    }
   ];
   const contactInfo: { title: string; value: string }[] = [
     { title: 'Phone number:', value: sitter.contact?.phone ?? '' },
     { title: 'Street:', value: sitter.contact?.street ?? '' },
     { title: 'City:', value: sitter.contact?.city ?? '' },
     { title: 'Postcode:', value: sitter.contact?.postcode ?? '' },
-    { title: 'Country:', value: sitter.contact?.country ?? '' },
+    { title: 'Country:', value: sitter.contact?.country ?? '' }
   ];
 
   const pets = (await getPetsOwnedByUser(clerkUser.id)) || [];
@@ -98,7 +90,7 @@ export default async function Page({
                 fill={true}
                 sizes="120px"
                 style={{
-                  objectFit: 'cover',
+                  objectFit: 'cover'
                 }}
               />
             </div>
@@ -117,26 +109,18 @@ export default async function Page({
                 <span className="font-semibold">{info.title}</span> {info.value}
               </CardDescription>
             ))}
-            {conversation ? (
-              <Button type="submit">
-                <p className="mr-3">Chat with {sitter.firstname}</p>
+            <form action={createConversation}>
+              <Button type="submit" className="w-[300px]">
+                <p className="mr-3">Contact {sitter.firstname}</p>
                 <FaRegEnvelope size="1.5em" />
-                <Link href={`/chat/${conversation._id}`}></Link>
               </Button>
-            ) : (
-              <form action={createConversation}>
-                <Button type="submit" className="w-[300px]">
-                  <p className="mr-3">Chat with {sitter.firstname}</p>
-                  <FaRegEnvelope size="1.5em" />
-                </Button>
-              </form>
-            )}
+            </form>
             <Drawer>
               <DrawerTrigger>
-                <Button type="submit" className="w-full">
+                <div className="w-full rounded-lg flex justify-center bg-brand-cta-200 text-brand-cta-700 p-2">
                   <p className="mr-3">Book a stay with {sitter.firstname}</p>
                   <IoCalendar size="1.5em" />
-                </Button>
+                </div>
               </DrawerTrigger>
               <DrawerContent className="bg-brand-bg flex flex-col gap-2">
                 <RequestDrawer
@@ -146,7 +130,7 @@ export default async function Page({
                 />
               </DrawerContent>
             </Drawer>
-            <Button variant="outline" type="button">
+            <Button variant="outline">
               <Link href="/owner/stays">Go back</Link>
             </Button>
           </CardContent>

@@ -13,6 +13,8 @@ import dogDummyImg from '@/../public/dogDummy.png';
 import catDummyImg from '@/../public/catDummy.png';
 import Link from 'next/link';
 import { FullStay } from '@/lib/db/models/Stay';
+import contactUser from '@/lib/actions/conversation';
+import { notFound } from 'next/navigation';
 
 interface PetCardProps {
   petId: string;
@@ -37,6 +39,15 @@ function PetCard({
   };
 
   const petIsHome = currentStay === undefined;
+
+  const contactWithSitter =
+    !petIsHome && currentStay.owner._id && currentStay.sitter._id
+      ? contactUser.bind(
+          null,
+          currentStay.owner._id.toString(),
+          currentStay.sitter._id.toString()
+        )
+      : null;
 
   return (
     <div>
@@ -85,15 +96,14 @@ function PetCard({
                 <Link href={`/stays/${currentStay._id}`} className="w-full">
                   <Button className="w-full">{`Check ${petName}'s updates`}</Button>
                 </Link>
-                <Link
-                  href={`/owner/stays/${currentStay.owner._id}`}
-                  className="w-full"
-                >
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                  >{`Contact ${petName}'s sitter`}</Button>
-                </Link>
+                {contactWithSitter && (
+                  <form action={contactWithSitter}>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                    >{`Contact ${petName}'s sitter`}</Button>
+                  </form>
+                )}
               </>
             )}
           </CardContent>

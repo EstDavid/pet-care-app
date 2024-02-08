@@ -15,15 +15,17 @@ import { confirmStayAction } from '@/lib/actions/stay-actions';
 import Image from 'next/image';
 import { FaDog, FaCat } from 'react-icons/fa';
 import StayConfirmed from '../dashboard-components/StayConfirmed';
-import Link from 'next/link';
 import { useToast } from '@/components/ui/use-toast';
+import contactUser from '@/lib/actions/conversation';
 
 export default function StayCard({
   stay,
+  userId,
   role,
   children
 }: {
   stay: FullStay;
+  userId: string;
   role: 'owner' | 'sitter';
   children?: React.ReactNode;
 }) {
@@ -40,6 +42,8 @@ export default function StayCard({
   }
 
   const stayContact = role === 'owner' ? stay.sitter : stay.owner;
+
+  const getInContact = contactUser.bind(null, userId);
 
   return (
     <div>
@@ -129,11 +133,17 @@ export default function StayCard({
               {role === 'owner' ? (
                 <div className="gap-2 flex flex-col m-2">
                   {children}
-                  <Link className="w-full" href={`/stays/${stay.owner._id}`}>
+                  <form className="w-full" action={getInContact}>
+                    <input
+                      type="text"
+                      defaultValue={stay.sitter._id?.toString()}
+                      name="recipient"
+                      className="hidden"
+                    ></input>
                     <Button variant="outline" className="w-full">
                       CONTACT SITTER
                     </Button>
-                  </Link>
+                  </form>
                   <div className="w-full">
                     <StayConfirmed confirmed={confirmed} />
                   </div>
@@ -141,11 +151,17 @@ export default function StayCard({
               ) : (
                 <div className="gap-2 flex flex-col m-2">
                   {children}
-                  <Link className="w-full" href={`/chat`}>
+                  <form className="w-full" action={getInContact}>
+                    <input
+                      type="text"
+                      defaultValue={stay.owner._id?.toString()}
+                      name="recipient"
+                      className="hidden"
+                    ></input>
                     <Button variant="outline" className="w-full">
                       CONTACT OWNER
                     </Button>
-                  </Link>
+                  </form>
                   <div className="w-full">
                     {!confirmed && (
                       <Button className="w-full" onClick={handleConfirm}>
