@@ -6,6 +6,7 @@ import { getUnreadMessages } from '@/lib/db/controller/Conversation';
 import { User as IUser } from '@/lib/db/models/User';
 import { notFound } from 'next/navigation';
 import StayConfirmed from './StayConfirmed';
+import Link from 'next/link';
 
 export default async function Notifications({ user }: { user: IUser }) {
   if (!user || !user._id) {
@@ -60,8 +61,9 @@ export default async function Notifications({ user }: { user: IUser }) {
               onGoingStays.map((stay, index) => {
                 if (stay.to) {
                   return (
-                    <div
+                    <Link
                       key={index}
+                      href={`/stays/${stay._id}`}
                       className="bg-brand-fg-100 p-1 px-3 rounded-full text-brand-fg-900"
                     >
                       <h3>{`Ongoing stay until ${new Date(
@@ -73,12 +75,15 @@ export default async function Notifications({ user }: { user: IUser }) {
                           .join(' ')}`}</h3>
                         <StayConfirmed confirmed={stay.confirmed} />
                       </div>
-                    </div>
+                    </Link>
                   );
                 }
               })}
             {closestUpcomingStay && (
-              <div className="bg-brand-bg-100 p-1 rounded-full text-brand-bg-900">
+              <Link
+                href={`/stays/${closestUpcomingStay._id}`}
+                className="bg-brand-bg-100 p-1 rounded-full text-brand-bg-900"
+              >
                 <h3>{`Upcoming stay: ${new Date(
                   closestUpcomingStay.from
                 ).toDateString()}`}</h3>
@@ -90,7 +95,7 @@ export default async function Notifications({ user }: { user: IUser }) {
                     .join(', ')}`}</h3>
                   <StayConfirmed confirmed={closestUpcomingStay.confirmed} />
                 </div>
-              </div>
+              </Link>
             )}
           </div>
         </Notification>
