@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/drawer';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
-import requestStay from '@/lib/actions/request-stay';
+import { requestStay } from '@/lib/actions/stay-actions';
 import { Pet } from '@/lib/db/models/Pet';
 import { useToast } from '@/components/ui/use-toast';
 

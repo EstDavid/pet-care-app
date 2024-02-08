@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { Model, Schema, Types } from 'mongoose';
 import { User } from './User';
 import { Pet } from './Pet';
+import { Update } from './Update';
 
 export interface Stay {
   _id: Types.ObjectId;
@@ -12,6 +13,7 @@ export interface Stay {
   confirmed: Boolean;
   pet: Types.ObjectId[];
   owner: Types.ObjectId;
+  updates: Update[];
 }
 
 export interface FullStay {
@@ -23,6 +25,7 @@ export interface FullStay {
   confirmed: Boolean;
   pet: Pet[];
   owner: User;
+  updates: Update[];
 }
 
 
@@ -56,6 +59,12 @@ const staySchema = new mongoose.Schema<Stay>(
       required: true,
       ref: 'User',
     },
+    updates: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Update',
+      },
+    ],
   },
   {
     timestamps: true,
