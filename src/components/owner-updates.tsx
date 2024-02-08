@@ -3,14 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 
-export default function OwnerUpdates({}: // updates,
-// conversationId,
-// dbUser,
-{
-  // messages: IMessage[];
-  // conversationId: string;
-  // dbUser: string;
-}) {
+export default function OwnerUpdates() {
   const updates = [
     {
       mediaUrl: [
@@ -18,13 +11,13 @@ export default function OwnerUpdates({}: // updates,
         'https://res.cloudinary.com/cw-app/image/upload/v1707253563/pet-app/xsr2zywit2tn4tqnw4vr.webp',
       ],
       comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      createdAt: new Date(),
+      createdAt: new Date('07/02/2024 6:23 PM'),
     },
     {
       mediaUrl:
         'https://res.cloudinary.com/cw-app/image/upload/v1707253507/pet-app/mbrp4jntuculujb63wvs.jpg',
       comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      createdAt: new Date(),
+      createdAt: new Date('08/02/2024 1:49 PM'),
     },
   ];
 
@@ -54,7 +47,14 @@ export default function OwnerUpdates({}: // updates,
                     className="my-4 h-12 bg-brand-bg"
                   />
                   <p className="text-sm text-right text-slate-500 pl-4">
-                    {new Date(update.createdAt).toLocaleString()}
+                    {/* {new Date(update.createdAt).toLocaleString()} */}
+                    {new Date(update.createdAt).toLocaleString([], {
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
                   </p>
                 </div>
                 <Card className="px-2 my-2 w-[90%] bg-brand-bg-50">
@@ -84,13 +84,6 @@ export default function OwnerUpdates({}: // updates,
                       />
                     )}
                     <p className="pt-1">{update.comment}</p>
-                    {/* Render date */}
-                    {/* <p className="text-[0.6rem] text-right text-slate-500 self-end w-full">
-                      {new Date(update.createdAt).toLocaleString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p> */}
                   </div>
                 </Card>
               </div>

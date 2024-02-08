@@ -1,7 +1,7 @@
 import OwnerUpdates from '@/components/owner-updates';
 import { currentUser } from '@clerk/nextjs';
 import { getStaysByUser } from '@/lib/db/controller/Stay';
-import { getUserByClerkId, getUserById } from '@/lib/db/controller/User';
+import { getUserByClerkId } from '@/lib/db/controller/User';
 import { notFound } from 'next/navigation';
 
 export default async function Updates() {
