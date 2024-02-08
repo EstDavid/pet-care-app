@@ -2,17 +2,18 @@ import mongoose from 'mongoose';
 import {Model, Schema, Types} from 'mongoose';
 
 export interface Update {
+  createdAt: string | number | Date;
   _id: Types.ObjectId;
   id: string;
   comment?: string;
-  mediaUrl?: string;
+  mediaUrl?: string[];
   mediaType?: string;
 }
 
 const updateSchema = new Schema<Update>(
   {
     mediaUrl: {
-      type: String,
+      type: [String],
     },
     mediaType: {
       type: String,

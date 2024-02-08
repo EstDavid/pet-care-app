@@ -71,7 +71,6 @@ export default async function editUser (imageUrl: string, formData: FormData) {
       },
     };
     const savedUser = await modifyUser(clerkUser?.id, updatedUser);
-    console.log(savedUser);
   } catch (error) {
     console.log("Error editing data", error);
     // throw new Error('Failed to edit data.');
