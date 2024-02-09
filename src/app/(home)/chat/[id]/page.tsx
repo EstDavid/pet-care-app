@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation';
 import MessageForm from '@/components/message-form';
 import ChatMessages from '@/components/chat-messages';
 import Subheader from '@/components/navigation/subheader';
-import Link from 'next/link';
 
 export default async function Chat({ params }: { params: { id: string } }) {
   const { userId }: { userId: string | null } = auth();
