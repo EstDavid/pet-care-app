@@ -147,13 +147,6 @@ const userSchema = new mongoose.Schema<User>(
   }
 );
 
-delete mongoose.models['User']; //!!this is gross but works
+delete mongoose.models['User'];
 const User = mongoose.model<User>('User', userSchema);
 export default User;
-
-// const User = (
-//   mongoose.models.Users
-//     ? mongoose.models.Users
-//     : mongoose.model('User', userSchema)
-// ) as Model<User>;
-// export default User;

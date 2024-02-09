@@ -3,7 +3,7 @@ import User, {User as IUser} from '../models/User';
 import Pet, {Pet as IPet} from '../models/Pet';
 import Stay from '../models/Stay';
 import Message, {IMessage} from '../models/Message';
-import mongoose, {Types} from 'mongoose';
+import mongoose from 'mongoose';
 
 export async function getAllUsers(): Promise<IUser[] | undefined> {
   await dbConnect();
@@ -26,8 +26,6 @@ export async function getUserById(id: string): Promise<IUser | undefined> {
       .populate({path: 'petsOwned', model: Pet})
       .populate({path: 'messages', model: Message})
       .populate({path: 'stays', model: Stay});
-
-    // console.log(user);
 
     if (user === undefined || user === null) {
       throw new Error('cannot find user by that ID');

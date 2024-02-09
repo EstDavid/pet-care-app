@@ -1,8 +1,7 @@
 import dbConnect from '../dbConnect';
 import Message, { IMessage } from '../models/Message';
-import mongoose, { Types, UpdateWriteOpResult } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import Conversation, { IConversation } from '../models/Conversation';
-import { Schema } from 'zod';
 import User from '../models/User';
 
 export async function getConversationById (id: string): Promise<IConversation | undefined> {
