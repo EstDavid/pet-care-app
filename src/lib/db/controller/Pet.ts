@@ -2,18 +2,11 @@ import dbConnect from '../dbConnect';
 import User, { User as IUser } from '../models/User';
 import Pet, { Pet as IPet } from '../models/Pet';
 
-const test = function (a: number, b: number): number {
-  return a + b;
-};
-
 export async function getPetById (id: string) {
   await dbConnect();
   // let _id = new mongoose.Types.ObjectId(id)
   try {
     const pet = await Pet.findById(id);
-
-    // .populate({path:'owner', model:User})
-    // .populate({path:'sitter', model:User})
 
     if (pet === undefined || pet === null) {
       throw new Error('cannot find pet by that ID');

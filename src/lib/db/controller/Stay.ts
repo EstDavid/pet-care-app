@@ -2,7 +2,7 @@ import dbConnect from '../dbConnect';
 import User, {User as IUser} from '../models/User';
 import Pet, {Pet as IPet} from '../models/Pet';
 import Stay, {FullStay, Stay as IStay} from '../models/Stay';
-import {ObjectId, Types} from 'mongoose';
+import {Types} from 'mongoose';
 import Update, {Update as IUpdate} from '../models/Update';
 
 export async function addStay(
