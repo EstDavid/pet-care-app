@@ -56,8 +56,6 @@ io.on('connection', function (socket) {
     // Send a message to a conversation room
     socket.on('send_msg', function (data, conversationId) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            console.log(data, 'DATA');
-            console.log(conversationId, 'CONVERSATION ID');
             io.to(conversationId).emit('receive_msg', data);
             return [2 /*return*/];
         });

@@ -1,24 +1,22 @@
-import { auth } from '@clerk/nextjs';
-import postMessage, { readMessages } from '@/lib/actions/chat-actions';
-import { getUserByClerkId, getUserById } from '@/lib/db/controller/User';
-import { getConversationById } from '@/lib/db/controller/Conversation';
-import { notFound } from 'next/navigation';
+import {auth} from '@clerk/nextjs';
+import postMessage, {readMessages} from '@/lib/actions/chat-actions';
+import {getUserByClerkId, getUserById} from '@/lib/db/controller/User';
+import {getConversationById} from '@/lib/db/controller/Conversation';
+import {notFound} from 'next/navigation';
 import MessageForm from '@/components/message-form';
 import ChatMessages from '@/components/chat-messages';
 import Subheader from '@/components/navigation/subheader';
 
-export default async function Chat({ params }: { params: { id: string } }) {
-  const { userId }: { userId: string | null } = auth();
+export default async function Chat({params}: {params: {id: string}}) {
+  const {userId}: {userId: string | null} = auth();
 
   // Retrieve conversation from DB, conversationId is passed as a parameter
-  const { id: conversationId } = params;
+  const {id: conversationId} = params;
   const conversation = await getConversationById(conversationId);
 
   if (!conversation || !userId) {
     return notFound();
   }
-
-  console.log('conversation', conversation);
 
   // Get the user from the database
   const dbUser = await getUserByClerkId(userId);
@@ -46,7 +44,7 @@ export default async function Chat({ params }: { params: { id: string } }) {
   );
 
   // Retrieve messages from the conversation object
-  const { messages } = conversation;
+  const {messages} = conversation;
 
   const unreadMessages = messages.filter((message) => {
     return (

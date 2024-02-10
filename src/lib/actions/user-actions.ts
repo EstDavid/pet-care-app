@@ -41,7 +41,6 @@ export default async function editUser (imageUrl: string, formData: FormData) {
     const insuranceDetails = formData.get("insuranceDetails")?.toString();
     let coords = [0, 0];
     if (postcode) coords = await getLatLong(`${postcode}+${country}`);
-    // console.log('coords = ' +coords);
 
     const clerkUser = await currentUser();
     if (!clerkUser) throw new Error("auth error");
@@ -70,7 +69,7 @@ export default async function editUser (imageUrl: string, formData: FormData) {
         // },
       },
     };
-    const savedUser = await modifyUser(clerkUser?.id, updatedUser);
+    await modifyUser(clerkUser?.id, updatedUser);
   } catch (error) {
     console.log("Error editing data", error);
     // throw new Error('Failed to edit data.');
