@@ -1,5 +1,17 @@
 <style type="text/css" rel="stylesheet">
+  h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+
   .avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .avatar-image {
     border-radius: 10000px;
   }
 
@@ -149,19 +161,34 @@ CADO is has been written fully in Typescipt, and is powered by the following tec
 ## Contributors
 
 <div class="contributors">
-  <a href="https://github.com/ootwither">
-    <img alt="Dougal Wallace" src="https://avatars.githubusercontent.com/u/81982916?size=50" class="avatar">
-  </a>
-  <a href="https://github.com/estdavid">
-    <img alt="David de Esteban Cortés" src="https://avatars.githubusercontent.com/u/79582482?size=50" class="avatar">
-  </a>
-  <a href="https://github.com/diankita">
-    <img alt="Diana Sulkova" src="https://avatars.githubusercontent.com/u/114820366?size=50" class="avatar">
-  </a>
-  <a href="https://github.com/alaa-cw">
-    <img alt="Mohammad Ala Tahhan" src="https://avatars.githubusercontent.com/u/143452899?size=50" class="avatar">
-  </a>
-  <a href="https://github.com/goran853">
-    <img alt="Goran Levanic" src="https://avatars.githubusercontent.com/u/138351342?size=50" class="avatar">
-  </a>
+  <div class="avatar">
+    <a href="https://github.com/ootwither">
+      <img alt="Dougal Wallace" src="https://avatars.githubusercontent.com/u/81982916?size=50" class="avatar-image">
+    </a>
+    <h3>Dougal Wallace</h3>
+  </div>
+  <div class="avatar">
+    <a href="https://github.com/estdavid">
+      <img alt="David de Esteban Cortés" src="https://avatars.githubusercontent.com/u/79582482?size=50" class="avatar-image">
+    </a>
+    <h3>David de Esteban</h3>
+  </div>
+  <div class="avatar">
+    <a href="https://github.com/diankita">
+      <img alt="Diana Sulkova" src="https://avatars.githubusercontent.com/u/114820366?size=50" class="avatar-image">
+    </a>
+    <h3>Diana Sulkova</h3>
+  </div>
+  <div class="avatar">
+    <a href="https://github.com/alaa-cw">
+      <img alt="Mohammad Ala Tahhan" src="https://avatars.githubusercontent.com/u/143452899?size=50" class="avatar-image">
+    </a>
+    <h3>Mohammad Ala Tahhan</h3>
+  </div>
+  <div class="avatar">
+    <a href="https://github.com/goran853">
+      <img alt="Goran Levanic" src="https://avatars.githubusercontent.com/u/138351342?size=50" class="avatar-image">
+    </a>
+    <h3>Goran Levanic</h3>
+  </div>
 </div>
