@@ -67,33 +67,66 @@ Click on 'Paw to begin', create a new user with Clerk, choose a role (owner or s
 CADO is has been written fully in Typescipt, and is powered by the following technologies:
 
 - ### Frontend
-  
+
   - React with [NextJS client components](https://nextjs.org/docs/app/building-your-application/rendering/client-components), using [NextJS app router](https://nextjs.org/docs/app)
-  
+
   - [Tailwind CSS](https://tailwindcss.com/)
-  
+
   - [shadcn/ui](https://ui.shadcn.com/) for standard components
-  
+
   - [React Icons](https://react-icons.github.io/react-icons/)
 
 - ### Backend
-  
+
   - [NextJS server components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
-  
+
   - [MongoDB](https://www.mongodb.com/) with [Mongoose](https://mongoosejs.com/) as ORM
-  
+
   - [Clerk](https://clerk.com/) for authentication
-  
+
   - [Cloudinary](https://cloudinary.com/) to manage image and video upload and storage
-  
+
   - [Socket.io](https://socket.io/) for realtime chat with websockets
-  
+
   - [Jest](https://jestjs.io/) for testing
 
 - ### Design
-  
+
   - [Excalidraw](https://excalidraw.com/) for sharing ideas and concepts
-  
+
   - [Figma](https://www.figma.com/) for detailed branding and wireframing
-  
+
   - Adobe Photoshop
+
+## Contributors
+
+<style type="text/css" rel="stylesheet">
+  .images {
+    border-radius: 10000px;
+  }
+
+  .contributors {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px
+  }
+</style>
+
+<div class="contributors">
+  <a href="https://github.com/ootwither">
+    <img alt="Dougal Wallace" src="https://avatars.githubusercontent.com/u/81982916?size=50" class="images">
+  </a>
+  <a href="https://github.com/estdavid">
+    <img alt="David de Esteban Cortés" src="https://avatars.githubusercontent.com/u/79582482?size=50" class="images">
+  </a>
+  <a href="https://github.com/diankita">
+    <img alt="Diana Sulkova" src="https://avatars.githubusercontent.com/u/114820366?size=50" class="images">
+  </a>
+  <a href="https://github.com/alaa-cw">
+    <img alt="Mohammad Ala Tahhan" src="https://avatars.githubusercontent.com/u/143452899?size=50" class="images">
+  </a>
+  <a href="https://github.com/goran853">
+    <img alt="Goran Levanic" src="https://avatars.githubusercontent.com/u/138351342?size=50" class="images">
+  </a>
+</div>
