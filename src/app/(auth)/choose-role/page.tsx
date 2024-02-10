@@ -4,8 +4,8 @@ import {
   createUserByClerkId,
   getUserByClerkId
 } from '@/lib/db/controller/User';
-import RoleButton from './RoleButton';
-import selectRoleAction from '@/lib/actions/select-role';
+import RoleButton from '../../../components/role-button';
+import selectRoleAction from '@/lib/actions/select-role-actions';
 import logo from '@/../public/logo.png';
 import photoOwner from '@/../public/owner-photo.jpg';
 import photoSitter from '@/../public/sitter-photo.jpg';
@@ -56,7 +56,6 @@ export default async function ChooseRole() {
             <RoleButton title="Sitter" photo={photoSitter} />
           </form>
         </div>
-        {/* <UserButton></UserButton> */}
       </div>
     </div>
   );

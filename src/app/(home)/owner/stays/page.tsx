@@ -1,29 +1,29 @@
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import {Avatar, AvatarImage, AvatarFallback} from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card';
 import {
   getNearestSitters,
   getSitters,
-  getUserByClerkId
+  getUserByClerkId,
 } from '@/lib/db/controller/User';
-import { currentUser } from '@clerk/nextjs';
-import { User } from '@clerk/nextjs/server';
-import { User as IUser } from '@/lib/db/models/User';
+import {currentUser} from '@clerk/nextjs';
+import {User} from '@clerk/nextjs/server';
+import {User as IUser} from '@/lib/db/models/User';
 import Link from 'next/link';
-import { FaDog, FaCat } from 'react-icons/fa';
-import { FaLocationDot } from 'react-icons/fa6';
-import { getDistance } from './getDistance';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getStaysByUser } from '@/lib/db/controller/Stay';
-import StayCard from '@/components/sitter/stay-card';
-import { FullStay } from '@/lib/db/models/Stay';
-import { notFound } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import {FaDog, FaCat} from 'react-icons/fa';
+import {FaLocationDot} from 'react-icons/fa6';
+import {getDistance} from '../../../../lib/getDistance';
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import {getStaysByUser} from '@/lib/db/controller/Stay';
+import StayCard from '@/components/stay-card';
+import {FullStay} from '@/lib/db/models/Stay';
+import {notFound} from 'next/navigation';
+import {Button} from '@/components/ui/button';
 
 export default async function Page() {
   const clerkUser = (await currentUser()) as User;

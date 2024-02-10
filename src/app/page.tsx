@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {IoMdPaw} from 'react-icons/io';
 
 export default function Home() {
-  const href = '/chooseRole';
+  const href = '/choose-role';
   const cta = 'Paw to begin';
 
   return (

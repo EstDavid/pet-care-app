@@ -1,31 +1,27 @@
-import { currentUser } from '@clerk/nextjs';
+import {currentUser} from '@clerk/nextjs';
 import Image from 'next/image';
-import { getUserByClerkId, getUserById } from '@/lib/db/controller/User';
+import {getUserByClerkId, getUserById} from '@/lib/db/controller/User';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription
+  CardDescription,
 } from '@/components/ui/card';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { FaRegEnvelope } from 'react-icons/fa6';
-import { IoCalendar } from 'react-icons/io5';
+import {notFound} from 'next/navigation';
+import {FaRegEnvelope} from 'react-icons/fa6';
+import {IoCalendar} from 'react-icons/io5';
 import dummyUser from 'public/userDummyImage.png';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
-import { Button } from '@/components/ui/button';
+import {Drawer, DrawerContent, DrawerTrigger} from '@/components/ui/drawer';
+import {Button} from '@/components/ui/button';
 import RequestDrawer from '@/components/request-drawer';
-import { getPetsOwnedByUser } from '@/lib/db/controller/User';
-import contactUser from '@/lib/actions/conversation';
+import {getPetsOwnedByUser} from '@/lib/db/controller/User';
+import contactUser from '@/lib/actions/conversation-actions';
 
-export default async function Page({
-  params
-}: {
-  params: { sitterId: string };
-}) {
+export default async function Page({params}: {params: {sitterId: string}}) {
   // get sitter by id
-  const { sitterId } = params;
+  const {sitterId} = params;
   const sitter = await getUserById(sitterId);
 
   // get owner by clerk id
@@ -45,30 +41,30 @@ export default async function Page({
 
   // gather sitter info
   const imgSrc = sitter.pfpUrl ? sitter.pfpUrl : dummyUser;
-  const sitterInfo: { title: string; value: string }[] = [
-    { title: 'Description:', value: sitter.sitterDescription ?? '' },
+  const sitterInfo: {title: string; value: string}[] = [
+    {title: 'Description:', value: sitter.sitterDescription ?? ''},
     {
       title: 'Maximum number of pets this sitter can look after:',
-      value: sitter.maxPets ?? ''
+      value: sitter.maxPets ?? '',
     },
-    { title: 'Qualifications:', value: sitter.qualifications ?? '' },
-    { title: 'First aid experience:', value: sitter.firstAid ?? '' },
-    { title: 'Insurance details:', value: sitter.insuranceDetails ?? '' },
+    {title: 'Qualifications:', value: sitter.qualifications ?? ''},
+    {title: 'First aid experience:', value: sitter.firstAid ?? ''},
+    {title: 'Insurance details:', value: sitter.insuranceDetails ?? ''},
     {
       title: 'Do they look after dogs? 🐶:',
-      value: sitter.sitsDogs ? 'Yes' : 'No'
+      value: sitter.sitsDogs ? 'Yes' : 'No',
     },
     {
       title: 'Do they look after cats? 😸:',
-      value: sitter.sitsCats ? 'Yes' : 'No'
-    }
+      value: sitter.sitsCats ? 'Yes' : 'No',
+    },
   ];
-  const contactInfo: { title: string; value: string }[] = [
-    { title: 'Phone number:', value: sitter.contact?.phone ?? '' },
-    { title: 'Street:', value: sitter.contact?.street ?? '' },
-    { title: 'City:', value: sitter.contact?.city ?? '' },
-    { title: 'Postcode:', value: sitter.contact?.postcode ?? '' },
-    { title: 'Country:', value: sitter.contact?.country ?? '' }
+  const contactInfo: {title: string; value: string}[] = [
+    {title: 'Phone number:', value: sitter.contact?.phone ?? ''},
+    {title: 'Street:', value: sitter.contact?.street ?? ''},
+    {title: 'City:', value: sitter.contact?.city ?? ''},
+    {title: 'Postcode:', value: sitter.contact?.postcode ?? ''},
+    {title: 'Country:', value: sitter.contact?.country ?? ''},
   ];
 
   const pets = (await getPetsOwnedByUser(clerkUser.id)) || [];
@@ -90,7 +86,7 @@ export default async function Page({
                 fill={true}
                 sizes="120px"
                 style={{
-                  objectFit: 'cover'
+                  objectFit: 'cover',
                 }}
               />
             </div>

@@ -88,7 +88,6 @@ export default function StayUpdates({
                     className="my-4 h-12 bg-brand-bg"
                   />
                   <p className="text-sm text-right text-slate-500 pl-4">
-                    {/* {new Date(update.createdAt).toLocaleString()} */}
                     {new Date(update.createdAt).toLocaleString([], {
                       year: 'numeric',
                       month: 'numeric',
@@ -100,7 +99,7 @@ export default function StayUpdates({
                 </div>
                 <Card className="px-2 my-2 w-full bg-brand-bg-50">
                   <div className="flex flex-col justify-between flex-wrap">
-                    {/* Render image or text message */}
+                    {/* Render video or image */}
                     <div className="flex flex-col justify-between">
                       {update?.mediaUrl?.map((url: string, index: number) =>
                         url.includes('video') ? (

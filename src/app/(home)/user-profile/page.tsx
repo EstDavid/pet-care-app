@@ -4,7 +4,7 @@ import { getUserByClerkId } from '@/lib/db/controller/User';
 import { notFound } from 'next/navigation';
 import { currentUser } from '@clerk/nextjs';
 import Subheader from '@/components/navigation/subheader';
-import CustomSignoutButton from '@/components/navigation/customSignoutButton';
+import CustomSignoutButton from '@/components/navigation/signout-button';
 
 export default async function Page() {
   const clerkUser = await currentUser();

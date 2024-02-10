@@ -25,7 +25,7 @@ export default async function Page({params}: {params: {stayId: string}}) {
     <div className="w-full">
       <StayUpdates
         stayId={stayId}
-        updates={stay?.updates || []}
+        updates={stayUpdates}
         role={user.role || ''}
       />
     </div>
