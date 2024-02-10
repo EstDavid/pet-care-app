@@ -1,0 +1,783 @@
+[
+  {
+    "_id": {
+      "$oid": "65c49c4561261fe5aa33c02a"
+    },
+    "firstname": "Luna",
+    "surname": " Drachenschatten",
+    "clerkID": "user_2c4vt7fA4n4CKozfl8ezrK6arVZ",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [
+      {
+        "$oid": "65c49f5461261fe5aa33c066"
+      }
+    ],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T09:17:57.943Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T09:31:00.405Z"
+    },
+    "__v": 1,
+    "role": "owner",
+    "contact": {
+      "phone": "491522343333",
+      "street": "Hauptstraße 23-24",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "13055",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.496558523631013,
+          52.541224400000004
+        ]
+      },
+      "_id": {
+        "$oid": "65c49de461261fe5aa33c051"
+      }
+    },
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707384185/pet-app/dqgkmkbckyi5h9dektbk.png",
+    "sitsCats": false,
+    "sitsDogs": false
+  },
+  {
+    "_id": {
+      "$oid": "65c4a3f361261fe5aa33c0c0"
+    },
+    "firstname": "Luca",
+    "surname": "Branea",
+    "clerkID": "user_2c4zsJLv8LRvz1DAw1wseljVyMy",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T09:50:43.945Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:52:18.51Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "49306181444",
+      "street": "Kulmer Str 26",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10405",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.42568884999184,
+          52.535550900000004
+        ]
+      },
+      "_id": {
+        "$oid": "65c4c0726920b4026da39b75"
+      }
+    },
+    "firstAid": "Emergency dog and cat first aid Level 4",
+    "insuranceDetails": "Comprehensive, €500,000 cover",
+    "maxPets": "4",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707386030/pet-app/u85jz2vnbkbx6lygerj5.jpg",
+    "qualifications": "Veterinary medicine diploma, canine behaviour level 3",
+    "sitsCats": true,
+    "sitsDogs": true,
+    "sitterDescription": "I have been working with dogs and cats for 5 years. I provide a home stay with a loving environment and plenty of stimulation and activities. I have particular experience with older dogs and have worked as a veterinary nurse, so am trained in first aid and giving medication."
+  },
+  {
+    "_id": {
+      "$oid": "65c4b6cca548014d0392dc5f"
+    },
+    "firstname": "Sofia",
+    "surname": "Moreno",
+    "clerkID": "user_2c59eSRRXSGeOrKB5OVIwsIQQKM",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:11:08.123Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:15:17.057Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "015901245678",
+      "street": "Uhlandstraße 161",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10719",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.326013717598993,
+          52.4982762
+        ]
+      },
+      "_id": {
+        "$oid": "65c4b7c5a548014d0392dc7b"
+      }
+    },
+    "firstAid": "Yes - 3 years",
+    "insuranceDetails": "Public liability insurance for pet sitting",
+    "maxPets": "3",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707390896/pet-app/kntvjeok5hb0rmomtuem.jpg",
+    "qualifications": "First Aid certified, Public liability insurance for pet sitting",
+    "sitsCats": true,
+    "sitsDogs": true,
+    "sitterDescription": "I'm a passionate animal lover ready to care for your pets as if they were my own."
+  },
+  {
+    "_id": {
+      "$oid": "65c4b8a7a548014d0392dc8b"
+    },
+    "firstname": "Lena",
+    "surname": "Weinberger",
+    "clerkID": "user_2c5Ac2JWixiGrbfJePFUabgZQhN",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:19:03.945Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:22:40.406Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "015789123456",
+      "street": "Greifswalder Straße 33",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10405",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.42568884999184,
+          52.535550900000004
+        ]
+      },
+      "_id": {
+        "$oid": "65c4b980a548014d0392dcc5"
+      }
+    },
+    "firstAid": "First Aid certified",
+    "insuranceDetails": "Full pet sitter insurance, including emergency vet fees",
+    "maxPets": "4",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707391170/pet-app/jvizyvnggx03gmlvxrsu.jpg",
+    "qualifications": "Professional indemnity and public liability insurance",
+    "sitsCats": true,
+    "sitsDogs": false,
+    "sitterDescription": "I believe in providing a nurturing environment for every pet in my care."
+  },
+  {
+    "_id": {
+      "$oid": "65c4b9f6a548014d0392dcdf"
+    },
+    "firstname": "Mikhail",
+    "surname": "Petrov",
+    "clerkID": "user_2c5BILC7SkblhDZifU5z19HyvjQ",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:24:38.687Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:28:14.7Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "016245678901",
+      "street": "Boxhagener Straße 106",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10245",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.457894344423604,
+          52.500398700000005
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bacea548014d0392dd11"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Insured pet sitter with coverage up to €5000",
+    "maxPets": "2",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707391669/pet-app/bxbu8hxhumbrzse4zdt4.jpg",
+    "qualifications": "Prioritizes pet's comfort and safety, specializes in dogs, can sit up to 2 pets",
+    "sitsCats": false,
+    "sitsDogs": true,
+    "sitterDescription": "Your pet's comfort and safety are my top priorities."
+  },
+  {
+    "_id": {
+      "$oid": "65c4baf7a548014d0392dd27"
+    },
+    "firstname": "Nora",
+    "surname": "Müller",
+    "clerkID": "user_2c5BoWffUB6Ib7nVCthQqczN44l",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:28:55.019Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:31:14.539Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "017634567890",
+      "street": "Simon-Dach-Straße 21",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10245",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.457894344423604,
+          52.500398700000005
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bb82a548014d0392dd4e"
+      }
+    },
+    "firstAid": "yes",
+    "insuranceDetails": "Comprehensive pet sitter insurance",
+    "maxPets": "4",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707391779/pet-app/mxjbyi4ecv6qlxzxpruv.jpg",
+    "qualifications": "Prioritizes pet's comfort and safety, specializes in dogs, can sit up to 2 pets",
+    "sitsCats": true,
+    "sitsDogs": false,
+    "sitterDescription": "I offer a loving and secure environment for your furry friends."
+  },
+  {
+    "_id": {
+      "$oid": "65c4bbaba548014d0392dd5e"
+    },
+    "firstname": "Ali",
+    "surname": "Demir",
+    "clerkID": "user_2c5CBFnJMDEhxXesQh7rIgsSkCI",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:31:55.609Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:32:58.575Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "015212345678",
+      "street": "Prenzlauer Allee 242",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10405",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.42568884999184,
+          52.535550900000004
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bbeaa548014d0392dd79"
+      }
+    },
+    "firstAid": "yes",
+    "insuranceDetails": "Details: Pet business insurance, including care, custody, and control",
+    "maxPets": "2",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707391930/pet-app/jfrwwo1ndlbjeehpqcn2.jpg",
+    "qualifications": "Experienced in pet care, cares for both dogs and cats, can sit up to 2 pets.",
+    "sitsCats": true,
+    "sitsDogs": true,
+    "sitterDescription": "Experienced in pet care, I'm here to make your pet feel at home."
+  },
+  {
+    "_id": {
+      "$oid": "65c4bc20a548014d0392dd89"
+    },
+    "firstname": "Zuzanna",
+    "surname": "Wojcik",
+    "clerkID": "user_2c5CPvgCPHBANUE2z2aZQpFx3G1",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:33:52.3Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:36:10.917Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "016798765432",
+      "street": "Gneisenaustraße 45",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10961",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.396961188991858,
+          52.492375
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bcaaa548014d0392ddad"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Liability insurance for pet care",
+    "maxPets": "3",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707392115/pet-app/nueh8patyopyqa75qhwx.jpg",
+    "qualifications": "Animal enthusiast, cares for both dogs and cats, can sit up to 3 pets.",
+    "sitsCats": true,
+    "sitsDogs": true,
+    "sitterDescription": "I'm an animal enthusiast eager to provide your pets with fun and care."
+  },
+  {
+    "_id": {
+      "$oid": "65c4bcd3a548014d0392ddbd"
+    },
+    "firstname": "Akshay",
+    "surname": "Khan",
+    "clerkID": "user_2c5CmM0emC7bjYdWtSFuwQsJxUw",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:36:51.026Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:37:55.47Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "017689012345",
+      "street": "Alt-Moabit 91",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10559",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.349152623299098,
+          52.5296947
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bd13a548014d0392ddd7"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Includes accidental damage and third-party liabilit",
+    "maxPets": "2",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707392230/pet-app/leqpldnnkizrfafb46y8.jpg",
+    "qualifications": "Provides daily adventures and love, specializes in dogs, can sit up to 2 pets.",
+    "sitsCats": false,
+    "sitsDogs": true,
+    "sitterDescription": "Ready to provide your pets with daily adventures and lots of love."
+  },
+  {
+    "_id": {
+      "$oid": "65c4bd39a548014d0392dde4"
+    },
+    "firstname": "Lucas",
+    "surname": "Ivanov",
+    "clerkID": "user_2c5CzIKbpLAZuDxOwjdWs36f1pV",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:38:33.796Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:39:40.07Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "016234567890",
+      "street": "Karl-Marx-Allee 142",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10243",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.437332264719625,
+          52.51190735
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bd7ca548014d0392ddfe"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Full pet sitter insurance, including emergency vet fees",
+    "maxPets": "2",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707392341/pet-app/a9twrqqo1phoky214g9x.jpg",
+    "qualifications": "Passionate about pet welfare, cares for both dogs and cats, can sit up to 2 pets.",
+    "sitsCats": true,
+    "sitsDogs": true,
+    "sitterDescription": "Passionate about pet welfare, I ensure they feel loved and secure."
+  },
+  {
+    "_id": {
+      "$oid": "65c4bd9ca548014d0392de0e"
+    },
+    "firstname": "Chiara",
+    "surname": "Conti",
+    "clerkID": "user_2c5DBcr8wdKmwPHIAdSP43L6B3t",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:40:12.203Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:41:28.526Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "015123456789",
+      "street": "Chausseestraße 86",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10115",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.383800929178934,
+          52.5319539
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bde8a548014d0392de34"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Comprehensive coverage for pet sitting services",
+    "maxPets": "3",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707392428/pet-app/rciskhliwndohusn8d7o.jpg",
+    "qualifications": "Years of experience, offers a second home, specializes in dogs, can sit up to 3 pets.",
+    "sitsCats": false,
+    "sitsDogs": true,
+    "sitterDescription": "With years of experience, I offer your pet a second home."
+  },
+  {
+    "_id": {
+      "$oid": "65c4be52a548014d0392de44"
+    },
+    "firstname": "Noah",
+    "surname": "Weber",
+    "clerkID": "user_2c5DYZEv2YIKupSI6lrOSLp8yxD",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:43:14.46Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:44:22.264Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "017612345678",
+      "street": "Oranienstraße 37",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10999",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.423101651668746,
+          52.497658900000005
+        ]
+      },
+      "_id": {
+        "$oid": "65c4be96a548014d0392de5e"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Insured and bonded for pet sitting",
+    "maxPets": "2",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707392611/pet-app/zwngwc3z33gr4vuukqdo.jpg",
+    "qualifications": "Prioritizes happiness and health, cares for both dogs and cats, can sit up to 2 pets",
+    "sitsCats": true,
+    "sitsDogs": true,
+    "sitterDescription": "Your pet's happiness and health are my priority during their stay."
+  },
+  {
+    "_id": {
+      "$oid": "65c4bec0a548014d0392de6e"
+    },
+    "firstname": "Harry",
+    "surname": "Smith",
+    "clerkID": "user_2c5DmKyYQEhsuFMBvUijerlGcic",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:45:04.93Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:46:08.423Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "015276543210",
+      "street": "Friedrichstraße 105b",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10117",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.38776860055452,
+          52.5175184
+        ]
+      },
+      "_id": {
+        "$oid": "65c4bf00a548014d0392de91"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Full insurance for pet sitting, including liability and care",
+    "maxPets": "4",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707392762/pet-app/plpixsvj7kp9u9pumd5y.jpg",
+    "qualifications": "Experienced and loving, cares for both dogs and cats, can sit up to 4 pets.",
+    "sitsCats": true,
+    "sitsDogs": true,
+    "sitterDescription": "Experienced and loving, I ensure your pet enjoys their time away from home."
+  },
+  {
+    "_id": {
+      "$oid": "65c4bfdfa548014d0392dea1"
+    },
+    "firstname": "Laura",
+    "surname": "Becker",
+    "clerkID": "user_2c5ELKZ6bSciHGk8uR1gWscjezi",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T11:49:51.937Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T11:51:02.54Z"
+    },
+    "__v": 0,
+    "role": "sitter",
+    "contact": {
+      "phone": "015298765432",
+      "street": "Frankfurter Tor 1",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10243",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.437332264719625,
+          52.51190735
+        ]
+      },
+      "_id": {
+        "$oid": "65c4c026a548014d0392deba"
+      }
+    },
+    "firstAid": "Yes",
+    "insuranceDetails": "Pet sitter insurance with vet fee coverage",
+    "maxPets": "4",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707393008/pet-app/yo45gllpbv4ueir1egys.jpg",
+    "qualifications": "Dedicated to a safe and joyful environment, specializes in cats, can sit up to 4 pets.",
+    "sitsCats": true,
+    "sitsDogs": false,
+    "sitterDescription": "Dedicated to providing a safe and joyful environment for your furry friends."
+  },
+  {
+    "_id": {
+      "$oid": "65c4c4baa548014d0392deca"
+    },
+    "firstname": "Lara",
+    "surname": "Schmidt",
+    "clerkID": "user_2c5GsYIKO3PPxBFtNYMCGPv5NqU",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [
+      {
+        "$oid": "65c4c5e5a548014d0392df19"
+      }
+    ],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T12:10:34.218Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T12:15:33.171Z"
+    },
+    "__v": 1,
+    "role": "owner",
+    "contact": {
+      "phone": "015201234567",
+      "street": "Kastanienallee 12",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10435",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.410325689037272,
+          52.5371985
+        ]
+      },
+      "_id": {
+        "$oid": "65c4c4f1a548014d0392df08"
+      }
+    },
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707394266/pet-app/rdpfglerjlhxgondqpv0.jpg",
+    "sitsCats": false,
+    "sitsDogs": false
+  },
+  {
+    "_id": {
+      "$oid": "65c4c744a548014d0392df58"
+    },
+    "firstname": "David",
+    "surname": "Garcia",
+    "clerkID": "user_2c5IC6d8o0lYIQXtSANzd9pTNun",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [
+      {
+        "$oid": "65c4c81aa548014d0392df83"
+      }
+    ],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T12:21:24.689Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T12:24:58.701Z"
+    },
+    "__v": 1,
+    "role": "owner",
+    "contact": {
+      "phone": "015752345678",
+      "street": "Schönhauser Allee 175",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "10119",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.405508179841059,
+          52.5301255
+        ]
+      },
+      "_id": {
+        "$oid": "65c4c780a548014d0392df76"
+      }
+    },
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707394912/pet-app/vepgsyt3mknied3as4zc.jpg",
+    "sitsCats": false,
+    "sitsDogs": false
+  },
+  {
+    "_id": {
+      "$oid": "65c4d4076920b4026da39c22"
+    },
+    "firstname": "Flynne",
+    "surname": "Fairlight",
+    "clerkID": "user_2c5Op1MeLCeDSG8mXYwcD4ocuqg",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [
+      {
+        "$oid": "65c4d41f6920b4026da39c40"
+      }
+    ],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T13:15:51.079Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T13:26:54.504Z"
+    },
+    "__v": 1,
+    "role": "owner",
+    "contact": {
+      "phone": "112233333",
+      "street": "54 Str str",
+      "city": "Berlin",
+      "country": "Germany",
+      "postcode": "13629",
+      "loc": {
+        "type": "Point",
+        "coordinates": [
+          13.263421964589199,
+          52.542456349999995
+        ]
+      },
+      "_id": {
+        "$oid": "65c4d69eb48f3997b62f01e7"
+      }
+    },
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707398795/pet-app/lmqpva5fnf5crmws6hjy.jpg",
+    "sitsCats": false,
+    "sitsDogs": false
+  },
+  {
+    "_id": {
+      "$oid": "65c4d80fb48f3997b62f023d"
+    },
+    "firstname": "Genevieve",
+    "surname": "Drakkenschatt",
+    "clerkID": "user_2c5QufUrZiMbSvljQLtKebUsQhD",
+    "messages": [],
+    "stays": [],
+    "petsOwned": [],
+    "petsSitting": [],
+    "createdAt": {
+      "$date": "2024-02-08T13:33:03.521Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T13:33:10.278Z"
+    },
+    "__v": 0,
+    "role": "owner"
+  }
+]
