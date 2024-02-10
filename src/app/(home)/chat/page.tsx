@@ -1,13 +1,13 @@
-import { Card, CardHeader } from '@/components/ui/card';
-import { getConversationsByUser } from '@/lib/db/controller/Conversation';
-import { getUserByClerkId } from '@/lib/db/controller/User';
-import { auth } from '@clerk/nextjs';
+import {Card, CardHeader} from '@/components/ui/card';
+import {getConversationsByUser} from '@/lib/db/controller/Conversation';
+import {getUserByClerkId} from '@/lib/db/controller/User';
+import {auth} from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import {notFound} from 'next/navigation';
 
 export default async function Page() {
-  const { userId } = auth();
+  const {userId} = auth();
 
   if (!userId) {
     return notFound();
@@ -25,6 +25,7 @@ export default async function Page() {
     <div className="flex flex-col gap-2">
       {conversations && conversations.length > 0 ? (
         conversations.map((conversation) => {
+          console.log('conversation', conversation);
           const receiver =
             conversation.user1._id?.toString() === user._id?.toString()
               ? conversation.user2
@@ -34,6 +35,8 @@ export default async function Page() {
             (message) =>
               !message.messageRead && !message.sender?.equals(user._id)
           ).length;
+
+          if (!receiver) return null;
 
           return (
             <Link

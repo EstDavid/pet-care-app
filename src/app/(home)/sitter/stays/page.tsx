@@ -1,12 +1,12 @@
 'use server';
-import { currentUser } from '@clerk/nextjs';
-import { User } from '@clerk/nextjs/server';
-import { getStaysByClerkUser } from '@/lib/db/controller/Stay';
-import StayCard from '@/components/sitter/stay-card';
-import { getUserByClerkId } from '@/lib/db/controller/User';
+import {currentUser} from '@clerk/nextjs';
+import {User} from '@clerk/nextjs/server';
+import {getStaysByClerkUser} from '@/lib/db/controller/Stay';
+import StayCard from '@/components/stay-card';
+import {getUserByClerkId} from '@/lib/db/controller/User';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { notFound } from 'next/navigation';
+import {Button} from '@/components/ui/button';
+import {notFound} from 'next/navigation';
 
 export default async function Page() {
   const clerkUser = (await currentUser()) as User;

@@ -1,18 +1,18 @@
-import StayCard from '@/components/sitter/stay-card';
-import { Button } from '@/components/ui/button';
-import { getStayById } from '@/lib/db/controller/Stay';
-import { getUserByClerkId } from '@/lib/db/controller/User';
-import { currentUser } from '@clerk/nextjs';
+import StayCard from '@/components/stay-card';
+import {Button} from '@/components/ui/button';
+import {getStayById} from '@/lib/db/controller/Stay';
+import {getUserByClerkId} from '@/lib/db/controller/User';
+import {currentUser} from '@clerk/nextjs';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { FaCat, FaDog } from 'react-icons/fa';
+import {notFound} from 'next/navigation';
+import {FaCat, FaDog} from 'react-icons/fa';
 
 const TimeLine = ({
   stayId,
   from,
   to,
   role,
-  petSpecies
+  petSpecies,
 }: {
   stayId: string;
   from: Date;
@@ -31,7 +31,7 @@ const TimeLine = ({
   return (
     <div className="w-full h-[40vh] flex justify-center gap-3">
       <div className="flex flex-col">
-        <div style={{ height: `${positionPhoto}%` }}></div>
+        <div style={{height: `${positionPhoto}%`}}></div>
         <Link href={`/stays/${stayId}/updates`}>
           <Button className="flex flex-col h-auto p-3 gap-2 shadow-xl">
             <p className="text-lg text-brand-cta-50">{`${
@@ -48,11 +48,11 @@ const TimeLine = ({
       <div className="flex flex-col">
         <div
           className="w-[20px] bg-brand-bg-500"
-          style={{ height: `${percentage}%` }}
+          style={{height: `${percentage}%`}}
         ></div>
         <div
           className="w-[20px] bg-brand-bg-200"
-          style={{ height: `${100 - percentage}%` }}
+          style={{height: `${100 - percentage}%`}}
         ></div>
       </div>
       <div className="flex flex-col justify-between">
@@ -63,8 +63,8 @@ const TimeLine = ({
   );
 };
 
-export default async function Page({ params }: { params: { stayId: string } }) {
-  const { stayId } = params;
+export default async function Page({params}: {params: {stayId: string}}) {
+  const {stayId} = params;
 
   let stay = await getStayById(stayId);
 

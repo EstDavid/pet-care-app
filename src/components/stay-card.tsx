@@ -1,28 +1,28 @@
 'use client';
-import { Card } from '@/components/ui/card';
+import {Card} from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-  DialogClose
+  DialogClose,
 } from '@/components/ui/dialog';
-import PetProfile from '../pet-profile';
-import { Button } from '@/components/ui/button';
-import { FullStay } from '@/lib/db/models/Stay';
-import { useState } from 'react';
-import { confirmStayAction } from '@/lib/actions/stay-actions';
+import PetProfile from './pet-profile';
+import {Button} from '@/components/ui/button';
+import {FullStay} from '@/lib/db/models/Stay';
+import {useState} from 'react';
+import {confirmStayAction} from '@/lib/actions/stay-actions';
 
 import Image from 'next/image';
-import { FaDog, FaCat } from 'react-icons/fa';
-import StayConfirmed from '../dashboard-components/StayConfirmed';
-import { useToast } from '@/components/ui/use-toast';
-import contactUser from '@/lib/actions/conversation';
+import {FaDog, FaCat} from 'react-icons/fa';
+import StayConfirmed from './dashboard-components/StayConfirmed';
+import {useToast} from '@/components/ui/use-toast';
+import contactUser from '@/lib/actions/conversation-actions';
 
 export default function StayCard({
   stay,
   userId,
   role,
-  children
+  children,
 }: {
   stay: FullStay;
   userId: string;
@@ -30,14 +30,14 @@ export default function StayCard({
   children?: React.ReactNode;
 }) {
   const [confirmed, setConfirmed] = useState(stay.confirmed);
-  const { toast } = useToast();
+  const {toast} = useToast();
 
   async function handleConfirm() {
     await confirmStayAction(stay._id);
     setConfirmed(!confirmed);
     toast({
       title: 'Request confirmed.',
-      duration: 2000
+      duration: 2000,
     });
   }
 

@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "socket": "nodemon ./src/server.js"
+    "socket": "nodemon ./src/chat-server.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.5",

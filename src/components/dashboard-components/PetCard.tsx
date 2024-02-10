@@ -1,20 +1,20 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
+import {Button} from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card';
 import Image from 'next/image';
 import dogDummyImg from '@/../public/dogDummy.png';
 import catDummyImg from '@/../public/catDummy.png';
 import Link from 'next/link';
-import { FullStay } from '@/lib/db/models/Stay';
-import contactUser from '@/lib/actions/conversation';
-import { notFound } from 'next/navigation';
+import {FullStay} from '@/lib/db/models/Stay';
+import contactUser from '@/lib/actions/conversation-actions';
+import {notFound} from 'next/navigation';
 
 interface PetCardProps {
   petId: string;
@@ -29,7 +29,7 @@ function PetCard({
   petName,
   petImage,
   currentStay,
-  petType
+  petType,
 }: PetCardProps) {
   const getPetImageUrl = () => {
     if (petImage) {

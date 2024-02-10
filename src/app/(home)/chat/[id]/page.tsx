@@ -18,6 +18,8 @@ export default async function Chat({ params }: { params: { id: string } }) {
     return notFound();
   }
 
+  console.log('conversation', conversation);
+
   // Get the user from the database
   const dbUser = await getUserByClerkId(userId);
 
