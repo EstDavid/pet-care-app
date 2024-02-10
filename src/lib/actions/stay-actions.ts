@@ -18,14 +18,13 @@ export async function requestStay(
   }
 
   try {
-    const test = await addStay(
+    await addStay(
       owner,
       sitter,
       petArray,
       new Date(from),
       new Date(to)
     );
-    console.log(test);
   } catch (error) {
     console.log(error);
   }

@@ -22,8 +22,6 @@ io.on('connection', (socket) => {
 
   // Send a message to a conversation room
   socket.on('send_msg', async (data, conversationId) => {
-    console.log(data, 'DATA');
-    console.log(conversationId, 'CONVERSATION ID');
     io.to(conversationId).emit('receive_msg', data);
   });
   //

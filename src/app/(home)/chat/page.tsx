@@ -25,7 +25,6 @@ export default async function Page() {
     <div className="flex flex-col gap-2">
       {conversations && conversations.length > 0 ? (
         conversations.map((conversation) => {
-          console.log('conversation', conversation);
           const receiver =
             conversation.user1._id?.toString() === user._id?.toString()
               ? conversation.user2
