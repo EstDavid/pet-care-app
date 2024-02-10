@@ -37,7 +37,7 @@
 
 # CADO - Connecting pet owners with loving pet sitters
 
-Cado is an app that allows pet owners to search pet sitters nearby and helps pet sitters manage their schedule. Thanks to CADO, owners can rest assured that their pet is in good hands. Check out [this video](https://www.youtube.com/watch?v=RXkWKWYjr74) to get a good overview of how CADO works
+Cado is an app that allows pet owners to search for nearby pet sitters and helps pet sitters manage their schedules. Thanks to CADO, pet owners can rest assured that their pets are in good hands. Check out [this video](https://www.youtube.com/watch?v=RXkWKWYjr74) to get a good overview of how CADO works.
 
 <div class="images-row">
   <img title="" src="./project/images/app-demo-1.png" alt="" width="160">
@@ -47,26 +47,26 @@ Cado is an app that allows pet owners to search pet sitters nearby and helps pet
 
 ## Features of CADO
 
-- **Pet information**: Pet owners can add all the relevant information about their pet, so pet sitters know how to best take care of their companion.
+- **Pet information**: Pet owners can add all the relevant information about their pet. This way, pet sitters know how to best care for their companion.
 
 <div class="app-image">
   <img title="" src="./project/images/app-demo-2.png" alt="" width="208">
 </div>
 
-- **Search by geolocation**: Pet owners can search sitters nearest to them. The app leverages on MongoDB [GeoJSON objects](https://www.mongodb.com/docs/manual/geospatial-queries/) and [Geocoding API](https://geocode.maps.co/).
+- **Search by geolocation**: Pet owners can search for sitters nearest to them. The app leverages on MongoDB [GeoJSON objects](https://www.mongodb.com/docs/manual/geospatial-queries/) and [Geocoding API](https://geocode.maps.co/).
 
 <div class="app-image">
   <img title="" src="./project/images/app-demo-6.png" alt="" width="208">
 </div>
 
-- **Real timechat**: Using socket.io, CADO allows owners and sitters to chat in real time. Pet owners can then request a stay
+- **Real timechat**: Using socket.io, CADO allows owners and sitters to chat in real time. Pet owners can then request a stay.
 
 <div class="images-row">
   <img title="" src="./project/images/app-demo-9.png" alt="" width="208">
   <img title="" src="./project/images/app-demo-8.png" alt="" width="208">
 </div>
 
-- **Pet stay updates**: Pet owners get a timeline view showing when they'll see again their loved pet, with photo and video updates.
+- **Pet stay updates**: Pet owners get a timeline view of when they'll see their beloved pet again, with photo and video updates.
 
 <div class="images-row">
   <img title="" src="./project/images/app-demo-4.png" alt="" width="208">
@@ -89,7 +89,7 @@ If you want to run this app, you will need the following API keys:
 
 ### Installing the app
 
-Clone this repo and `npm install`
+Clone this repo and run `npm install`
 
 Then, create a `.env.local` file with the following environment variables:
 
@@ -106,15 +106,15 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard/choose-role
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=<Cloudinay cloud name>
 ```
 
-- Run the following command in the MongoDB shell of your database: `db.User.createIndex( { "contact.loc" : "2dsphere" } )` This will create the index necessary to perform for pet sitters nearby.
+- Run the following command in the MongoDB shell of your database: `db.User.createIndex( { "contact.loc" : "2dsphere" } )` This will create the index needed to perform the pet sitter search in your area.
 
 - In the folder `./src/lib/db/mocks` you can find the files corresponding to the different collections the CADO database is made from. Simply import them into a fresh database in your MongoDB Atlas or Compass.
 
 ### Running the app
 
-Open a new terminal and run `npm run socket`. This will start the socket.io server for handling real time messages
+Open a new terminal and run `npm run socket`. This will start the socket.io server for handling real time messages.
 
-Open another terminal and run `npm run dev`, which will start the NextJS application, running by default on http://localhost:3000
+Open another terminal and run `npm run dev`, which will start the NextJS application, running by default on http://localhost:3000.
 
 If a browser window doesn't open, just open a new one and type this address. You should see:
 
@@ -124,7 +124,7 @@ Click on 'Paw to begin', create a new user with Clerk, choose a role (owner or s
 
 ## Tech stack
 
-CADO is has been written fully in Typescipt, and is powered by the following technologies:
+CADO is has been written entirely in TypeScript, and is powered by the following technologies:
 
 - ### Frontend
 
