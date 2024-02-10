@@ -81,11 +81,7 @@ export default async function Page({ params }: { params: { stayId: string } }) {
 
   const today = new Date();
 
-  const upcomingStay = stay.from < today;
-
   const ongoingStay = stay.confirmed && stay.from <= today && stay.to >= today;
-
-  const finishedStay = stay.confirmed && stay.to < today;
 
   stay = JSON.parse(JSON.stringify(stay));
 
@@ -95,7 +91,11 @@ export default async function Page({ params }: { params: { stayId: string } }) {
 
   return (
     <div className="w-full">
-      <StayCard stay={stay} role={user.role || 'sitter'}>
+      <StayCard
+        stay={stay}
+        userId={user._id.toString()}
+        role={user.role || 'sitter'}
+      >
         {ongoingStay && (
           <TimeLine
             stayId={stay._id.toString()}
