@@ -1,17 +1,65 @@
+<style type="text/css" rel="stylesheet">
+  .avatar {
+    border-radius: 10000px;
+  }
+
+  .images-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 30px 0;
+  }
+
+  .app-image {
+    text-align: center;
+    margin: 30px 0;
+  }
+
+  .contributors {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px
+  }
+</style>
+
 # CADO - Connecting pet owners with loving pet sitters
 
-Cado is an app that allows pet owners to search pet sitters nearby and helps pet sitters manage their schedule . Thanks to CADO, owners can rest assured that their pet is in good hands.
+Cado is an app that allows pet owners to search pet sitters nearby and helps pet sitters manage their schedule. Thanks to CADO, owners can rest assured that their pet is in good hands. Check out [this video](https://www.youtube.com/watch?v=RXkWKWYjr74) to get a good overview of how CADO works
 
-<img title="" src="file:///D:/pr0/codeworks/projects/thesis-project/pet-care-app/project/images/app-demo-1.png" alt="" width="208" data-align="center">
-Among the features of CADO we have:
+<div class="images-row">
+  <img title="" src="./project/images/app-demo-1.png" alt="" width="160">
+  <img title="" src="./project/images/app-demo-2.png" alt="" width="160">
+  <img title="" src="./project/images/app-demo-10.png" alt="" width="160">
+</div>
+
+## Features of CADO
 
 - **Pet information**: Pet owners can add all the relevant information about their pet, so pet sitters know how to best take care of their companion.
 
+<div class="app-image">
+  <img title="" src="./project/images/app-demo-2.png" alt="" width="208">
+</div>
+
 - **Search by geolocation**: Pet owners can search sitters nearest to them. The app leverages on MongoDB [GeoJSON objects](https://www.mongodb.com/docs/manual/geospatial-queries/) and [Geocoding API](https://geocode.maps.co/).
 
-- **Real timechat**: Using socket.io, CADO allows owners and sitters to chat in real time.
+<div class="app-image">
+  <img title="" src="./project/images/app-demo-6.png" alt="" width="208">
+</div>
 
-- **Pet stay updates**: Pet owners get a timeline view showing when they'll see again their loved pet, with photo and video updates
+- **Real timechat**: Using socket.io, CADO allows owners and sitters to chat in real time. Pet owners can then request a stay
+
+<div class="images-row">
+  <img title="" src="./project/images/app-demo-9.png" alt="" width="208">
+  <img title="" src="./project/images/app-demo-8.png" alt="" width="208">
+</div>
+
+- **Pet stay updates**: Pet owners get a timeline view showing when they'll see again their loved pet, with photo and video updates.
+
+<div class="images-row">
+  <img title="" src="./project/images/app-demo-4.png" alt="" width="208">
+  <img title="" src="./project/images/app-demo-5.png" alt="" width="208">
+</div>
 
 ## Getting started
 
@@ -100,33 +148,20 @@ CADO is has been written fully in Typescipt, and is powered by the following tec
 
 ## Contributors
 
-<style type="text/css" rel="stylesheet">
-  .images {
-    border-radius: 10000px;
-  }
-
-  .contributors {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    gap: 20px
-  }
-</style>
-
 <div class="contributors">
   <a href="https://github.com/ootwither">
-    <img alt="Dougal Wallace" src="https://avatars.githubusercontent.com/u/81982916?size=50" class="images">
+    <img alt="Dougal Wallace" src="https://avatars.githubusercontent.com/u/81982916?size=50" class="avatar">
   </a>
   <a href="https://github.com/estdavid">
-    <img alt="David de Esteban Cortés" src="https://avatars.githubusercontent.com/u/79582482?size=50" class="images">
+    <img alt="David de Esteban Cortés" src="https://avatars.githubusercontent.com/u/79582482?size=50" class="avatar">
   </a>
   <a href="https://github.com/diankita">
-    <img alt="Diana Sulkova" src="https://avatars.githubusercontent.com/u/114820366?size=50" class="images">
+    <img alt="Diana Sulkova" src="https://avatars.githubusercontent.com/u/114820366?size=50" class="avatar">
   </a>
   <a href="https://github.com/alaa-cw">
-    <img alt="Mohammad Ala Tahhan" src="https://avatars.githubusercontent.com/u/143452899?size=50" class="images">
+    <img alt="Mohammad Ala Tahhan" src="https://avatars.githubusercontent.com/u/143452899?size=50" class="avatar">
   </a>
   <a href="https://github.com/goran853">
-    <img alt="Goran Levanic" src="https://avatars.githubusercontent.com/u/138351342?size=50" class="images">
+    <img alt="Goran Levanic" src="https://avatars.githubusercontent.com/u/138351342?size=50" class="avatar">
   </a>
 </div>
