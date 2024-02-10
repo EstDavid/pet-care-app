@@ -108,7 +108,7 @@ NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=<Cloudinay cloud name>
 
 - Run the following command in the MongoDB shell of your database: `db.User.createIndex( { "contact.loc" : "2dsphere" } )` This will create the index necessary to perform for pet sitters nearby.
 
-- Run `npm run db:seed` to populate the database with data
+- In the folder `./src/lib/db/mocks` you can find the files corresponding to the different collections the CADO database is made from. Simply import them into a fresh database in your MongoDB Atlas or Compass.
 
 ### Running the app
 
