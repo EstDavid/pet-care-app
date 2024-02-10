@@ -1,0 +1,18 @@
+[
+  {
+    "_id": {
+      "$oid": "65c4e066c2813471943f7af7"
+    },
+    "mediaUrl": [
+      "https://res.cloudinary.com/cw-app/image/upload/v1707401296/pet-app/n85on8am43tnptfabh3k.jpg"
+    ],
+    "comment": "She's so sleepy!",
+    "createdAt": {
+      "$date": "2024-02-08T14:08:38.513Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T14:08:38.513Z"
+    },
+    "__v": 0
+  }
+]

@@ -1,0 +1,150 @@
+[
+  {
+    "_id": {
+      "$oid": "65c49f5461261fe5aa33c066"
+    },
+    "name": "Rufus",
+    "owner": {
+      "$oid": "65c49c4561261fe5aa33c02a"
+    },
+    "species": "dog",
+    "age": "11",
+    "breed": "Husky",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707384405/pet-app/odrkjajjsagkbq3fs6ck.jpg",
+    "notes": "A big old softie, he loves sitting on the sofa and is very friendly with other dogs. He loves to walk but can't go far because he is old and has bad knees.",
+    "sex": "male",
+    "medication": "10mg citalopram daily",
+    "allergies": "Arthritis, fleas",
+    "vaccinations": "Kennel cough, Lepto, Lyme disease",
+    "sprayed": true,
+    "emergencyInstructions": "Call vet straight away",
+    "insurance": "AJ2053212",
+    "microchip": "BN_703123424",
+    "vet": {
+      "name": "Bernhard Wehming",
+      "phone": "+49306181766",
+      "street": "Wiener Straße 25 10999 Berlin",
+      "_id": {
+        "$oid": "65c49f5461261fe5aa33c067"
+      }
+    },
+    "createdAt": {
+      "$date": "2024-02-08T09:31:00.372Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T09:31:00.372Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "65c4c5e5a548014d0392df19"
+    },
+    "name": "Snowbearser",
+    "owner": {
+      "$oid": "65c4c4baa548014d0392deca"
+    },
+    "species": "dog",
+    "age": "3",
+    "breed": "Seberian Husky",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707394390/pet-app/ytz9zgpeu3mrzmkvayxr.jpg",
+    "notes": "",
+    "sex": "male",
+    "medication": "none",
+    "allergies": "no allergies",
+    "vaccinations": "Rabies Distemper Parvovirus",
+    "sprayed": true,
+    "emergencyInstructions": "",
+    "insurance": "3468756923",
+    "microchip": "2387478234",
+    "vet": {
+      "name": "Dr. Samantha Green",
+      "phone": "1234567899",
+      "street": "Berlin",
+      "_id": {
+        "$oid": "65c4c62ea548014d0392df3c"
+      }
+    },
+    "createdAt": {
+      "$date": "2024-02-08T12:15:33.13Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T12:16:46.124Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "65c4c81aa548014d0392df83"
+    },
+    "name": "Rita",
+    "owner": {
+      "$oid": "65c4c744a548014d0392df58"
+    },
+    "species": "cat",
+    "age": "2",
+    "breed": "British Short Hair",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707394982/pet-app/vwzlmi1dlczm5rapgik7.jpg",
+    "notes": "Lovely and smart, and also likes to discover.",
+    "sex": "male",
+    "medication": "none",
+    "allergies": "none",
+    "vaccinations": "Rabies Distemper Parvovirus",
+    "sprayed": true,
+    "emergencyInstructions": "",
+    "insurance": "4564356456",
+    "microchip": "7342554454",
+    "vet": {
+      "name": "Dr Samantha Green",
+      "phone": "1234567899",
+      "street": "Berlin",
+      "_id": {
+        "$oid": "65c4c81aa548014d0392df84"
+      }
+    },
+    "createdAt": {
+      "$date": "2024-02-08T12:24:58.663Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T12:24:58.663Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "65c4d41f6920b4026da39c40"
+    },
+    "name": "Gyoza",
+    "owner": {
+      "$oid": "65c4d4076920b4026da39c22"
+    },
+    "species": "dog",
+    "age": "2",
+    "breed": "Spappo",
+    "pfpUrl": "https://res.cloudinary.com/cw-app/image/upload/v1707398236/pet-app/cjdscxdexessjbft0f4v.jpg",
+    "notes": "spinny",
+    "sex": "female",
+    "medication": "",
+    "allergies": "",
+    "vaccinations": "",
+    "sprayed": false,
+    "emergencyInstructions": "",
+    "insurance": "",
+    "microchip": "",
+    "vet": {
+      "name": "",
+      "phone": "",
+      "street": "",
+      "_id": {
+        "$oid": "65c4d4626920b4026da39c52"
+      }
+    },
+    "createdAt": {
+      "$date": "2024-02-08T13:16:15.472Z"
+    },
+    "updatedAt": {
+      "$date": "2024-02-08T13:17:22.778Z"
+    },
+    "__v": 0
+  }
+]
