@@ -61,3 +61,39 @@ If a browser window doesn't open, just open a new one and type this address. You
 <img title="" src="file:///D:/pr0/codeworks/projects/thesis-project/pet-care-app/project/images/app-demo-1.png" alt="" width="208" data-align="center">
 
 Click on 'Paw to begin', create a new user with Clerk, choose a role (owner or sitter) and you're good to start exploring CADO.
+
+## Tech stack
+
+CADO is has been written fully in Typescipt, and is powered by the following technologies:
+
+- ### Frontend
+  
+  - React with [NextJS client components](https://nextjs.org/docs/app/building-your-application/rendering/client-components), using [NextJS app router](https://nextjs.org/docs/app)
+  
+  - [Tailwind CSS](https://tailwindcss.com/)
+  
+  - [shadcn/ui](https://ui.shadcn.com/) for standard components
+  
+  - [React Icons](https://react-icons.github.io/react-icons/)
+
+- ### Backend
+  
+  - [NextJS server components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
+  
+  - [MongoDB](https://www.mongodb.com/) with [Mongoose](https://mongoosejs.com/) as ORM
+  
+  - [Clerk](https://clerk.com/) for authentication
+  
+  - [Cloudinary](https://cloudinary.com/) to manage image and video upload and storage
+  
+  - [Socket.io](https://socket.io/) for realtime chat with websockets
+  
+  - [Jest](https://jestjs.io/) for testing
+
+- ### Design
+  
+  - [Excalidraw](https://excalidraw.com/) for sharing ideas and concepts
+  
+  - [Figma](https://www.figma.com/) for detailed branding and wireframing
+  
+  - Adobe Photoshop
