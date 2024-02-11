@@ -1,4 +1,4 @@
-<style type="text/css" rel="stylesheet">
+<!-- <style type="text/css" rel="stylesheet">
   h3 {
     margin: 0;
     font-size: 16px;
@@ -33,11 +33,11 @@
     width: 100%;
     gap: 20px
   }
-</style>
+</style> -->
 
 # CADO - Connecting pet owners with loving pet sitters
 
-Cado is an app that allows pet owners to search for nearby pet sitters and helps pet sitters manage their schedules. Thanks to CADO, pet owners can rest assured that their pets are in good hands. Check out [this video](https://www.youtube.com/watch?v=RXkWKWYjr74) to get a good overview of how CADO works.
+CADO is an app that allows pet owners to search for nearby pet sitters and helps pet sitters manage their schedules. Thanks to CADO, pet owners can rest assured that their pets are in good hands. Check out [this video](https://www.youtube.com/watch?v=RXkWKWYjr74) to get a good overview of how CADO works.
 
 <div class="images-row">
   <img title="" src="./project/images/app-demo-1.png" alt="" width="160">
